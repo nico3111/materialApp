@@ -1,0 +1,113 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialREST\\MaterialREST.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj",
+        "projectName": "MaterialData",
+        "projectPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialLogic\\MaterialLogic.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialLogic\\MaterialLogic.csproj",
+        "projectName": "MaterialLogic",
+        "projectPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialLogic\\MaterialLogic.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj": {
+                "projectPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialREST\\MaterialREST.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialREST\\MaterialREST.csproj",
+        "projectName": "MaterialREST",
+        "projectPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialREST\\MaterialREST.csproj",
+        "packagesPath": "C:\\Users\\DCV\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialREST\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DCV\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj": {
+                "projectPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialData\\MaterialData.csproj"
+              },
+              "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialLogic\\MaterialLogic.csproj": {
+                "projectPath": "C:\\Users\\DCV\\C#\\Praktikum\\Material\\MaterialLogic\\MaterialLogic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.20, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
