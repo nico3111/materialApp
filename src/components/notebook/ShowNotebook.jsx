@@ -6,10 +6,10 @@ export default class ShowNotebook extends React.Component {
         super(props);
         this.state = {
             serial_number: "",
-            make: undefined,
-            model: undefined,
-            location_id: undefined,
-            person_id: undefined,
+            make: "",
+            model: "",
+            location_id: "",
+            person_id: "",
         }
     }
 
@@ -19,6 +19,10 @@ export default class ShowNotebook extends React.Component {
             this.setState(
             {
                 serial_number: data[0].serial_number,
+                make: data[0].make,
+                model: data[0].model,
+                location_id: data[0].location_id,
+                person_id: data[0].person_id
             }));
     }
 
@@ -28,6 +32,10 @@ export default class ShowNotebook extends React.Component {
         return (
             <>
             <div>{this.state.serial_number}</div>
+            <div>{this.state.make}</div>
+            <div>{this.state.model}</div>
+            <div>{this.state.location_id}</div>
+            <div>{this.state.person_id}</div>
             </>
         )
     }
