@@ -15,10 +15,11 @@ export default class ShowNotebook extends React.Component {
 
     componentDidMount() {
         console.log(this.props.serial_number);
-        fetchData(this.props.serial_number).then(data => this.setState(
-            {
-                serial_number: data.request.serial_number,
-            }));
+        fetchData(this.props.serial_number).then(data => console.log(data))
+            // this.setState(
+            // {
+            //     serial_number: data.request.serial_number,
+            // }));
     }
 
 
