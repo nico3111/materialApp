@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
+      id: '',
     }
   }
 
@@ -20,13 +20,8 @@ class App extends React.Component {
     return (
       <div className="body">
         <Head />
-
-       <input value="" onChange={(event) => this.setId(event.target.value)} />
-        
-        <ShowNotebook id={this.state.id} />
-
-
-
+        <input value="" onChange={(event) => this.setId(event.target.value)} />
+        {this.state.id != '' && <ShowNotebook id={this.state.id} />}
       </div>
     );
   }
