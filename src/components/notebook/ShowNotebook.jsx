@@ -5,19 +5,19 @@ export default class ShowNotebook extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            serialNumber: undefined,
+            serial_number: undefined,
             make: undefined,
             model: undefined,
-            location: undefined,
-            person: undefined,
+            location_id: undefined,
+            person_id: undefined,
         }
     }
 
     componentDidMount() {
-        console.log(this.props.serielNumber);
-        fetchData(this.props.serialNumber).then(data => this.setState(
+        console.log(this.props.serial_number);
+        fetchData(this.props.serial_number).then(data => this.setState(
             {
-                serialNumber: data.request.serialNumber,
+                serial_number: data.request.serial_number,
             }));
     }
 
@@ -26,7 +26,7 @@ export default class ShowNotebook extends React.Component {
     render() {
         return (
             <>
-            <div>{this.state.serielNumber}</div>
+            <div>{this.state.serial_number}</div>
             </>
         )
     }
