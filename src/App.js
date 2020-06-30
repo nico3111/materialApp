@@ -9,8 +9,7 @@ class App extends React.Component {
     return (
       <div className="body">
         <Head/>
-
-        <button onClick={<ShowNotebook/>}>get data</button>
+        <ShowNotebook/>
   
         
         
