@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Head from './components/header/Head';
 import Notebook from './components/notebook/Notebook'
+import ShowNotebook from '../src/components/notebook/ShowNotebook'
 
 class App extends React.Component {
   render() {
@@ -9,7 +10,9 @@ class App extends React.Component {
       <div className="body">
         <Head/>
 
-        <Notebook/>
+        <button onClick={<ShowNotebook/>}>get data</button>
+  
+        
         
       </div>
     );
