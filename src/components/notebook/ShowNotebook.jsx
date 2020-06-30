@@ -5,7 +5,7 @@ export default class ShowNotebook extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            serial_number: undefined,
+            serial_number,
             make: undefined,
             model: undefined,
             location_id: undefined,
