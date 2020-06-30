@@ -35,11 +35,11 @@ export default class Notebook extends React.Component {
                 <div className="main-wrapper">
                     <div>Geben Sie ein neues Notebook ein:</div>
                     <form onSubmit={this.handleSubmit}>
-                        <input name="serialNumber" value={this.state.serialNumber} onChange={this.handleChange} placeholder="Serien Nummer" required/>
+                        <input name="serial_number" value={this.state.serialNumber} onChange={this.handleChange} placeholder="Serien Nummer" required/>
                         <input name="make" value={this.state.make} onChange={this.handleChange} placeholder="Marke" required/>
                         <input name="model" value={this.state.model} onChange={this.handleChange} placeholder="Modell" required/>
-                        <input name="location" value={this.state.location} onChange={this.handleChange} placeholder="Standort" required/>
-                        <input name="person" value={this.state.person} onChange={this.handleChange} placeholder="Person"/>
+                        <input name="location_id" value={this.state.location} onChange={this.handleChange} placeholder="Standort" required/>
+                        <input name="person_id" value={this.state.person} onChange={this.handleChange} placeholder="Person"/>
                         <input type="submit" value="submit" />
                     </form>
                 </div>
