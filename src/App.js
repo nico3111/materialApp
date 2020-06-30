@@ -5,14 +5,28 @@ import Notebook from './components/notebook/Notebook'
 import ShowNotebook from '../src/components/notebook/ShowNotebook'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: 0,
+    }
+  }
+
+  setId = (id) => {
+    this.setState({ id: id });
+  }
+
   render() {
     return (
       <div className="body">
-        <Head/>
-        <ShowNotebook/>
-  
+        <Head />
+
+       <input value="" onChange={(event) => this.setId(event.target.value)} />
         
-        
+        <ShowNotebook id={this.state.id} />
+
+
+
       </div>
     );
   }

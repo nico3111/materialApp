@@ -14,9 +14,8 @@ export default class ShowNotebook extends React.Component {
     }
 
     componentDidMount() {
-        fetchData(this.props.id).then(data => 
-            this.setState(
-            { 
+        fetchData(this.props.id).then(data => this.setState(
+            {
                 serial_number: data.serial_number,
                 make: data.make,
                 model: data.model,
@@ -30,11 +29,11 @@ export default class ShowNotebook extends React.Component {
     render() {
         return (
             <>
-            <div>{this.state.serial_number}</div>
-            <div>{this.state.make}</div>
-            <div>{this.state.model}</div>
-            <div>{this.state.location_id}</div>
-            <div>{this.state.person_id}</div>
+                <div>{this.state.serial_number}</div>
+                <div>{this.state.make}</div>
+                <div>{this.state.model}</div>
+                <div>{this.state.location_id}</div>
+                <div>{this.state.person_id}</div>
             </>
         )
     }
