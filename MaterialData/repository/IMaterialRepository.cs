@@ -10,5 +10,7 @@ namespace MaterialData.repository
     {
         IEnumerable<T> GetAll();
         void Save(T t);
+
+        T 
     }
 }
