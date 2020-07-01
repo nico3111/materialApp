@@ -17,7 +17,6 @@ export default class ShowAllNotebook extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div>
                 {this.state.loading ? <div>loading...</div> : <div> 
