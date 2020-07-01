@@ -13,14 +13,17 @@ export default class ShowAllNotebook extends React.Component {
         const url = "https://localhost:44323/Material/Notebook";
         const response = await fetch(url);
         const data = await response.json();
-        this.setState({ notebook: data.results, loading: false });
-
+        this.setState({ notebook: data, loading: false });
     }
 
     render() {
+        console.log(this.state)
         return (
             <div>
-                {this.state.loading || !this.state.notebook ? (<div>loading...</div>) : (<div> {this.state.notebook.serial_number} </div>)}
+                {this.state.loading ? <div>loading...</div> : <div> 
+                   
+                    {this.state.notebook[0].serial_number} 
+                </div>}
             </div>
         )
     }

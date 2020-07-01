@@ -36,5 +36,11 @@ namespace MaterialREST.Controllers
         {
             notebookRepo.Save(notebook);
         }
+
+        [HttpDelete]
+        public void delete(notebook notebook)
+        {
+        notebookRepo.Delete(notebook);
+        }
     }
 }

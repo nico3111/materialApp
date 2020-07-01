@@ -1,11 +1,7 @@
-﻿using Google.Protobuf;
-using MaterialData.models;
+﻿using MaterialData.models;
 using MaterialData.repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaterialData
 {
@@ -13,7 +9,6 @@ namespace MaterialData
     {
 
         MaterialEntities entities = new MaterialEntities();
-
         public IEnumerable<notebook> GetAll()
         {
             return entities.notebook.ToList();
@@ -25,12 +20,18 @@ namespace MaterialData
         }
 
         public void Save(notebook notebook)
-        {               
+        {
             using (var materialEntities = new MaterialEntities())
-            {                
+            {
                 materialEntities.notebook.Add(notebook);
                 materialEntities.SaveChanges();
             }
+        }
+
+        public void Delete(notebook notebook)
+        {
+            entities.notebook.Remove(notebook);
+            entities.SaveChanges();
         }
     }
 }
