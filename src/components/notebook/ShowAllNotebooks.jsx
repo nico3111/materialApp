@@ -20,7 +20,7 @@ export default class ShowAllNotebook extends React.Component {
     render() {
         return (
             <div>
-                {this.state.loading || this.state.notebook ? (<div>loading...</div>) : (<div> {this.state.notebook.serial_number} </div>)}
+                {this.state.loading || !this.state.notebook ? (<div>loading...</div>) : (<div> {this.state.notebook.serial_number} </div>)}
             </div>
         )
     }
