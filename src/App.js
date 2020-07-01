@@ -22,7 +22,7 @@ class App extends React.Component {
       <div className="body">
         <Head />
         <input value="" onChange={(event) => this.setId(event.target.value)} />
-        {this.state.id != '' && <ShowNotebook id={this.state.id} />}
+        {this.state.id !== '' && <ShowNotebook id={this.state.id} />}
         <ShowAllNotebook/>
       </div>
     );
