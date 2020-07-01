@@ -1,29 +1,39 @@
 import React from 'react';
-import '../notebook/Notebook.css'
+import '../notebook/AllNotebook.css'
 
 
 export default class ShowAllNotebook extends React.Component {
 
     state = {
         loading: true,
-        notebook: null,
+        allnotebooks: [],
     };
 
     async componentDidMount() {
-        const url = "https://localhost:44323/Material/Notebook";
+        const url = "http://localhost:5000/Material/Notebook";
         const response = await fetch(url);
         const data = await response.json();
-        this.setState({ notebook: data, loading: false });
+        this.setState({ allnotebooks: data});
     }
 
     render() {
-        console.log(this.state)
+
+        if (this.props.isShowing === false) {
+            return null;
+        }
+
         return (
-            <div>
-                {this.state.loading ? <div>loading...</div> : <div> 
-                   
-                    {this.state.notebook[0].serial_number} 
-                </div>}
+            <div className="notebooks-wrapper">
+                {this.state.allnotebooks.map(allnotebooks => (
+                    <div className="notebooks">
+                    <div className="show-list">
+                        <div>Seriennummer: {allnotebooks.serial_number}</div><br></br>
+                        <div>Marke: {allnotebooks.make}</div><br></br>
+                        <div>Modell: {allnotebooks.model}</div><br></br>
+                        <div>Person: {allnotebooks.person}</div><br></br>
+                        <div>Standort: {allnotebooks.location}</div><br></br>
+                    </div>
+                    </div>))}
             </div>
         )
     }
