@@ -17,11 +17,14 @@ export default class ShowAllNotebook extends React.Component {
     }
 
     render() {
+<<<<<<< HEAD
 
         if (this.props.isShowing === false) {
             return null;
         }
 
+=======
+>>>>>>> 2c785232780d213e3edbb7469c17f91393316978
         return (
             <div className="notebooks-wrapper">
                 {this.state.allnotebooks.map(allnotebooks => (

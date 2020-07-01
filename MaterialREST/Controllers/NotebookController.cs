@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MaterialData;
+﻿using MaterialData;
 using MaterialData.models;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace MaterialREST.Controllers
 {
-    [Route("[controller]/Notebook/")]
+    [Route("material/notebook")]
     [ApiController]
-    public class MaterialController : ControllerBase
+    public class NotebookController : ControllerBase
     {
 
         NotebookRepository notebookRepo = new NotebookRepository();
@@ -20,8 +16,8 @@ namespace MaterialREST.Controllers
         [EnableCors("Policy1")]
         [HttpGet]
         public List<notebook> get()
-        {                       
-                return (List<notebook>)notebookRepo.GetAll();
+        {
+            return (List<notebook>)notebookRepo.GetAll();
         }
 
         [HttpGet("{id}")]
@@ -40,7 +36,13 @@ namespace MaterialREST.Controllers
         [HttpDelete]
         public void delete(notebook notebook)
         {
-        notebookRepo.Delete(notebook);
+            notebookRepo.Delete(notebook);
+        }
+
+        [HttpPut]
+        public void put(notebook notebook)
+        {
+            notebookRepo.Update(notebook);
         }
     }
 }

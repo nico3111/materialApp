@@ -8,5 +8,8 @@ namespace MaterialData.repository
         void Save(T t);
 
         T GetAny(int id);
+        void Delete(T t);
+
+        void Update(T t);
     }
 }
