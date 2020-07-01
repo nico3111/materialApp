@@ -3,6 +3,7 @@ import './App.css';
 import Head from './components/header/Head';
 import Notebook from './components/notebook/Notebook'
 import ShowNotebook from '../src/components/notebook/ShowNotebook'
+import ShowAllNotebook from './components/notebook/ShowAllNotebooks';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends React.Component {
         <Head />
         <input value="" onChange={(event) => this.setId(event.target.value)} />
         {this.state.id != '' && <ShowNotebook id={this.state.id} />}
+        <ShowAllNotebook/>
       </div>
     );
   }
