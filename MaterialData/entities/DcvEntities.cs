@@ -9,7 +9,6 @@ namespace MaterialData.models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseMySQL("server=localhost;database=dcv;username=root");
           optionsBuilder.UseMySQL("server=192.168.0.94;database=dcv;user=root");
         }
 
@@ -20,9 +19,6 @@ namespace MaterialData.models
             modelBuilder.Entity<notebook>(entity =>
             {
                 entity.HasKey(x => x.id);
-                /*entity.Property(x => x.serial_number).IsRequired();
-                entity.Property(x => x.make).IsRequired();
-                entity.Property(x => x.model).IsRequired();*/
             });
             modelBuilder.Entity<person>().HasKey(x => x.id);
 
@@ -30,7 +26,6 @@ namespace MaterialData.models
                 .HasOne(x => x.people)
                 .WithMany()
                 .HasForeignKey(x => x.person_id);
-            //x => x.notebook
         }
     }
 }

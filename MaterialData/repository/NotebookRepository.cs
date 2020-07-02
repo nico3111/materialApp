@@ -40,26 +40,23 @@ namespace MaterialData
             return notebook;
         }
 
-        public HttpStatusCode Save(notebook notebook)
+        public void Save(notebook notebook)
         {
-            using (var materialEntities = new DcvEntities())
-            {
-                materialEntities.notebook.Add(notebook);
-                materialEntities.SaveChanges();
-            }
-            return HttpStatusCode.Created;
+           /* using (var materialEntities = new DcvEntities())
+            {*/
+                entities.notebook.Add(notebook);
+                entities.SaveChanges();
+            /*}*/
         }
 
-        public HttpStatusCode Delete(notebook notebook)
+        public void Delete(notebook notebook)
         {
             entities.notebook.Remove(notebook);
             entities.notebook.FromSqlRaw("ALTER TABLE notebook AUTO_INCREMENT = 1;");
             entities.SaveChanges();
-
-            return HttpStatusCode.OK;
         }
 
-        public HttpStatusCode Update(notebook notebook)
+        public void Update(notebook notebook)
         {
             var existingNotebook = entities.notebook.FirstOrDefault(x => x.id == notebook.id);
 
@@ -73,10 +70,7 @@ namespace MaterialData
                 existingNotebook.location_id = notebook.location_id;
 
                 entities.SaveChanges();
-
-                return HttpStatusCode.OK;
             }
-            return HttpStatusCode.NotFound;
         }
     }
 }

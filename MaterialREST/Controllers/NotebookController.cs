@@ -3,6 +3,7 @@ using MaterialData.models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 
 namespace MaterialREST.Controllers
 {
@@ -17,34 +18,80 @@ namespace MaterialREST.Controllers
 
         [HttpGet]
         public List<notebook> get()
-        { 
-            var lala = (List<notebook>)notebookRepo.GetAll();
-            return lala;
+        {
+            //HttpStatusCode.OK;
+            List<notebook> notebooks = null;
+            try
+            {
+                notebooks = (List<notebook>)notebookRepo.GetAll();
+                return notebooks;
+            }
+            catch (System.Exception e)
+            {
+                Response.StatusCode = 500;
+            }
+
+            return notebooks;
         }
 
         [HttpGet("{id}")]
         public notebook get(int id)
         {
-            return notebookRepo.GetAny(id);
+            notebook notebook = null;
+            try
+            {
+                notebook = notebookRepo.GetAny(id);
+                return notebook;
+            }
+            catch (System.Exception)
+            {
+                Response.StatusCode = 500;               
+            }
+            return notebook;
         }
 
 
         [HttpPost]
         public void post([FromBody]notebook notebook)
         {
-            notebookRepo.Save(notebook);
+            try
+            {
+                notebookRepo.Save(notebook);
+                Response.StatusCode = 201;
+            }
+            catch (System.Exception)
+            {
+                Response.StatusCode = 500;
+            }
         }
 
         [HttpDelete]
         public void delete(notebook notebook)
         {
-            notebookRepo.Delete(notebook);
+            try
+            {
+                notebookRepo.Delete(notebook);
+                Response.StatusCode = 200;
+            }
+            catch (System.Exception)
+            {
+                Response.StatusCode = 500;                
+            }
+            
         }
 
         [HttpPut]
         public void put(notebook notebook)
         {
-            notebookRepo.Update(notebook);
-        }
+            try
+            {
+                notebookRepo.Update(notebook);
+                Response.StatusCode = 200;
+            }
+            catch (System.Exception)
+            {
+                Response.StatusCode = 500;
+            }           
+        } 
     }
 }
