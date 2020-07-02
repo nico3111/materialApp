@@ -170,6 +170,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="models\addressLocation.cs" />
+    <Compile Include="models\address.cs" />
+    <Compile Include="models\classroom.cs" />
+    <Compile Include="models\IMaterial.cs" />
     <Compile Include="models\person.cs" />
     <Compile Include="repository\PersonRepository.cs" />
     <Compile Include="repository\NotebookRepository.cs" />

@@ -2,8 +2,8 @@
 using MaterialData.models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Net;
 
 namespace MaterialREST.Controllers
 {
@@ -28,6 +28,8 @@ namespace MaterialREST.Controllers
             }
             catch (System.Exception e)
             {
+                Console.WriteLine(e.Message);
+
                 Response.StatusCode = 500;
             }
 
@@ -49,7 +51,6 @@ namespace MaterialREST.Controllers
             }
             return notebook;
         }
-
 
         [HttpPost]
         public void post([FromBody]notebook notebook)

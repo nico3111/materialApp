@@ -1,12 +1,8 @@
 ﻿using MaterialData.models;
 using MaterialData.repository;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 
 namespace MaterialData
 {
@@ -18,7 +14,19 @@ namespace MaterialData
 
         public void getNote()
         {
-            entities.notebook.Include(x => x.people).ToList();
+
+            //notebook => person
+            //notebook => classroom
+            //entities.addressLocation.Include(x => x.classroom).Include(x => x.address).ToList();
+
+            entities.notebook
+                .Include(x => x.person)
+                .Include(x => x.classroom)
+                .ThenInclude(x => x.addressloc)
+                .ThenInclude(x => x.address)
+                .ToList();
+            //entities.notebook.Include(x => x.classroom).ToList();
+            
 
             /*
             entities.person.Include(x => x.notebook)
