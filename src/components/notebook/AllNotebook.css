@@ -1,0 +1,27 @@
+.notebooks-wrapper {
+    margin-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.show-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 250px;
+    height: 300px;
+}
+
+.notebooks {
+    margin: 20px;
+    text-align: center;
+    background-color: white;
+    color: #444444;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.8);
+    height: 300px;
+    width: 250px;
+    padding: 20px;
+}

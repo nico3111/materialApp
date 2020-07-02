@@ -1,5 +1,4 @@
 import React from 'react';
-import '../notebook/Notebook.css'
 
 var notebooks = [];
 
