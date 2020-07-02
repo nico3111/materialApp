@@ -14,7 +14,7 @@ namespace MaterialView
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (var materialEntities = new MaterialEntities())
+            using (var materialEntities = new DcvEntities())
             {
                 var notebook = new notebook();
                 notebook.serial_number = TbSn.Text;
@@ -32,7 +32,7 @@ namespace MaterialView
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var materialEntities = new MaterialEntities();
+            var materialEntities = new DcvEntities();
 
             var notebooks = materialEntities.notebook.ToList();
 

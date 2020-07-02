@@ -1,4 +1,7 @@
-﻿namespace MaterialData.models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MaterialData.models
 {
     public class notebook
     {
@@ -7,12 +10,7 @@
         public string make { get; set; }
         public string model { get; set; }
         public int? location_id { get; set; }
-        public int? person_id { get; set; }
-
-
-        public override string ToString()
-        {
-            return $"id: {id}\nSN: {serial_number}\nMarke: {make}\nModell: {model}\nOrtsID: {location_id}\nPersonenID: {person_id}";
-        }
+        public int? person_id { get; set; }        
+        public person people { get; set; }        
     }
 }

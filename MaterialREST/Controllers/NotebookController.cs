@@ -14,10 +14,12 @@ namespace MaterialREST.Controllers
         NotebookRepository notebookRepo = new NotebookRepository();
 
         [EnableCors("Policy1")]
+
         [HttpGet]
         public List<notebook> get()
-        {
-            return (List<notebook>)notebookRepo.GetAll();
+        { 
+            var lala = (List<notebook>)notebookRepo.GetAll();
+            return lala;
         }
 
         [HttpGet("{id}")]
@@ -28,7 +30,7 @@ namespace MaterialREST.Controllers
 
 
         [HttpPost]
-        public void post(notebook notebook)
+        public void post([FromBody]notebook notebook)
         {
             notebookRepo.Save(notebook);
         }
