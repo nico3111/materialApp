@@ -19,9 +19,11 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.address)
                 .ToList();
         }
-        public void Delete(furniture t)
+        public void Delete(furniture furniture)
         {
-            throw new NotImplementedException();
+            entities.furniture.Remove(furniture);
+            entities.furniture.FromSqlRaw("ALTER TABLE notebook AUTO_INCREMENT = 1;");
+            entities.SaveChanges();
         }
 
         public IEnumerable<furniture> GetAll()
@@ -32,17 +34,30 @@ namespace MaterialData.repository
 
         public furniture GetAny(int id)
         {
-            throw new NotImplementedException();
+            getRelation();
+            var furniture = entities.furniture.FirstOrDefault(x => x.id == id);
+
+            return furniture;
         }
 
-        public void Save(furniture t)
+        public void Save(furniture furniture)
         {
-            throw new NotImplementedException();
+            entities.furniture.Add(furniture);
+            entities.SaveChanges();
         }
 
-        public void Update(furniture t)
+        public void Update(furniture furniture)
         {
-            throw new NotImplementedException();
+            var existingFurniture = entities.furniture.FirstOrDefault(x => x.id == furniture.id);
+
+            if (existingFurniture != null)
+            {
+                existingFurniture.type = furniture.type;
+                existingFurniture.quantity = furniture.quantity;
+                existingFurniture.location_id = furniture.location_id;
+
+                entities.SaveChanges();
+            }
         }
     }
 }

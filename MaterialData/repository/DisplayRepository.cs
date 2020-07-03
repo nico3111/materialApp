@@ -21,9 +21,11 @@ namespace MaterialData.repository
                 .ToList();                        
         }
 
-        public void Delete(display t)
+        public void Delete(display display)
         {
-            throw new NotImplementedException();
+            entities.display.Remove(display);
+            entities.display.FromSqlRaw("ALTER TABLE notebook AUTO_INCREMENT = 1;");
+            entities.SaveChanges();
         }
 
         public IEnumerable<display> GetAll()

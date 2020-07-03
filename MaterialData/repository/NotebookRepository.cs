@@ -29,7 +29,6 @@ namespace MaterialData
         public notebook GetAny(int id)
         {
             getRelation();
-            //var per = entities.person.ToList();
             var notebook = entities.notebook.FirstOrDefault(x => x.id == id);
 
             return notebook;
