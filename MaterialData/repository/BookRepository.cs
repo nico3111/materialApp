@@ -18,9 +18,11 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.address)
                 .ToList();
         }
-        public void Delete(book t)
+        public void Delete(book book)
         {
-            throw new NotImplementedException();
+            entities.book.Remove(book);
+            entities.book.FromSqlRaw("ALTER TABLE notebook AUTO_INCREMENT = 1;");
+            entities.SaveChanges();
         }
 
         public IEnumerable<book> GetAll()
