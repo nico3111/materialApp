@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialViewForTesting", "MaterialView\MaterialViewForTesting.csproj", "{946C55E9-2970-4D63-97BE-D0111E5148F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialLogic", "MaterialLogic\MaterialLogic.csproj", "{AFC55E2A-5A72-4ACF-8338-9F7F0EA68B66}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialData", "MaterialData\MaterialData.csproj", "{D2DF11DE-032B-4984-9429-F7EB366C89DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialREST", "MaterialREST\MaterialREST.csproj", "{8463CC7E-9404-4D2C-965A-E4D8FAACD7EB}"
@@ -17,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{946C55E9-2970-4D63-97BE-D0111E5148F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{946C55E9-2970-4D63-97BE-D0111E5148F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{946C55E9-2970-4D63-97BE-D0111E5148F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{946C55E9-2970-4D63-97BE-D0111E5148F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFC55E2A-5A72-4ACF-8338-9F7F0EA68B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFC55E2A-5A72-4ACF-8338-9F7F0EA68B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFC55E2A-5A72-4ACF-8338-9F7F0EA68B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFC55E2A-5A72-4ACF-8338-9F7F0EA68B66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2DF11DE-032B-4984-9429-F7EB366C89DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2DF11DE-032B-4984-9429-F7EB366C89DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2DF11DE-032B-4984-9429-F7EB366C89DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -13,6 +13,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MaterialData\MaterialData.csproj" />
-    <ProjectReference Include="..\MaterialLogic\MaterialLogic.csproj" />
   </ItemGroup>
 </Project>

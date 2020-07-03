@@ -172,10 +172,12 @@
   <ItemGroup>
     <Compile Include="models\addressLocation.cs" />
     <Compile Include="models\address.cs" />
+    <Compile Include="models\furniture.cs" />
     <Compile Include="models\display.cs" />
     <Compile Include="models\classroom.cs" />
     <Compile Include="models\IMaterial.cs" />
     <Compile Include="models\person.cs" />
+    <Compile Include="repository\FurnitureRepository.cs" />
     <Compile Include="repository\DisplayRepository.cs" />
     <Compile Include="repository\NotebookRepository.cs" />
     <Compile Include="entities\DcvEntities.cs" />
