@@ -6,6 +6,7 @@
         public string  name1 { get; set; }
         public string name2 { get; set; }
         public string title { get; set; }
+
         /*public int sv_nr { get; set; }
         public string gender { get; set; }
         public string busy { get; set; }

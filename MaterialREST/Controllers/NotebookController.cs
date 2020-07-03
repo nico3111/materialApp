@@ -14,12 +14,11 @@ namespace MaterialREST.Controllers
 
         NotebookRepository notebookRepo = new NotebookRepository();
 
-        [EnableCors("Policy1")]
+        //[EnableCors("Policy1")]
 
         [HttpGet]
         public List<notebook> get()
         {
-            //HttpStatusCode.OK;
             List<notebook> notebooks = null;
             try
             {

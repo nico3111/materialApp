@@ -9,6 +9,8 @@ namespace MaterialData.models
         public DbSet<classroom> classroom { get; set; }
 
         public DbSet<addressLocation> addressLocation { get; set; }
+
+        public DbSet<display> display { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=192.168.0.94;database=dcv;user=root");
@@ -18,10 +20,7 @@ namespace MaterialData.models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<notebook>(entity =>
-            {
-                entity.HasKey(x => x.id);
-            });
+            modelBuilder.Entity<notebook>().HasKey(x => x.id);
 
             modelBuilder.Entity<person>().HasKey(x => x.id);
 
@@ -31,12 +30,19 @@ namespace MaterialData.models
 
             modelBuilder.Entity<address>().HasKey(x => x.id);
 
+            modelBuilder.Entity<display>().HasKey(x => x.id);
+
             modelBuilder.Entity<notebook>()
                 .HasOne(x => x.person)
                 .WithMany()
                 .HasForeignKey(x => x.person_id);
 
             modelBuilder.Entity<notebook>()
+                .HasOne(x => x.classroom)
+                .WithMany()
+                .HasForeignKey(x => x.location_id);
+
+            modelBuilder.Entity<display>()
                 .HasOne(x => x.classroom)
                 .WithMany()
                 .HasForeignKey(x => x.location_id);
@@ -50,6 +56,8 @@ namespace MaterialData.models
                 .HasOne(x => x.classroom)
                 .WithOne(x => x.addressloc)
                 .HasForeignKey<addressLocation>(x => x.locationId);
+
+            
 
         }
     }
