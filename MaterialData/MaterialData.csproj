@@ -172,20 +172,21 @@
   <ItemGroup>
     <Compile Include="models\addressLocation.cs" />
     <Compile Include="models\address.cs" />
-    <Compile Include="models\book.cs" />
-    <Compile Include="models\furniture.cs" />
-    <Compile Include="models\display.cs" />
-    <Compile Include="models\classroom.cs" />
-    <Compile Include="models\IMaterial.cs" />
-    <Compile Include="models\equipment.cs" />
+    <Compile Include="models\material\book.cs" />
+    <Compile Include="models\material\furniture.cs" />
+    <Compile Include="models\material\display.cs" />
+    <Compile Include="models\material\classroom.cs" />
+    <Compile Include="models\material\IMaterial.cs" />
+    <Compile Include="models\material\equipment.cs" />
     <Compile Include="models\person.cs" />
+    <Compile Include="repository\BaseRepository.cs" />
     <Compile Include="repository\BookRepository.cs" />
     <Compile Include="repository\FurnitureRepository.cs" />
     <Compile Include="repository\DisplayRepository.cs" />
     <Compile Include="repository\EquipmentRepository.cs" />
     <Compile Include="repository\NotebookRepository.cs" />
     <Compile Include="entities\DcvEntities.cs" />
-    <Compile Include="models\notebook.cs" />
+    <Compile Include="models\material\notebook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="interfaces\IMaterialRepository.cs" />
   </ItemGroup>

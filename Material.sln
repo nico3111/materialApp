@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialData", "MaterialDat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialREST", "MaterialREST\MaterialREST.csproj", "{8463CC7E-9404-4D2C-965A-E4D8FAACD7EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialTests", "MaterialTests\MaterialTests.csproj", "{A2F8DAD0-DC48-406A-99CA-91353B084439}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8463CC7E-9404-4D2C-965A-E4D8FAACD7EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8463CC7E-9404-4D2C-965A-E4D8FAACD7EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8463CC7E-9404-4D2C-965A-E4D8FAACD7EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2F8DAD0-DC48-406A-99CA-91353B084439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2F8DAD0-DC48-406A-99CA-91353B084439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2F8DAD0-DC48-406A-99CA-91353B084439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2F8DAD0-DC48-406A-99CA-91353B084439}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

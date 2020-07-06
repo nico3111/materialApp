@@ -1,63 +1,23 @@
 ﻿using MaterialData.models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MaterialData.repository
 {
-    public class BookRepository : IMaterialRepository<book>
+    public class BookRepository : BaseRepository <book>, IMaterialRepository
     {
-        DcvEntities entities = new DcvEntities();
-        public void GetRelation()
+        public BookRepository(DcvEntities entities) : base(entities)
         {
-            entities.book
+        }
+
+        public override void GetRelation()
+        {
+            Entities.book
                 .Include(x => x.person)
                 .Include(x => x.classroom)
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
-        }
-        public void Delete(book book)
-        {
-            entities.book.Remove(book);
-            entities.book.FromSqlRaw("ALTER TABLE notebook AUTO_INCREMENT = 1;");
-            entities.SaveChanges();
-        }
-
-        public IEnumerable<book> GetAll()
-        {
-            GetRelation();
-            return entities.book.ToList();
-        }
-
-        public book GetAny(int id)
-        {
-            GetRelation();
-            var book = entities.book.FirstOrDefault(x => x.id == id);
-
-            return book;
-        }
-
-        public void Save(book book)
-        {
-            entities.book.Add(book);
-            entities.SaveChanges();
-        }
-
-        public void Update(book book)
-        {
-            var existingBook = entities.book.FirstOrDefault(x => x.id == book.id);
-
-            if (existingBook != null)
-            {
-                existingBook.isbn = book.isbn;
-                existingBook.title = book.title;
-                existingBook.person_id = book.person_id;
-                existingBook.location_id = book.location_id;
-
-                entities.SaveChanges();
-            }
-        }
+        }        
     }
 }

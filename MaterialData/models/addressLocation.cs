@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MaterialData.models
 {
@@ -13,7 +8,6 @@ namespace MaterialData.models
         public int id { get; set; }
         public int adressId { get; set; }
 
-        //classroom id
         public int locationId { get; set; }
 
         public classroom classroom { get; set; }
