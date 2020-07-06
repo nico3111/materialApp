@@ -12,19 +12,19 @@ namespace MaterialREST.Controllers
 {
     [Route("material/mousekeyboard")]
     [ApiController]
-    public class MouseKeyboardController : ControllerBase
+    public class EquipmentController : ControllerBase
     {
-        MouseKeyboardRepository mouseKeyboardRepo = new MouseKeyboardRepository();
+        EquipmentRepository equipmentRepo = new EquipmentRepository();
 
         // GET: api/<mouseKeyboardController>
         [HttpGet]
-        public IEnumerable<mouseKeyboard> Get()
+        public IEnumerable<equipment> Get()
         {
-            List<mouseKeyboard> mouseKeyboards = null;
+            List<equipment> equipments = null;
             try
             {
-                mouseKeyboards = (List<mouseKeyboard>)mouseKeyboardRepo.GetAll();
-                return mouseKeyboards;
+                equipments = (List<equipment>)equipmentRepo.GetAll();
+                return equipments;
             }
             catch (System.Exception e)
             {
@@ -33,33 +33,33 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 500;
             }
 
-            return mouseKeyboards;
+            return equipments;
         }
 
         // GET api/<mouseKeyboardController>/5
         [HttpGet("{id}")]
-        public mouseKeyboard Get(int id)
+        public equipment Get(int id)
         {
-            mouseKeyboard mouseKeyboard = null;
+            equipment equipment = null;
             try
             {
-                mouseKeyboard = mouseKeyboardRepo.GetAny(id);
-                return mouseKeyboard;
+                equipment = equipmentRepo.GetAny(id);
+                return equipment;
             }
             catch (System.Exception)
             {
                 Response.StatusCode = 500;
             }
-            return mouseKeyboard;
+            return equipment;
         }
 
         // POST api/<mouseKeyboardController>
         [HttpPost]
-        public void Post([FromBody] mouseKeyboard mouseKeyboard)
+        public void Post([FromBody] equipment equipment)
         {
             try
             {
-                mouseKeyboardRepo.Save(mouseKeyboard);
+                equipmentRepo.Save(equipment);
                 Response.StatusCode = 201;
             }
             catch (System.Exception)
@@ -70,11 +70,11 @@ namespace MaterialREST.Controllers
 
         // PUT api/<mouseKeyboardController>/5
         [HttpPut("{id}")]
-        public void Put([FromBody] mouseKeyboard mouseKeyboard)
+        public void Put([FromBody] equipment equipment)
         {
             try
             {
-                mouseKeyboardRepo.Update(mouseKeyboard);
+                equipmentRepo.Update(equipment);
                 Response.StatusCode = 200;
             }
             catch (System.Exception)
@@ -85,11 +85,11 @@ namespace MaterialREST.Controllers
 
         // DELETE api/<mouseKeyboardController>/5
         [HttpDelete("{id}")]
-        public void Delete(mouseKeyboard mouseKeyboard)
+        public void Delete(equipment equipment)
         {
             try
             {
-                mouseKeyboardRepo.Delete(mouseKeyboard);
+                equipmentRepo.Delete(equipment);
                 Response.StatusCode = 200;
             }
             catch (System.Exception)

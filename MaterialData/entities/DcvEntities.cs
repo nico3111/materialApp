@@ -12,7 +12,7 @@ namespace MaterialData.models
         public DbSet<display> display { get; set; }
         public DbSet<furniture> furniture { get; set; }
         public DbSet<book> book { get; set; }
-        public DbSet<mouseKeyboard> mouseKeyboard { get; set; }
+        public DbSet<equipment> equipment { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=192.168.0.94;database=dcv;user=root");
@@ -38,7 +38,7 @@ namespace MaterialData.models
 
             modelBuilder.Entity<book>().HasKey(x => x.id);
 
-            modelBuilder.Entity<mouseKeyboard>().HasKey(x => x.id);
+            modelBuilder.Entity<equipment>().HasKey(x => x.id);
 
             modelBuilder.Entity<notebook>()
                 .HasOne(x => x.person)
@@ -80,7 +80,7 @@ namespace MaterialData.models
                 .WithMany()
                 .HasForeignKey(x => x.location_id);
 
-            modelBuilder.Entity<mouseKeyboard>()
+            modelBuilder.Entity<equipment>()
                 .HasOne(x => x.classroom)
                 .WithMany()
                 .HasForeignKey(x => x.location_id);
