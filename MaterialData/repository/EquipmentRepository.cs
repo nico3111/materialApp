@@ -1,6 +1,5 @@
 ﻿using MaterialData.models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,8 +52,10 @@ namespace MaterialData.repository
 
             if (existingequipment != null)
             {
+                existingequipment.type = equipment.type;
                 existingequipment.make = equipment.make;
                 existingequipment.model = equipment.model;
+                existingequipment.person_id = equipment.person_id;
                 existingequipment.location_id = equipment.location_id;
                 existingequipment.quantity = equipment.quantity;
 

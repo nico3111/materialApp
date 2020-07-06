@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MaterialData.models;
+﻿using MaterialData.models;
 using MaterialData.repository;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MaterialREST.Controllers
 {
-    [Route("material/mousekeyboard")]
+    [Route("material/equipment")]
     [ApiController]
     public class EquipmentController : ControllerBase
     {
@@ -32,7 +30,6 @@ namespace MaterialREST.Controllers
 
                 Response.StatusCode = 500;
             }
-
             return equipments;
         }
 
@@ -62,8 +59,9 @@ namespace MaterialREST.Controllers
                 equipmentRepo.Save(equipment);
                 Response.StatusCode = 201;
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
+                Console.WriteLine(e);
                 Response.StatusCode = 500;
             }
         }

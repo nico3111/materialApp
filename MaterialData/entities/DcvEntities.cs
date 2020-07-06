@@ -81,6 +81,11 @@ namespace MaterialData.models
                 .HasForeignKey(x => x.location_id);
 
             modelBuilder.Entity<equipment>()
+                .HasOne(x => x.person)
+                .WithMany()
+                .HasForeignKey(x => x.person_id);
+
+            modelBuilder.Entity<equipment>()
                 .HasOne(x => x.classroom)
                 .WithMany()
                 .HasForeignKey(x => x.location_id);
