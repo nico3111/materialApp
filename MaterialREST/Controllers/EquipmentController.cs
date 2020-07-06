@@ -7,7 +7,7 @@ namespace MaterialREST.Controllers
 {
     [Route("material/equipment")]
     [ApiController]
-    public class EquipmentController : RestControllerBase<display>
+    public class EquipmentController : RestControllerBase<equipment>
     {       
     }
 }

@@ -34,24 +34,11 @@ namespace MaterialData.repository
         }
 
         public void Save(T t)
-        {
+        {            
             Entities.Add(t);
             Entities.SaveChanges();
         }
 
-        /*public void Update(T t)
-        {
-            var existingItem = Entites.FirstOrDefault(x => x.id == t.id);
-
-            if (existingItem != null)
-            {
-                existingItem.isbn = t.isbn;
-                existingItem.title = t.title;
-                existingItem.person_id = t.person_id;
-                existingItem.location_id = t.location_id;
-
-                entities.SaveChanges();
-            }
-        }*/
+        //public abstract void Update(int id, T t);        
     }
 }

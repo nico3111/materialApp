@@ -59,5 +59,14 @@ namespace MaterialREST.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die server=192.168.0.94;database=dcv;user=root ähnelt.
+        /// </summary>
+        internal static string productionConnection {
+            get {
+                return ResourceManager.GetString("productionConnection", resourceCulture);
+            }
+        }
     }
 }

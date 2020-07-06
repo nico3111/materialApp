@@ -20,6 +20,11 @@ namespace MaterialData
                  .ThenInclude(x => x.addressloc)
                  .ThenInclude(x => x.address)
                  .ToList();
-        }       
+        }
+
+        /*public override void Update(int id, notebook t)
+        {
+            throw new System.NotImplementedException();
+        }*/
     }
 }

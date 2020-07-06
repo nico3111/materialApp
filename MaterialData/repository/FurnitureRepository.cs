@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MaterialData.repository
 {
-    public class FurnitureRepository : BaseRepository<book>, IMaterialRepository
+    public class FurnitureRepository : BaseRepository<furniture>, IMaterialRepository
     {
         public FurnitureRepository(DcvEntities entities) : base(entities)
         {
@@ -18,5 +18,10 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.address)
                 .ToList();
         }
+
+        /*public override void Update(int id, furniture t)
+        {
+            throw new System.NotImplementedException();
+        }*/
     }
 }

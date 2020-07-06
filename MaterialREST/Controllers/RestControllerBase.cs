@@ -27,6 +27,16 @@ namespace MaterialREST.Controllers
             if (typeof(T) == typeof(notebook))
                 return new NotebookRepository(Entities);
 
+            if (typeof(T) == typeof(display))
+                return new DisplayRepository(Entities);
+
+            if (typeof(T) == typeof(equipment))
+                return new EquipmentRepository(Entities);
+
+            if (typeof(T) == typeof(furniture))
+                return new FurnitureRepository(Entities);
+
+
             return null;
         }
 
@@ -72,26 +82,27 @@ namespace MaterialREST.Controllers
             {
                 Repo.Save(t);
                 Response.StatusCode = 201;
-            }
-            catch (System.Exception)
+        }
+            catch (System.Exception e)
             {
+                Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
             }
-        }
-
-        [HttpPut("{id}")]
-        public void Put([FromBody] T t)
+}
+        //TODO
+        /*[HttpPut("{id}")]
+        public void Put([FromBody]int id, T t)
         {
             try
             {
-                //Repo.Update(t);
+                //Repo.Update(id, t);
                 Response.StatusCode = 200;
             }
             catch (System.Exception)
             {
                 Response.StatusCode = 500;
             }
-        }
+        }*/
 
         [HttpDelete("{id}")]
         public void Delete(int id)

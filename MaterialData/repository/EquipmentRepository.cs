@@ -18,5 +18,10 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.address)
                 .ToList();
         }
+
+        /*public override void Update(int id, equipment t)
+        {
+            throw new System.NotImplementedException();
+        }*/
     }
 }
