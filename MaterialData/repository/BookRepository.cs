@@ -9,7 +9,7 @@ namespace MaterialData.repository
     public class BookRepository : IMaterialRepository<book>
     {
         DcvEntities entities = new DcvEntities();
-        public void getRelation()
+        public void GetRelation()
         {
             entities.book
                 .Include(x => x.person)
@@ -27,13 +27,13 @@ namespace MaterialData.repository
 
         public IEnumerable<book> GetAll()
         {
-            getRelation();
+            GetRelation();
             return entities.book.ToList();
         }
 
         public book GetAny(int id)
         {
-            getRelation();
+            GetRelation();
             var book = entities.book.FirstOrDefault(x => x.id == id);
 
             return book;

@@ -11,7 +11,7 @@ namespace MaterialData.repository
     public class FurnitureRepository : IMaterialRepository<furniture>
     {
         DcvEntities entities = new DcvEntities();
-        public void getRelation()
+        public void GetRelation()
         {
             entities.notebook
                 .Include(x => x.classroom)
@@ -28,13 +28,13 @@ namespace MaterialData.repository
 
         public IEnumerable<furniture> GetAll()
         {
-            getRelation();
+            GetRelation();
             return entities.furniture.ToList();
         }
 
         public furniture GetAny(int id)
         {
-            getRelation();
+            GetRelation();
             var furniture = entities.furniture.FirstOrDefault(x => x.id == id);
 
             return furniture;

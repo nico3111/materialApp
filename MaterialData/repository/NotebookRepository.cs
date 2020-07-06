@@ -11,7 +11,7 @@ namespace MaterialData
                 
         DcvEntities entities = new DcvEntities();
 
-        public void getRelation()
+        public void GetRelation()
         {            
             entities.notebook
                 .Include(x => x.person)
@@ -22,13 +22,13 @@ namespace MaterialData
         }
         public IEnumerable<notebook> GetAll()
         {
-            getRelation();
+            GetRelation();
             return entities.notebook.ToList();
         }
 
         public notebook GetAny(int id)
         {
-            getRelation();
+            GetRelation();
             var notebook = entities.notebook.FirstOrDefault(x => x.id == id);
 
             return notebook;

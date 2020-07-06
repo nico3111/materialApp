@@ -4,6 +4,7 @@ namespace MaterialData.repository
 {
     public interface IMaterialRepository<T>
     {
+        void GetRelation();
         IEnumerable<T> GetAll();
         void Save(T t);
 

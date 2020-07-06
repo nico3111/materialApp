@@ -12,7 +12,7 @@ namespace MaterialData.repository
     {
         DcvEntities entities = new DcvEntities();
 
-        public void getRelation()
+        public void GetRelation()
         {           
             entities.display
                 .Include(x => x.classroom)
@@ -30,13 +30,13 @@ namespace MaterialData.repository
 
         public IEnumerable<display> GetAll()
         {
-            getRelation();
+            GetRelation();
             return entities.display.ToList();
         }
 
         public display GetAny(int id)
         {
-            getRelation();
+            GetRelation();
             //var per = entities.person.ToList();
             var display = entities.display.FirstOrDefault(x => x.id == id);
 

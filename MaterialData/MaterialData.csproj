@@ -177,10 +177,12 @@
     <Compile Include="models\display.cs" />
     <Compile Include="models\classroom.cs" />
     <Compile Include="models\IMaterial.cs" />
+    <Compile Include="models\mouseKeyboard.cs" />
     <Compile Include="models\person.cs" />
     <Compile Include="repository\BookRepository.cs" />
     <Compile Include="repository\FurnitureRepository.cs" />
     <Compile Include="repository\DisplayRepository.cs" />
+    <Compile Include="repository\MouseKeyboardRepository.cs" />
     <Compile Include="repository\NotebookRepository.cs" />
     <Compile Include="entities\DcvEntities.cs" />
     <Compile Include="models\notebook.cs" />
