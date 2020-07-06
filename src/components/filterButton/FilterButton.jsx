@@ -20,19 +20,11 @@ export default class FilterButton extends React.Component {
     }
     
     render() {
-
-        // const title = this.props.title;
         const isActive = this.props.isActive
 
         if (isActive) {
             return (this.renderActiveButton())
         } 
         return this.renderInactiveButton()
-
-        // return (
-        //   <div className={"filter-buttons " + (isActive ? 'is-active' : '')} onClick={this.props.onClick}>
-        //       {title}
-        // </div>
-        // )
     }
 }

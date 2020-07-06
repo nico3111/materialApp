@@ -1,15 +1,16 @@
 import React from 'react';
-import '../notebook/SaveNewNotebook.css';
 
-export default class SaveNewNotebook extends React.Component {
+export default class AddDisplay extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            serial_number: '',
-            make: '',
+            type: '',
             model: '',
-            location_id: '',
+            make: '',
+            quantity: '',
             person_id: '',
+            location_id: '',
             personen: [],
             params: { id: null },
             selectedPerson: '',
@@ -67,7 +68,6 @@ export default class SaveNewNotebook extends React.Component {
     updateWithEvent(event) {
         const key = event.target.name;
         const value = event.target.value;
-
         this.setState({
             [key]: value
         })
@@ -79,9 +79,10 @@ export default class SaveNewNotebook extends React.Component {
         var location = this.state.location_id === '' ? null : Number(this.state.location_id)
 
         const body = {
-            serial_number: this.state.serial_number,
-            make: this.state.make,
+            type: this.state.type,
             model: this.state.model,
+            make: this.state.make,
+            quantity: this.state.quantity,
             person_id: person,
             location_id: location
         }
@@ -96,16 +97,17 @@ export default class SaveNewNotebook extends React.Component {
                 body: JSON.stringify(body)
             }
 
-            let result = await fetch('http://192.168.0.94:8015/material/notebook', req)
+            let result = await fetch('http://192.168.0.94:8015/material/equipment', req)
 
-            this.props.fetchNotebooks()
+            this.props.fetchDisplays()
 
             this.setState({
-                serial_number: '',
-                make: '',
+                type: '',
                 model: '',
-                location_id: '',
-                person_id: ''
+                make: '',
+                quantity: '',
+                person_id: '',
+                location_id: ''
             })
 
             console.log(body)
@@ -116,19 +118,23 @@ export default class SaveNewNotebook extends React.Component {
 
     render() {
         return (
-            <div className="input-wrapper">
-                <div className="head-text">Neues Notebook</div>
-                <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
-                <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
-                <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
-                <select className="input-field" value={this.state.selectedPerson.name1} onChange={this.handlePersonChange}>
-                    <option value="" disabled defaultValue hidden>Person auswählen</option>
-                    {this.state.personen.map((personen, key) => {
-                        return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
-                    })}
-                </select>
+            <div>
+                <div className="input-wrapper">
+                    <div className="head-text">Neues Zubehör</div>
+                    <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
+                    <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
+                    <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
+                    <input className="input-field" type="number" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Menge"></input>
+                    <select className="input-field" value={this.state.selectedPerson.name1} onChange={this.handlePersonChange}>
+                        <option value="" disabled defaultValue hidden>Person auswählen</option>
+                        {this.state.personen.map((personen, key) => {
+                            return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                        })}
+                    </select>
 
-                <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
+                    <input className="input-field" value={this.state.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)} placeholder="Standort"></input>
+                    <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
+                </div>
             </div>
         )
     }

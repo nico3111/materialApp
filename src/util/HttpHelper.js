@@ -1,5 +1,5 @@
 function fetchData() {
-    return fetch('http://localhost:5000/Material/Notebook')
+    return fetch('http://192.168.0.94:8015/material/notebook')
     .then(response => response.json()).catch(err => console.log(err))
 }
 
