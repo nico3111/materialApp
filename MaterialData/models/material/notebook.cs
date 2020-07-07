@@ -1,8 +1,7 @@
 ﻿namespace MaterialData.models
 {
-    public class notebook : IMaterial
+    public class notebook : Material
     {
-        public int id { get; set; }
         public string serial_number { get; set; }
         public string make { get; set; }
         public string model { get; set; }

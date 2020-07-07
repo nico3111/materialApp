@@ -17,23 +17,6 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
-        }
-
-        public override void Update(int id, equipment equipment)
-        {
-            var existingItem = Entities.Find<equipment>(id);
-
-            if (existingItem != null)
-            {
-                existingItem.type = equipment.type;
-                existingItem.make = equipment.make;
-                existingItem.model = equipment.model;
-                existingItem.person_id = equipment.person_id;
-                existingItem.location_id = equipment.location_id;
-                existingItem.quantity = equipment.quantity;
-
-                Entities.SaveChanges();
-            }
-        }
+        }        
     }
 }

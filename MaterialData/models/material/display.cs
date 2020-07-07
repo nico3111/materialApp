@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MaterialData.models
 {
-    public class display : IMaterial
+    public class display : Material
     {
-        public int id { get; set; }
         public string serial_number { get; set; }
         public string make { get; set; }
         public string model { get; set; }

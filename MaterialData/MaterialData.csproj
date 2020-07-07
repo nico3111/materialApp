@@ -176,7 +176,7 @@
     <Compile Include="models\material\furniture.cs" />
     <Compile Include="models\material\display.cs" />
     <Compile Include="models\material\classroom.cs" />
-    <Compile Include="models\material\IMaterial.cs" />
+    <Compile Include="models\material\Material.cs" />
     <Compile Include="models\material\equipment.cs" />
     <Compile Include="models\person.cs" />
     <Compile Include="repository\BaseRepository.cs" />

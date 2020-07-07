@@ -1,10 +1,11 @@
 ﻿using MaterialData.models;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MaterialData.repository
 {
-    public abstract class BaseRepository<T> where T : class
+    public abstract class BaseRepository<T> where T : Material
     {
         public DcvEntities Entities;
         public BaseRepository(DcvEntities entities)
@@ -26,19 +27,36 @@ namespace MaterialData.repository
             return Entities.Set<T>().ToList();
         }
 
-        public T GetAny(int id)         
+        public T GetAny(int id)
         {
             GetRelation();
             var item = Entities.Find<T>(id);
-            return item;            
+            return item;
         }
 
         public void Save(T t)
-        {            
+        {
             Entities.Add(t);
             Entities.SaveChanges();
         }
 
-        public abstract void Update(int id, T t);        
+        public void Update(int id, T t)
+        {
+
+            T item = Entities.Find<T>(id);
+
+            if (item != null)
+            {
+
+                /*Entities.Update(item);
+                t.id = id;
+                item = t;*/
+
+                Entities.Remove(item);
+                Entities.Add(t);
+                Entities.SaveChanges();
+            }           
+        }
+
     }
 }

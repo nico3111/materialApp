@@ -18,20 +18,5 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.address)
                 .ToList();
         }
-
-        public override void Update(int id, display display)
-        {
-            var existingItem = Entities.Find<display>(id);
-
-            if (existingItem != null)
-            {
-                existingItem.serial_number = display.serial_number;
-                existingItem.make = display.make;
-                existingItem.model = display.model;
-                existingItem.location_id = display.location_id;
-
-                Entities.SaveChanges();
-            }
-        }
     }
 }

@@ -1,8 +1,7 @@
 ﻿namespace MaterialData.models
 {
-    public class book : IMaterial
+    public class book : Material
     {
-        public int id { get; set; }
         public string isbn { get; set; }
         public string title { get; set; }
         public int? location_id { get; set; }

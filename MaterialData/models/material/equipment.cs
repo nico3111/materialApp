@@ -1,8 +1,7 @@
 ﻿namespace MaterialData.models
 {
-    public class equipment : IMaterial
+    public class equipment : Material
     {
-        public int id { get; set; }
         public string type { get; set; }
         public string make { get; set; }
         public string model { get; set; }

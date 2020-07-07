@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace MaterialREST.Controllers
 {
-    public class RestControllerBase<T> : ControllerBase where T : class
+    public class RestControllerBase<T> : ControllerBase where T : Material
     {
         public DcvEntities Entities { get; set; }
 
@@ -19,7 +19,7 @@ namespace MaterialREST.Controllers
             Repo = GetRepository<T>() as BaseRepository<T>;
         }
 
-        private IMaterialRepository GetRepository<U>()  
+        private IMaterialRepository GetRepository<U>()
         {
             if (typeof(U) == typeof(book))
                 return new BookRepository(Entities);
@@ -42,7 +42,7 @@ namespace MaterialREST.Controllers
 
         [HttpGet]
         public List<T> Get()
-        
+
         {
             List<T> T = null;
             try
@@ -82,13 +82,13 @@ namespace MaterialREST.Controllers
             {
                 Repo.Save(t);
                 Response.StatusCode = 201;
-        }
+            }
             catch (System.Exception e)
             {
                 Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
             }
-}
+        }
         //TODO
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] T t)
@@ -97,9 +97,11 @@ namespace MaterialREST.Controllers
             {
                 Repo.Update(id, t);
                 Response.StatusCode = 200;
+
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
+                Console.WriteLine(e);
                 Response.StatusCode = 500;
             }
         }

@@ -1,8 +1,7 @@
 ﻿namespace MaterialData.models
 {
-    public class furniture : IMaterial
+    public class furniture : Material
     {
-        public int id { get; set; }
         public string type { get; set; }
         public int quantity { get; set; }
         public int location_id { get; set; }
