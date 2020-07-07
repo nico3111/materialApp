@@ -46,7 +46,7 @@ namespace MaterialData.repository
             if (item != null)
             {
                 t.id = id;
-                item = t;
+                //item = t;
 
                 Entities.Remove(item);
                 Entities.Add(t);
