@@ -7,5 +7,4 @@
         public int location_id { get; set; }
         public classroom classroom { get; set; }
     }
-
 }

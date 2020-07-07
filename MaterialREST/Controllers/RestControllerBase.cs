@@ -50,7 +50,7 @@ namespace MaterialREST.Controllers
                 T = (List<T>)Repo.GetAll();
                 return T;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
@@ -67,7 +67,7 @@ namespace MaterialREST.Controllers
                 t = Repo.GetAny(id);
                 return t;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 Response.StatusCode = 500;
@@ -89,7 +89,7 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 500;
             }
         }
-        //TODO
+       
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] T t)
         {
@@ -97,7 +97,6 @@ namespace MaterialREST.Controllers
             {
                 Repo.Update(id, t);
                 Response.StatusCode = 200;
-
             }
             catch (System.Exception e)
             {

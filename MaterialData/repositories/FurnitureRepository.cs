@@ -9,7 +9,6 @@ namespace MaterialData.repository
         public FurnitureRepository(DcvEntities entities) : base(entities)
         {
         }
-
         public override void GetRelation()
         {
             Entities.notebook

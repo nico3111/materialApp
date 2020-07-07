@@ -45,8 +45,6 @@ namespace MaterialData.repository
 
             if (item != null)
             {
-                //Entities.Entry<T>(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-
                 t.id = id;
                 item = t;
 
@@ -56,6 +54,5 @@ namespace MaterialData.repository
                 Entities.SaveChanges();
             }           
         }
-
     }
 }

@@ -6,7 +6,6 @@ namespace MaterialData.repository
 {
     public class DisplayRepository : BaseRepository<display>, IMaterialRepository
     {
-
         public DisplayRepository(DcvEntities entities) : base(entities)
         {
         }  

@@ -5,7 +5,7 @@ namespace MaterialData.models
     public class DcvEntities : DbContext
     {
         public DcvEntities(string connectionString)
-        {           
+        {
         }
         public DbSet<notebook> notebook { get; set; }
         public DbSet<person> person { get; set; }
@@ -19,7 +19,8 @@ namespace MaterialData.models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=192.168.0.94;database=dcv;user=root");
-        }        
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

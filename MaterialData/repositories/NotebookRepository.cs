@@ -7,11 +7,9 @@ namespace MaterialData
 {
     public class NotebookRepository :BaseRepository<notebook>, IMaterialRepository
     {
-
         public NotebookRepository(DcvEntities entities) : base(entities)
         {
         }
-
         public override void GetRelation()
         {
             Entities.notebook
