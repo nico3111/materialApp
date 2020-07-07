@@ -1,6 +1,6 @@
 .input-wrapper {
     width: 180px;
-    height: 280px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,6 +17,10 @@
 .input-field {
     margin: 8px;
     width: 160px;
+}
+
+.input-field-dropdown {
+    width: 168px;
 }
 
 .add-button {
