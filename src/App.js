@@ -33,6 +33,7 @@ class App extends React.Component {
     return (
       <div>
         <Head />
+        
         <div className="body">
           <div className="filterbar">
             <FilterButton onClick={() => this.setState({ showAllNotebooks: !this.state.showAllNotebooks })} title="Notebooks" isActive={this.state.showAllNotebooks} />
