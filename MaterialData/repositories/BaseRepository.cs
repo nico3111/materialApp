@@ -7,12 +7,14 @@ namespace MaterialData.repository
     public abstract class BaseRepository<T> where T : Material
     {
         public DcvEntities Entities;
+
         public BaseRepository(DcvEntities entities)
         {
             Entities = entities;
         }
 
         public abstract void GetRelation();
+
         public void Delete(int id)
         {
             var t = Entities.Find<T>(id);
@@ -46,13 +48,12 @@ namespace MaterialData.repository
             if (item != null)
             {
                 t.id = id;
-                //item = t;
 
                 Entities.Remove(item);
                 Entities.Add(t);
 
                 Entities.SaveChanges();
-            }           
+            }
         }
     }
 }

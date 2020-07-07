@@ -8,7 +8,8 @@ namespace MaterialData.repository
     {
         public DisplayRepository(DcvEntities entities) : base(entities)
         {
-        }  
+        }
+
         public override void GetRelation()
         {
             Entities.display

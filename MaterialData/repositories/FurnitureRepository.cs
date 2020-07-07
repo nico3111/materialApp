@@ -9,6 +9,7 @@ namespace MaterialData.repository
         public FurnitureRepository(DcvEntities entities) : base(entities)
         {
         }
+
         public override void GetRelation()
         {
             Entities.notebook
@@ -16,6 +17,6 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
-        }        
+        }
     }
 }

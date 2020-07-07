@@ -36,7 +36,6 @@ namespace MaterialREST.Controllers
             if (typeof(U) == typeof(furniture))
                 return new FurnitureRepository(Entities);
 
-
             return null;
         }
 
@@ -44,43 +43,43 @@ namespace MaterialREST.Controllers
         public List<T> Get()
 
         {
-            List<T> T = null;
+            List<T> items = null;
             try
             {
-                T = (List<T>)Repo.GetAll();
-                return T;
+                items = (List<T>)Repo.GetAll();
+                return items;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
             }
-            return T;
+            return items;
         }
 
         [HttpGet("{id}")]
         public T Get(int id)
         {
-            T t = null;
+            T item = null;
             try
             {
-                t = Repo.GetAny(id);
-                return t;
+                item = Repo.GetAny(id);
+                return item;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Response.StatusCode = 500;
             }
-            return t;
+            return item;
         }
 
         [HttpPost]
-        public void Post([FromBody] T t)
+        public void Post([FromBody] T item)
         {
             try
             {
-                Repo.Save(t);
+                Repo.Save(item);
                 Response.StatusCode = 201;
             }
             catch (System.Exception e)
@@ -89,13 +88,13 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 500;
             }
         }
-       
+
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] T t)
+        public void Put(int id, [FromBody] T item)
         {
             try
             {
-                Repo.Update(id, t);
+                Repo.Update(id, item);
                 Response.StatusCode = 200;
             }
             catch (System.Exception e)

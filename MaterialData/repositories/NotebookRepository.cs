@@ -5,11 +5,12 @@ using System.Linq;
 
 namespace MaterialData
 {
-    public class NotebookRepository :BaseRepository<notebook>, IMaterialRepository
+    public class NotebookRepository : BaseRepository<notebook>, IMaterialRepository
     {
         public NotebookRepository(DcvEntities entities) : base(entities)
         {
         }
+
         public override void GetRelation()
         {
             Entities.notebook
@@ -18,6 +19,6 @@ namespace MaterialData
                  .ThenInclude(x => x.addressloc)
                  .ThenInclude(x => x.address)
                  .ToList();
-        }        
+        }
     }
 }

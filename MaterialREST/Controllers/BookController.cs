@@ -8,6 +8,6 @@ namespace MaterialREST.Controllers
     [Route("material/book")]
     [ApiController]
     public class BookController : RestControllerBase<book>
-    {   
+    {
     }
 }

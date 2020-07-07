@@ -8,6 +8,6 @@ namespace MaterialREST.Controllers
     [Route("material/display")]
     [ApiController]
     public class DisplayController : RestControllerBase<display>
-    {        
+    {
     }
 }

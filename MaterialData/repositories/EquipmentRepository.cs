@@ -8,7 +8,8 @@ namespace MaterialData.repository
     {
         public EquipmentRepository(DcvEntities entities) : base(entities)
         {
-        }       
+        }
+
         public override void GetRelation()
         {
             Entities.equipment
@@ -17,6 +18,6 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
-        }        
+        }
     }
 }

@@ -6,6 +6,6 @@ namespace MaterialREST.Controllers
     [Route("material/notebook")]
     [ApiController]
     public class NotebookController : RestControllerBase<notebook>
-    {        
+    {
     }
 }

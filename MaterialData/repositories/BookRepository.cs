@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MaterialData.repository
 {
-    public class BookRepository : BaseRepository <book>, IMaterialRepository
+    public class BookRepository : BaseRepository<book>, IMaterialRepository
     {
         public BookRepository(DcvEntities entities) : base(entities)
         {
@@ -18,6 +18,6 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
-        }     
+        }
     }
 }

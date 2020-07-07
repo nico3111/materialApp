@@ -7,15 +7,16 @@ namespace MaterialData.models
         public DcvEntities(string connectionString)
         {
         }
+
         public DbSet<notebook> notebook { get; set; }
         public DbSet<person> person { get; set; }
         public DbSet<classroom> classroom { get; set; }
-
         public DbSet<addressLocation> addressLocation { get; set; }
         public DbSet<display> display { get; set; }
         public DbSet<furniture> furniture { get; set; }
         public DbSet<book> book { get; set; }
         public DbSet<equipment> equipment { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=192.168.0.94;database=dcv;user=root");

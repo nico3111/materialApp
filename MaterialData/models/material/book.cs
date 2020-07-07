@@ -8,6 +8,5 @@
         public int? person_id { get; set; }
         public classroom classroom { get; set; }
         public person person { get; set; }
-
     }
 }
