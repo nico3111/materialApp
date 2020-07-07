@@ -5,7 +5,7 @@ namespace MaterialData.models
     public class DcvEntities : DbContext
     {
         public DcvEntities(string connectionString)
-        {            
+        {           
         }
         public DbSet<notebook> notebook { get; set; }
         public DbSet<person> person { get; set; }

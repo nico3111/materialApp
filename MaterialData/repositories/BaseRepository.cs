@@ -1,5 +1,4 @@
 ﻿using MaterialData.models;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,18 +41,18 @@ namespace MaterialData.repository
 
         public void Update(int id, T t)
         {
-
             T item = Entities.Find<T>(id);
 
             if (item != null)
             {
+                //Entities.Entry<T>(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
-                /*Entities.Update(item);
                 t.id = id;
-                item = t;*/
+                item = t;
 
                 Entities.Remove(item);
                 Entities.Add(t);
+
                 Entities.SaveChanges();
             }           
         }
