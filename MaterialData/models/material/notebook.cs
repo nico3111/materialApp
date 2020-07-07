@@ -10,6 +10,5 @@
         public classroom classroom { get; set; }
         public int? person_id { get; set; }        
         public person person { get; set; }
-
     }
 }

@@ -20,7 +20,7 @@ namespace MaterialData.repository
                 .ToList();
         }
 
-       /* public override void Update(int id, book book)
+        public override void Update(int id, book book)
         {
             var existingItem = Entities.Find<book>(id);
 
@@ -33,6 +33,6 @@ namespace MaterialData.repository
 
                 Entities.SaveChanges();
             }
-        }*/
+        }        
     }
 }

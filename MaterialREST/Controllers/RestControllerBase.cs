@@ -19,21 +19,21 @@ namespace MaterialREST.Controllers
             Repo = GetRepository<T>() as BaseRepository<T>;
         }
 
-        private IMaterialRepository GetRepository<T>()  
+        private IMaterialRepository GetRepository<U>()  
         {
-            if (typeof(T) == typeof(book))
+            if (typeof(U) == typeof(book))
                 return new BookRepository(Entities);
 
-            if (typeof(T) == typeof(notebook))
+            if (typeof(U) == typeof(notebook))
                 return new NotebookRepository(Entities);
 
-            if (typeof(T) == typeof(display))
+            if (typeof(U) == typeof(display))
                 return new DisplayRepository(Entities);
 
-            if (typeof(T) == typeof(equipment))
+            if (typeof(U) == typeof(equipment))
                 return new EquipmentRepository(Entities);
 
-            if (typeof(T) == typeof(furniture))
+            if (typeof(U) == typeof(furniture))
                 return new FurnitureRepository(Entities);
 
 
@@ -90,19 +90,19 @@ namespace MaterialREST.Controllers
             }
 }
         //TODO
-        /*[HttpPut("{id}")]
-        public void Put([FromBody]int id, T t)
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] T t)
         {
             try
             {
-                //Repo.Update(id, t);
+                Repo.Update(id, t);
                 Response.StatusCode = 200;
             }
             catch (System.Exception)
             {
                 Response.StatusCode = 500;
             }
-        }*/
+        }
 
         [HttpDelete("{id}")]
         public void Delete(int id)

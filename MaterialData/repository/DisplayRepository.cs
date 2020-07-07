@@ -19,9 +19,19 @@ namespace MaterialData.repository
                 .ToList();
         }
 
-       /* public override void Update(int id, display t)
+        public override void Update(int id, display display)
         {
-            throw new System.NotImplementedException();
-        }*/
+            var existingItem = Entities.Find<display>(id);
+
+            if (existingItem != null)
+            {
+                existingItem.serial_number = display.serial_number;
+                existingItem.make = display.make;
+                existingItem.model = display.model;
+                existingItem.location_id = display.location_id;
+
+                Entities.SaveChanges();
+            }
+        }
     }
 }

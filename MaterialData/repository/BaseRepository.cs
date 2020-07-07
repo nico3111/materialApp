@@ -39,6 +39,6 @@ namespace MaterialData.repository
             Entities.SaveChanges();
         }
 
-        //public abstract void Update(int id, T t);        
+        public abstract void Update(int id, T t);        
     }
 }

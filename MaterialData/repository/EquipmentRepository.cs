@@ -19,9 +19,21 @@ namespace MaterialData.repository
                 .ToList();
         }
 
-        /*public override void Update(int id, equipment t)
+        public override void Update(int id, equipment equipment)
         {
-            throw new System.NotImplementedException();
-        }*/
+            var existingItem = Entities.Find<equipment>(id);
+
+            if (existingItem != null)
+            {
+                existingItem.type = equipment.type;
+                existingItem.make = equipment.make;
+                existingItem.model = equipment.model;
+                existingItem.person_id = equipment.person_id;
+                existingItem.location_id = equipment.location_id;
+                existingItem.quantity = equipment.quantity;
+
+                Entities.SaveChanges();
+            }
+        }
     }
 }
