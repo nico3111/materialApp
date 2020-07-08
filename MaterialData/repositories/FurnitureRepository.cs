@@ -22,14 +22,16 @@ namespace MaterialData.repository
 
         public override void IsValid(furniture item)
         {
+            string err = "Bitte mindestens ";
             if (string.IsNullOrEmpty(item.type))
-                throw new InvalidInputException("Bitte Art angeben, Pappnase!");
-
+                err += "Art ";
             if (item.quantity.Equals(null))
-                throw new InvalidInputException("Bitte Menge angeben!");
-
+                err += "Anzahl ";
             if (item.location_id.Equals(null))
-                throw new InvalidInputException("Bitte Ort angeben!");
+                err += "Standort ";
+
+            err += "angeben!";
+            throw new InvalidInputException(err);
         }
     }
 }

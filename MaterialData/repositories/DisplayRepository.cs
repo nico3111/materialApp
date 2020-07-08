@@ -1,4 +1,5 @@
-﻿using MaterialData.models;
+﻿using MaterialData.exceptions;
+using MaterialData.models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -21,7 +22,16 @@ namespace MaterialData.repository
 
         public override void IsValid(display item)
         {
-            throw new System.NotImplementedException();
+            string err = "Bitte mindestens ";
+            if (string.IsNullOrEmpty(item.make))
+                err += "Marke ";
+            if (string.IsNullOrEmpty(item.model))
+                err += "Modell ";
+            if (item.location_id.Equals(null))
+                err += "Standort ";
+
+            err += "angeben!";
+            throw new InvalidInputException(err);
         }
     }
 }

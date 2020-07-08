@@ -1,4 +1,5 @@
-﻿using MaterialData.models;
+﻿using MaterialData.exceptions;
+using MaterialData.models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -22,7 +23,14 @@ namespace MaterialData.repository
 
         public override void IsValid(equipment item)
         {
-            //
+            string err = "Bitte mindestens ";
+            if (string.IsNullOrEmpty(item.type))
+                err += "Art ";
+            if (item.quantity.Equals(null))
+                err += "Anzahl ";
+
+            err += "angeben!";
+            throw new InvalidInputException(err);
         }
     }
 }
