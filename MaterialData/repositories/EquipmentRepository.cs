@@ -19,5 +19,10 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.address)
                 .ToList();
         }
+
+        public override void IsValid(equipment item)
+        {
+            //
+        }
     }
 }

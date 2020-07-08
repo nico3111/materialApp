@@ -1,5 +1,6 @@
 ﻿using MaterialData.models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace MaterialData.repository
@@ -18,6 +19,15 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
+        }
+
+        public override void IsValid(book item)
+        {
+            if (string.IsNullOrEmpty(item.isbn))
+                throw new Exception("need a isbn!");
+
+            if (string.IsNullOrEmpty(item.title))
+                throw new Exception("need a title!");
         }
     }
 }

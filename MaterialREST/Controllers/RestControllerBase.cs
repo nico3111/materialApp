@@ -1,9 +1,12 @@
 ﻿using MaterialData;
 using MaterialData.models;
 using MaterialData.repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 
 namespace MaterialREST.Controllers
 {
@@ -79,22 +82,29 @@ namespace MaterialREST.Controllers
         {
             try
             {
+                Repo.IsValid(item);
+
                 Repo.Save(item);
                 Response.StatusCode = 201;
             }
-            catch (System.Exception e)
+            catch (MaterialData.exceptions.InvalidInputException e)
+            {
+                Response.StatusCode = 403;
+                Response.WriteAsync(e.Message);
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
             }
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] T item)
+        [HttpPut]
+        public void Put([FromBody] T item)
         {
             try
             {
-                Repo.Update(id, item);
+                Repo.Update(item);
                 Response.StatusCode = 200;
             }
             catch (System.Exception e)

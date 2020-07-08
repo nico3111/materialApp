@@ -15,6 +15,8 @@ namespace MaterialData.repository
 
         public abstract void GetRelation();
 
+        public abstract void IsValid(T item);
+
         public void Delete(int id)
         {
             var t = Entities.Find<T>(id);
@@ -41,19 +43,10 @@ namespace MaterialData.repository
             Entities.SaveChanges();
         }
 
-        public void Update(int id, T t)
+        public void Update(T t)
         {
-            T item = Entities.Find<T>(id);
-
-            if (item != null)
-            {
-                t.id = id;
-
-                Entities.Remove(item);
-                Entities.Add(t);
-
-                Entities.SaveChanges();
-            }
+            Entities.Update<T>(t);
+            Entities.SaveChanges();
         }
     }
 }
