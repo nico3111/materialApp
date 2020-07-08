@@ -95,6 +95,7 @@ export default class ShowBook extends React.Component {
 
         const body = {
             id: this.state.toUpdate.id,
+            title: this.state.toUpdate.title,
             isbn: this.state.toUpdate.isbn,
             person_id: person_id,
             //     location_id: location
@@ -138,7 +139,8 @@ export default class ShowBook extends React.Component {
                     <div className="line-text">Bücher</div>
                     <div className="line2"></div>
                 </div>
-
+                <AddBook fetchDisplays={this.fetchDisplays} />
+                
                 {this.state.allBooks.map(allBooks => (
                     <div className="notebooks">
                         <div className="show-list">
@@ -158,6 +160,7 @@ export default class ShowBook extends React.Component {
 
                                 <div className="modal-wrapper">
                                     <div className="modal-main-text">Buch Update
+                                       <input value={this.state.toUpdate.title} name="title" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <input value={this.state.toUpdate.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                                             <option value="" disabled defaultValue hidden>Person auswählen</option>
@@ -175,7 +178,7 @@ export default class ShowBook extends React.Component {
 
                         </div>
                     </div>))}
-                <AddBook fetchDisplays={this.fetchDisplays} />
+
             </div>
         )
     }

@@ -94,8 +94,8 @@ export default class AddNotebook extends React.Component {
 
             let result = await fetch('http://192.168.0.94:8015/material/notebook', req)
             const r = await result.text()
-            console.log(r)
-            console.log(r.body)
+            if (r !== "")
+                alert(r)
 
             this.props.fetchNotebooks()
 
@@ -109,9 +109,7 @@ export default class AddNotebook extends React.Component {
 
             console.log(body)
         } catch (error) {
-            console.log("erroooooor")
-            console.log(error)
-            console.log(error.body)
+            alert(error)
         }
     }
 

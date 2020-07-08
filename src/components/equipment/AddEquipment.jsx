@@ -98,6 +98,9 @@ export default class AddDisplay extends React.Component {
             }
 
             let result = await fetch('http://192.168.0.94:8015/material/equipment', req)
+            const r = await result.text()
+            if (r !== "")
+                alert(r)
 
             this.props.fetchDisplays()
 

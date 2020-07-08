@@ -142,7 +142,7 @@ export default class ShowEquipment extends React.Component {
                     <div className="line-text">Zubehör</div>
                     <div className="line2"></div>
                 </div>
-
+                <AddEquipment fetchDisplays={this.fetchDisplays} />
                 {this.state.allEquipment.map(allEquipment => (
                     <div className="notebooks">
                         <div className="show-list">
@@ -157,17 +157,17 @@ export default class ShowEquipment extends React.Component {
 
                             <div className="button-wrapper">
                                 <div className="add-button2" onClick={() => this.deleteData(allEquipment.id)}>Löschen</div>
-                                <div className="add-button2" onClick={() => this.onOpenModal(allEquipment)}>Update</div>
+                                <div className="add-button2" onClick={() => this.onOpenModal(allEquipment)}>Ändern</div>
                             </div>
 
                             {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
 
                                 <div className="modal-wrapper">
                                     <div className="modal-main-text">Buch Update
-                                    <input value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
-                                    <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                                    <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                                    <input value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
+                                    <input value={this.state.toUpdate.type} name="type" placeholder="Art" onChange={(event) => this.updateWithEvent(event)}></input>
+                                    <input value={this.state.toUpdate.model} name="model" placeholder="Modell" onChange={(event) => this.updateWithEvent(event)}></input>
+                                    <input value={this.state.toUpdate.make} name="make" placeholder="Marke" onChange={(event) => this.updateWithEvent(event)}></input>
+                                    <input min="1" type="number" value={this.state.quantity} name="quantity" placeholder="Menge" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                                             <option value="" disabled defaultValue hidden>Person auswählen</option>
                                             {this.state.personen.map((personen, key) => {
@@ -182,7 +182,7 @@ export default class ShowEquipment extends React.Component {
 
                         </div>
                     </div>))}
-                <AddEquipment fetchDisplays={this.fetchDisplays} />
+
             </div>
         )
     }

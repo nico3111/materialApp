@@ -5,8 +5,6 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 const { fetchPersons } = require('../../util/HttpHelper')
 
-
-
 export default class ShowNotebook extends React.Component {
 
     state = {
@@ -134,12 +132,13 @@ export default class ShowNotebook extends React.Component {
         return (
 
             <div className="notebooks-wrapper">
+
                 <div className="line-wrapper">
                     <div className="line"></div>
                     <div className="line-text">Notebooks</div>
                     <div className="line2"></div>
                 </div>
-
+                <AddNotebook fetchNotebooks={this.fetchNotebooks} />
                 {this.state.allnotebooks.map(allnotebook => (
                     <div className="notebooks">
                         <div className="show-list">
@@ -178,7 +177,7 @@ export default class ShowNotebook extends React.Component {
 
                         </div>
                     </div>))}
-                <AddNotebook fetchNotebooks={this.fetchNotebooks} />
+
             </div>
         )
     }
