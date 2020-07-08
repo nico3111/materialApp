@@ -35,7 +35,7 @@ namespace MaterialData.repository
 
             if (errList.Count > 0)
             {
-                string err = "Bitte mindestens ";
+                string err = "Bitte mindestens\n";
                 foreach (string s in errList)
                 {
                     err += $"{s}\n";
