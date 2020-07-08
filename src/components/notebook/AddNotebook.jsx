@@ -1,7 +1,8 @@
 import React from 'react';
 import '../notebook/SaveNewNotebook.css';
+const { fetchPersons } = require('../../util/HttpHelper')
 
-export default class SaveNewNotebook extends React.Component {
+export default class AddNotebook extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,21 +17,18 @@ export default class SaveNewNotebook extends React.Component {
             rooms: [],
             paramsRoom: { id: null },
             selectedRoom: ''
+
         }
     }
 
     async componentDidMount() {
         await this.fetchRooms()
-        await this.fetchPersons()
+
+        const persons = await fetchPersons()
+        console.log(persons)
+        this.setState({ personen: persons });
     }
 
-    fetchPersons = async () => {
-        const url = "http://192.168.0.94:8016/person";
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data)
-        this.setState({ personen: data });
-    }
 
     fetchRooms = async () => {
         const url = "http://192.168.0.94:8015/material/notebook";
@@ -41,12 +39,10 @@ export default class SaveNewNotebook extends React.Component {
     }
 
     handlePersonChange = changeEvent => {
+        var selectedPerson = JSON.parse(changeEvent.target.value);
+
         this.setState({
             selectedPerson: changeEvent.target.value,
-        })
-        var selectedPerson = JSON.parse(changeEvent.target.value);
-        this.setState({
-            ...this.state.params,
             id: selectedPerson.id,
 
         })
@@ -75,7 +71,7 @@ export default class SaveNewNotebook extends React.Component {
 
     async postData() {
 
-        var person = this.state.id === '' ? null : Number(this.state.id)
+        var person = this.state.selectedPerson.id === '' ? null : Number(this.state.selectedPerson.id)
         var location = this.state.location_id === '' ? null : Number(this.state.location_id)
 
         const body = {
@@ -97,6 +93,9 @@ export default class SaveNewNotebook extends React.Component {
             }
 
             let result = await fetch('http://192.168.0.94:8015/material/notebook', req)
+            const r = await result.text()
+            console.log(r)
+            console.log(r.body)
 
             this.props.fetchNotebooks()
 
@@ -110,7 +109,9 @@ export default class SaveNewNotebook extends React.Component {
 
             console.log(body)
         } catch (error) {
+            console.log("erroooooor")
             console.log(error)
+            console.log(error.body)
         }
     }
 
@@ -118,10 +119,10 @@ export default class SaveNewNotebook extends React.Component {
         return (
             <div className="input-wrapper">
                 <div className="head-text">Neues Notebook</div>
-                <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
+                <input className="input-field" value={this.state.make} required name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
                 <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
                 <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
-                
+
                 <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                     <option value="" disabled defaultValue hidden>Person auswählen</option>
                     {this.state.personen.map((personen, key) => {
@@ -129,7 +130,7 @@ export default class SaveNewNotebook extends React.Component {
                     })}
                 </select>
                 <input className="input-field" value={this.state.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)} placeholder="Standort"></input>
-                <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
+                <div type="submit" className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
             </div>
         )
     }

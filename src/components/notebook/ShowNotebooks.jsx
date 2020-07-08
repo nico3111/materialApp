@@ -1,37 +1,36 @@
 import React from 'react';
 import '../notebook/AllNotebook.css'
-import AddEquipment from './AddEquipment';
+import AddNotebook from './AddNotebook';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 const { fetchPersons } = require('../../util/HttpHelper')
 
-export default class ShowEquipment extends React.Component {
+
+
+export default class ShowNotebook extends React.Component {
 
     state = {
-        allEquipment: [],
         loading: true,
+        allnotebooks: [],
         open: false,
         showUpdate: false,
         toUpdate: null,
         params: { id: null },
-        selectedPerson: ''
+        selectedPerson: '',
     };
 
-
-
     async componentDidMount() {
-        this.fetchDisplays()
+        this.fetchNotebooks()
 
         const persons = await fetchPersons()
         this.setState({ personen: persons });
     }
 
-    fetchDisplays = async () => {
-        const url = "http://192.168.0.94:8015/material/equipment";
+    fetchNotebooks = async () => {
+        const url = "http://192.168.0.94:8015/material/notebook";
         const response = await fetch(url);
         const data = await response.json();
-        this.setState({ allEquipment: data });
-        console.log(data)
+        this.setState({ allnotebooks: data });
     }
 
     updateWithEvent(event) {
@@ -66,10 +65,10 @@ export default class ShowEquipment extends React.Component {
         if (window.confirm("Möchten Sie wirklich löschen")) {
 
             try {
-                fetch("http://192.168.0.94:8015/material/equipment/" + id, {
+                fetch("http://192.168.0.94:8015/material/notebook/" + id, {
                     method: 'delete',
                     mode: 'cors'
-                }).then(this.fetchDisplays)
+                }).then(this.fetchNotebooks)
 
             } catch (error) {
                 console.log(error)
@@ -88,7 +87,7 @@ export default class ShowEquipment extends React.Component {
 
     async putData() {
         console.log(this.state.selectedPerson)
-        console.log(this.state.id)
+        console.log(this.state.selectedPerson.id)
 
         var person_id = this.state.id === '' ? null : Number(this.state.id)
         // var location = this.state.notebook.location_id === '' ? null : Number(this.state.notebook.location_id)
@@ -96,10 +95,9 @@ export default class ShowEquipment extends React.Component {
 
         const body = {
             id: this.state.toUpdate.id,
-            type: this.state.toUpdate.type,
-            model: this.state.toUpdate.model,
+            serial_number: this.state.toUpdate.serial_number,
             make: this.state.toUpdate.make,
-            quantity: this.state.toUpdate.quantity,
+            model: this.state.toUpdate.model,
             person_id: person_id,
             //     location_id: location
         }
@@ -114,9 +112,9 @@ export default class ShowEquipment extends React.Component {
                 body: JSON.stringify(body)
             }
 
-            let result = await fetch('http://192.168.0.94:8015/material/equipment/', req)
+            let result = await fetch('http://192.168.0.94:8015/material/notebook/', req)
 
-            this.fetchDisplays()
+            this.fetchNotebooks()
 
             this.onCloseModal();
 
@@ -126,48 +124,46 @@ export default class ShowEquipment extends React.Component {
         }
     }
 
-
     render() {
+
         if (this.props.isShowing === false) {
             return null;
         }
-
         const { open } = this.state;
 
         return (
-            <div className="notebooks-wrapper">
 
+            <div className="notebooks-wrapper">
                 <div className="line-wrapper">
                     <div className="line"></div>
-                    <div className="line-text">Zubehör</div>
+                    <div className="line-text">Notebooks</div>
                     <div className="line2"></div>
                 </div>
 
-                {this.state.allEquipment.map(allEquipment => (
+                {this.state.allnotebooks.map(allnotebook => (
                     <div className="notebooks">
                         <div className="show-list">
-                            <div className="head-text">Zubehör</div>
-                            <div>Art: {allEquipment.type}</div><br></br>
-                            <div>Modell: {allEquipment.model}</div><br></br>
-                            <div>Marke: {allEquipment.make}</div><br></br>
-                            <div>Menge: {allEquipment.quantity}</div><br></br>
-                            <div>Person: {allEquipment.person != null ? allEquipment.person.name1 + " " + allEquipment.person.name2 : ""}</div><br></br>
-                            <div>Standort: {allEquipment.classroom != null ? allEquipment.classroom.addressloc.address.place : ""}</div><br></br>
-                            <div>Räumlichkeit: {allEquipment.classroom != null ? allEquipment.classroom.room : ""}</div><br></br>
+                            <div className="head-text">Notebook</div>
+                            <div>Marke: {allnotebook.make}</div><br></br>
+                            <div>Modell: {allnotebook.model}</div><br></br>
+                            <div>SN: {allnotebook.serial_number}</div><br></br>
+                            <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
+                            <div>Standort: {allnotebook.classroom != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br>
+                            <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div><br></br>
 
                             <div className="button-wrapper">
-                                <div className="add-button2" onClick={() => this.deleteData(allEquipment.id)}>Löschen</div>
-                                <div className="add-button2" onClick={() => this.onOpenModal(allEquipment)}>Update</div>
+                                <div className="add-button2" onClick={() => this.deleteData(allnotebook.id)}>Löschen</div>
+                                <div className="add-button2" onClick={() => this.onOpenModal(allnotebook)}>Ändern</div>
                             </div>
+
 
                             {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
 
                                 <div className="modal-wrapper">
-                                    <div className="modal-main-text">Buch Update
-                                    <input value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
-                                    <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                                    <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                                    <input value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
+                                    <div className="modal-main-text">Update Notebook
+                                        <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
+                                        <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
+                                        <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                                             <option value="" disabled defaultValue hidden>Person auswählen</option>
                                             {this.state.personen.map((personen, key) => {
@@ -182,7 +178,7 @@ export default class ShowEquipment extends React.Component {
 
                         </div>
                     </div>))}
-                <AddEquipment fetchDisplays={this.fetchDisplays} />
+                <AddNotebook fetchNotebooks={this.fetchNotebooks} />
             </div>
         )
     }

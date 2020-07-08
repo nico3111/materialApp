@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
 import Head from './components/header/Head';
-import ShowAllNotebook from './components/notebook/ShowAllNotebooks';
+import ShowNotebook from './components/notebook/ShowNotebooks';
 import FilterButton from './components/filterButton/FilterButton';
-import SaveNewNotebook from './components/notebook/SaveNewNotebook';
 import ShowDispaly from './components/display/ShowDisplay';
-import AddDisplay from './components/display/AddDisplay';
 import ShowFurniture from './components/furniture/ShowFurniture';
-import AddFurniture from './components/furniture/AddFurniture';
 import ShowBook from './components/books/ShowBook';
 import ShowEquipment from './components/equipment/ShowEquipment';
 
@@ -42,7 +39,7 @@ class App extends React.Component {
             <FilterButton onClick={() => this.setState({ showAllBooks: !this.state.showAllBooks })} title="Bücher" isActive={this.state.showAllBooks} />
             <FilterButton onClick={() => this.setState({ showEquipment: !this.state.showEquipment })} title="Zubehör" isActive={this.state.showEquipment} />
           </div>
-          {this.state.showAllNotebooks && <ShowAllNotebook isShowing={this.state.showAllNotebooks} />}
+          {this.state.showAllNotebooks && <ShowNotebook isShowing={this.state.showAllNotebooks} />}
           {this.state.showAllDisplay && <ShowDispaly isShowing={this.state.showAllDisplay} />}
           {this.state.showAllFurniture && <ShowFurniture isShowing={this.state.showAllFurniture} />}
           {this.state.showAllBooks && <ShowBook isShowing={this.state.showAllBooks} />}

@@ -1,8 +1,8 @@
-function fetchData() {
-    return fetch('http://192.168.0.94:8015/material/notebook')
-    .then(response => response.json()).catch(err => console.log(err))
+function fetchPersons() {
+    return fetch("http://192.168.0.94:8016/person")
+    .then(response => response.json())
 }
 
 export{
-    fetchData
+    fetchPersons
 }
