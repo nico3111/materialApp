@@ -90,6 +90,11 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 403;
                 Response.WriteAsync(e.Message);
             }
+            catch (MaterialData.exceptions.DuplicateEntryException e)
+            {
+                Response.StatusCode = 409;
+                Response.WriteAsync(e.Message);
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);

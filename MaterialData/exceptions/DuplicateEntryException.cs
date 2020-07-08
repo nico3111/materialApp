@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MaterialData.exceptions
 {
-    class DuplicateEntryException : Exception
+    public class DuplicateEntryException : Exception
     {
         public DuplicateEntryException()
         {
