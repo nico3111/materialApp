@@ -2,6 +2,7 @@
 using MaterialData.models;
 using MaterialData.repository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MaterialData
@@ -24,16 +25,27 @@ namespace MaterialData
 
         public override void IsValid(notebook item)
         {
-            string err = "Bitte mindestens ";
+            List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.make))
-                err += "Marke ";
-            if (string.IsNullOrEmpty(item.model))
-                err += "Modell ";
-            if (string.IsNullOrEmpty(item.serial_number))
-                err += "Seriennummer ";
+                errList.Add("-Marke-");
 
-            err += "angeben!";
-            throw new InvalidInputException(err);
+            if (string.IsNullOrEmpty(item.model))
+                errList.Add("-Modell-");
+
+            if (string.IsNullOrEmpty(item.serial_number))
+                errList.Add("-Seriennummer-");
+
+            if (errList.Count > 0)
+            {
+                string err = "Bitte mindestens ";
+                foreach (string s in errList)
+                {
+                    err += $"{s} ";
+                }
+                err += "angeben!";
+
+                throw new InvalidInputException(err);
+            }
         }
     }
 }

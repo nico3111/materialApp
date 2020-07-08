@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 
 namespace MaterialData.exceptions
 {
