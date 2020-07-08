@@ -36,7 +36,7 @@ namespace MaterialData.repository
                 string err = "Bitte mindestens ";
                 foreach (string s in errList)
                 {
-                    err += $"{s} ";
+                    err += $"{s}\n";
                 }
                 err += "angeben!";
 

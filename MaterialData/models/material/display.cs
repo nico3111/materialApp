@@ -5,7 +5,7 @@
         public string serial_number { get; set; }
         public string make { get; set; }
         public string model { get; set; }
-        public int location_id { get; set; }
+        public int? location_id { get; set; }
         public classroom classroom { get; set; }
     }
 }

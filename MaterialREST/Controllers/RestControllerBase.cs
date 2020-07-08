@@ -105,7 +105,7 @@ namespace MaterialREST.Controllers
                 Repo.Update(item);
                 Response.StatusCode = 200;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 Response.StatusCode = 500;
@@ -120,7 +120,7 @@ namespace MaterialREST.Controllers
                 Repo.Delete(id);
                 Response.StatusCode = 200;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 Response.StatusCode = 500;
             }

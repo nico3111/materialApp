@@ -35,12 +35,18 @@ namespace MaterialData
             if (string.IsNullOrEmpty(item.serial_number))
                 errList.Add("-Seriennummer-");
 
+            /*var existingItem = Entities.Find<notebook>(item.serial_number);
+            if (existingItem != null)
+            {
+                throw new DuplicateEntryException("Seriennummer in DB bereits vorhanden!");
+            }*/
+
             if (errList.Count > 0)
             {
-                string err = "Bitte mindestens ";
+                string err = "Bitte mindestens\n";
                 foreach (string s in errList)
                 {
-                    err += $"{s} ";
+                    err += $"{s}\n";
                 }
                 err += "angeben!";
 

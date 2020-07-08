@@ -28,7 +28,7 @@ namespace MaterialData.repository
             if (string.IsNullOrEmpty(item.type))
                 errList.Add("-Art-");
 
-            if (item.quantity.Equals(null))
+            if (item.quantity == (null))
                 errList.Add("-Anzahl-");
 
             if (errList.Count > 0)
@@ -36,7 +36,7 @@ namespace MaterialData.repository
                 string err = "Bitte mindestens ";
                 foreach (string s in errList)
                 {
-                    err += $"{s} ";
+                    err += $"{s}\n";
                 }
                 err += "angeben!";
 

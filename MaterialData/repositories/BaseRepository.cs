@@ -45,7 +45,7 @@ namespace MaterialData.repository
 
         public void Update(T t)
         {
-            Entities.Update<T>(t);
+            Entities.Update(t);
             Entities.SaveChanges();
         }
     }
