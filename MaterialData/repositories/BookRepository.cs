@@ -26,10 +26,10 @@ namespace MaterialData.repository
         {
             List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.title))
-                errList.Add("-Titel-");
+                errList.Add("-𝗧𝗶𝘁𝗲𝗹-");
 
             if (string.IsNullOrEmpty(item.isbn))
-                errList.Add("-ISBN-");
+                errList.Add("-𝗜𝗦𝗕𝗡-");
 
             if (errList.Count > 0)
             {

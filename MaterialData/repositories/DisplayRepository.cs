@@ -25,10 +25,10 @@ namespace MaterialData.repository
         {
             List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.make))
-                errList.Add("-Marke-");
+                errList.Add("-𝗠𝗮𝗿𝗸𝗲-");
 
             if (string.IsNullOrEmpty(item.model))
-                errList.Add("-Modell-");
+                errList.Add("-𝗠𝗼𝗱𝗲𝗹𝗹-");
 
             var existingItem = Entities.Set<display>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null)
