@@ -104,7 +104,8 @@ export default class AddDisplay extends React.Component {
                 title: '',
                 isbn: '',
                 person_id: '',
-                location_id: ''
+                location_id: '',
+                selectedPerson: ''
             })
 
             console.log(body)

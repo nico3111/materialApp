@@ -97,7 +97,7 @@ export default class ShowNotebook extends React.Component {
             make: this.state.toUpdate.make,
             model: this.state.toUpdate.model,
             person_id: person_id,
-            //     location_id: location
+            // location_id: location
         }
 
         try {

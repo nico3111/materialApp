@@ -16,19 +16,24 @@ export default class AddNotebook extends React.Component {
             selectedPerson: '',
             rooms: [],
             paramsRoom: { id: null },
-            selectedRoom: ''
-
+            selectedRoom: '',
+            personId: ''
         }
     }
 
     async componentDidMount() {
         await this.fetchRooms()
-
-        const persons = await fetchPersons()
-        console.log(persons)
-        this.setState({ personen: persons });
+        await this.fetchPersons()
     }
 
+    
+    fetchPersons = async () => {
+        const url = "http://192.168.0.94:8016/person";
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data)
+        this.setState({ personen: data });
+    }
 
     fetchRooms = async () => {
         const url = "http://192.168.0.94:8015/material/notebook";
@@ -43,9 +48,9 @@ export default class AddNotebook extends React.Component {
 
         this.setState({
             selectedPerson: changeEvent.target.value,
-            id: selectedPerson.id,
-
+            person_id: selectedPerson.id,
         })
+        console.log(selectedPerson.id)
     }
 
     handleRoomChange = changeEvent => {
@@ -70,15 +75,14 @@ export default class AddNotebook extends React.Component {
     }
 
     async postData() {
-
-        var person = this.state.selectedPerson.id === '' ? null : Number(this.state.selectedPerson.id)
+        var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
         var location = this.state.location_id === '' ? null : Number(this.state.location_id)
-
+        
         const body = {
             serial_number: this.state.serial_number,
             make: this.state.make,
             model: this.state.model,
-            person_id: person,
+            person_id: person_id,
             location_id: location
         }
 
@@ -104,7 +108,8 @@ export default class AddNotebook extends React.Component {
                 make: '',
                 model: '',
                 location_id: '',
-                person_id: ''
+                person_id: '',
+                selectedPerson: ''
             })
 
             console.log(body)
@@ -122,10 +127,10 @@ export default class AddNotebook extends React.Component {
                 <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
 
                 <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                    <option value="" disabled defaultValue hidden>Person auswählen</option>
-                    {this.state.personen.map((personen, key) => {
-                        return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
-                    })}
+                        <option value="" disabled defaultValue hidden>Person auswählen</option>
+                        {this.state.personen.map((personen, key) => {
+                            return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                        })}
                 </select>
                 <input className="input-field" value={this.state.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)} placeholder="Standort"></input>
                 <div type="submit" className="add-button" onClick={() => this.postData()}>Hinzufügen</div>

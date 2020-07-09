@@ -110,7 +110,8 @@ export default class AddDisplay extends React.Component {
                 make: '',
                 quantity: '',
                 person_id: '',
-                location_id: ''
+                location_id: '',
+                selectedPerson: ''
             })
 
             console.log(body)
