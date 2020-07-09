@@ -44,13 +44,21 @@ export default class AddNotebook extends React.Component {
     }
 
     handlePersonChange = changeEvent => {
-        var selectedPerson = JSON.parse(changeEvent.target.value);
-
-        this.setState({
-            selectedPerson: changeEvent.target.value,
-            person_id: selectedPerson.id,
-        })
-        console.log(selectedPerson.id)
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedPerson = JSON.parse(value)
+    
+            this.setState({
+                selectedPerson: value,
+                person_id: selectedPerson.id,
+            })
+            console.log(selectedPerson.id)
+        } else {
+            this.setState({
+                selectedPerson: '',
+                person_id: ''
+            })
+        }
     }
 
     handleRoomChange = changeEvent => {
@@ -127,7 +135,7 @@ export default class AddNotebook extends React.Component {
                 <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
 
                 <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                        <option value="" disabled defaultValue hidden>Person auswählen</option>
+                        <option value="" defaultValue >Person auswählen</option>
                         {this.state.personen.map((personen, key) => {
                             return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
                         })}

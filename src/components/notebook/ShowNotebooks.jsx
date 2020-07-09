@@ -75,19 +75,28 @@ export default class ShowNotebook extends React.Component {
     }
 
     handlePersonChange = changeEvent => {
-        var selectedPerson = JSON.parse(changeEvent.target.value);
-
-        this.setState({
-            selectedPerson: changeEvent.target.value,
-            id: selectedPerson.id,
-        })
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedPerson = JSON.parse(value)
+    
+            this.setState({
+                selectedPerson: value,
+                person_id: selectedPerson.id,
+            })
+            console.log(selectedPerson.id)
+        } else {
+            this.setState({
+                selectedPerson: '',
+                person_id: ''
+            })
+        }
     }
 
     async putData() {
         console.log(this.state.selectedPerson)
         console.log(this.state.selectedPerson.id)
 
-        var person_id = this.state.id === '' ? null : Number(this.state.id)
+        var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
         // var location = this.state.notebook.location_id === '' ? null : Number(this.state.notebook.location_id)
 
 
@@ -164,7 +173,7 @@ export default class ShowNotebook extends React.Component {
                                         <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                                            <option value="" disabled defaultValue hidden>Person auswählen</option>
+                                            <option value="" defaultValue>Person auswählen</option>
                                             {this.state.personen.map((personen, key) => {
                                                 return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
                                             })}
