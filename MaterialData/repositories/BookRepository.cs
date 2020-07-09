@@ -43,5 +43,10 @@ namespace MaterialData.repository
                 throw new InvalidInputException(err);
             }
         }
+
+        public override book SetDefaultLocation(book item)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

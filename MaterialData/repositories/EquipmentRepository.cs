@@ -43,5 +43,10 @@ namespace MaterialData.repository
                 throw new InvalidInputException(err);
             }
         }
+
+        public override equipment SetDefaultLocation(equipment item)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

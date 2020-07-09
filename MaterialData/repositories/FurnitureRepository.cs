@@ -45,5 +45,10 @@ namespace MaterialData.repository
                 throw new InvalidInputException(err);
             }
         }
+
+        public override furniture SetDefaultLocation(furniture item)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

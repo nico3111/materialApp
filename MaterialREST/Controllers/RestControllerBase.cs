@@ -81,6 +81,7 @@ namespace MaterialREST.Controllers
             try
             {
                 Repo.IsValid(item);
+                item = Repo.SetDefaultLocation(item);
 
                 Repo.Save(item);
                 Response.StatusCode = 201;
@@ -99,6 +100,7 @@ namespace MaterialREST.Controllers
             {
                 Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
+                Response.WriteAsync(e.Message);
             }
         }
 

@@ -33,6 +33,10 @@ namespace MaterialData.repository
             if (item.location_id == (null))
                 errList.Add("-Standort-");
 
+            var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
+            if (existingItem != null)
+                throw new DuplicateEntryException("Seriennummer in Datenbank bereits vorhanden!");
+
             if (errList.Count > 0)
             {
                 string err = "Bitte mindestens\n";
@@ -44,6 +48,11 @@ namespace MaterialData.repository
 
                 throw new InvalidInputException(err);
             }
+        }
+
+        public override display SetDefaultLocation(display item)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -15,6 +15,13 @@ namespace MaterialData.repository
 
         public abstract void GetRelation();
 
+        public abstract T SetDefaultLocation(T item);
+
+        /// <summary>
+        /// Throws Exception if Entry is Invalid
+        /// </summary>
+        /// <param name="item"></param>
+        ///
         public abstract void IsValid(T item);
 
         public void Delete(int id)
