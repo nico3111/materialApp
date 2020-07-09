@@ -83,10 +83,6 @@ namespace MaterialREST.Controllers
                 Repo.IsValid(item);
                 var item1 = Repo.SetDefaultLocation(item);
                 Repo.Save(item1);
-                if (!item1.Equals(item))
-                {
-                    Response.WriteAsync($"Lagerplatz auf Standard geändert");
-                }
                 Response.StatusCode = 201;
             }
             catch (MaterialData.exceptions.InvalidInputException e)
@@ -101,7 +97,6 @@ namespace MaterialREST.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
                 Response.WriteAsync(e.Message);
             }

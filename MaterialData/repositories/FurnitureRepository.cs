@@ -30,9 +30,6 @@ namespace MaterialData.repository
             if (item.quantity == null)
                 errList.Add("-Anzahl-");
 
-            if (item.location_id == (null))
-                errList.Add("-Standort-");
-
             if (errList.Count > 0)
             {
                 string err = "Bitte mindestens\n";

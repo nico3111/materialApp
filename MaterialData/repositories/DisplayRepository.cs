@@ -30,10 +30,7 @@ namespace MaterialData.repository
             if (string.IsNullOrEmpty(item.model))
                 errList.Add("-Modell-");
 
-            if (item.location_id == (null))
-                errList.Add("-Standort-");
-
-            var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
+            var existingItem = Entities.Set<display>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null)
                 throw new DuplicateEntryException("Seriennummer in Datenbank bereits vorhanden!");
 
