@@ -7,6 +7,7 @@ namespace MaterialData.repository
     public abstract class BaseRepository<T> where T : Material
     {
         public DcvEntities Entities;
+        public int defaultLocation = 4; //id in DB
 
         public BaseRepository(DcvEntities entities)
         {
@@ -15,6 +16,11 @@ namespace MaterialData.repository
 
         public abstract void GetRelation();
 
+        /// <summary>
+        /// Sets the location to storage if not entered
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public abstract T SetDefaultLocation(T item);
 
         /// <summary>

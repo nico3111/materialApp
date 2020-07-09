@@ -44,15 +44,10 @@ namespace MaterialData.repository
             }
         }
 
-        /// <summary>
-        /// Sets the location to storage if not entered
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
         public override book SetDefaultLocation(book item)
         {
             if (item.location_id == null && item.person_id == null)
-                item.location_id = 4;
+                item.location_id = defaultLocation;
             return item;
         }
     }

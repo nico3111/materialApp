@@ -53,7 +53,7 @@ namespace MaterialData.repository
         public override display SetDefaultLocation(display item)
         {
             if (item.location_id == null)
-                item.location_id = 4;
+                item.location_id = defaultLocation;
             return item;
         }
     }

@@ -4,6 +4,7 @@ using MaterialData.repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Ubiety.Dns.Core;
 
 namespace MaterialData
 {
@@ -55,7 +56,7 @@ namespace MaterialData
         public override notebook SetDefaultLocation(notebook item)
         {
             if (item.location_id == null && item.person_id == null)
-                item.location_id = 4;
+                item.location_id = defaultLocation;
             return item;
         }
     }
