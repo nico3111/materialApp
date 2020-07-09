@@ -30,6 +30,27 @@ namespace MaterialData.repository
         ///
         public abstract void IsValid(T item);
 
+        /// <summary>
+        /// Builds message returned to frontend
+        /// </summary>
+        /// <param name="errList"></param>
+        /// <returns></returns>
+        public string BuildErrorMessage(List<string> errList)
+        {
+            string err = "Bitte mindestens ";
+            for (int i = 0; i < errList.Count; i++)
+            {
+                err += $"{errList[i]}";
+                if (i + 2 < errList.Count)
+                    err += ", ";
+                else if (i + 1 < errList.Count)
+                    err += " & ";
+            }
+
+            err += " angeben!";
+            return err;
+        }
+
         public void Delete(int id)
         {
             var t = Entities.Find<T>(id);

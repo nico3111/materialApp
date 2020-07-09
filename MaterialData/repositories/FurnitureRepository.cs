@@ -25,19 +25,14 @@ namespace MaterialData.repository
         {
             List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.type))
-                errList.Add("-𝗔𝗿𝘁-");
+                errList.Add("𝗔𝗿𝘁");
 
             if (item.quantity == null)
-                errList.Add("-𝗔𝗻𝘇𝗮𝗵𝗹-");
+                errList.Add("𝗔𝗻𝘇𝗮𝗵𝗹");
 
             if (errList.Count > 0)
             {
-                string err = "Bitte mindestens\n";
-                foreach (string s in errList)
-                {
-                    err += $"{s}\n";
-                }
-                err += "angeben!";
+                string err = BuildErrorMessage(errList);
 
                 throw new InvalidInputException(err);
             }

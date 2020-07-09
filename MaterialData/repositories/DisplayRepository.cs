@@ -25,10 +25,10 @@ namespace MaterialData.repository
         {
             List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.make))
-                errList.Add("-𝗠𝗮𝗿𝗸𝗲-");
+                errList.Add("𝗠𝗮𝗿𝗸𝗲");
 
             if (string.IsNullOrEmpty(item.model))
-                errList.Add("-𝗠𝗼𝗱𝗲𝗹𝗹-");
+                errList.Add("𝗠𝗼𝗱𝗲𝗹𝗹");
 
             var existingItem = Entities.Set<display>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null)
@@ -36,12 +36,7 @@ namespace MaterialData.repository
 
             if (errList.Count > 0)
             {
-                string err = "Bitte mindestens\n";
-                foreach (string s in errList)
-                {
-                    err += $"{s}\n";
-                }
-                err += "angeben!";
+                string err = BuildErrorMessage(errList);
 
                 throw new InvalidInputException(err);
             }
