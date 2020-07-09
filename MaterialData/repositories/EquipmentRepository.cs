@@ -46,7 +46,9 @@ namespace MaterialData.repository
 
         public override equipment SetDefaultLocation(equipment item)
         {
-            throw new System.NotImplementedException();
+            if (item.location_id == null && item.person_id == null)
+                item.location_id = 4;
+            return item;
         }
     }
 }
