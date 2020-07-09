@@ -4,6 +4,7 @@ using MaterialData.repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Ubiety.Dns.Core;
 
 namespace MaterialData
 {
@@ -27,13 +28,13 @@ namespace MaterialData
         {
             List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.make))
-                errList.Add("-Marke-");
+                errList.Add("-𝗠𝗮𝗿𝗸𝗲-");
 
             if (string.IsNullOrEmpty(item.model))
-                errList.Add("-Modell-");
+                errList.Add("-𝗠𝗼𝗱𝗲𝗹𝗹-");
 
             if (string.IsNullOrEmpty(item.serial_number))
-                errList.Add("-Seriennummer-");
+                errList.Add("-𝗦𝗲𝗿𝗶𝗲𝗻𝗻𝘂𝗺𝗺𝗲𝗿-");
 
             var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null)
@@ -55,7 +56,7 @@ namespace MaterialData
         public override notebook SetDefaultLocation(notebook item)
         {
             if (item.location_id == null && item.person_id == null)
-                item.location_id = 4;
+                item.location_id = defaultLocation;
             return item;
         }
     }

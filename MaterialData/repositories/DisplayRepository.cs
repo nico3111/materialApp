@@ -25,15 +25,12 @@ namespace MaterialData.repository
         {
             List<string> errList = new List<string>();
             if (string.IsNullOrEmpty(item.make))
-                errList.Add("-Marke-");
+                errList.Add("-𝗠𝗮𝗿𝗸𝗲-");
 
             if (string.IsNullOrEmpty(item.model))
-                errList.Add("-Modell-");
+                errList.Add("-𝗠𝗼𝗱𝗲𝗹𝗹-");
 
-            if (item.location_id == (null))
-                errList.Add("-Standort-");
-
-            var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
+            var existingItem = Entities.Set<display>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null)
                 throw new DuplicateEntryException("Seriennummer in Datenbank bereits vorhanden!");
 
@@ -53,7 +50,7 @@ namespace MaterialData.repository
         public override display SetDefaultLocation(display item)
         {
             if (item.location_id == null)
-                item.location_id = 4;
+                item.location_id = defaultLocation;
             return item;
         }
     }
