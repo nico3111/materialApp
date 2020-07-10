@@ -15,10 +15,15 @@ export default class ShowNotebook extends React.Component {
         toUpdate: null,
         params: { id: null },
         selectedPerson: '',
+        rooms: [],
+        paramsRoom: { id: null },
+        selectedRoom: '',
+        personId: ''
     };
 
     async componentDidMount() {
         this.fetchNotebooks()
+        this.fetchRooms()
 
         const persons = await fetchPersons()
         this.setState({ personen: persons });
@@ -29,6 +34,14 @@ export default class ShowNotebook extends React.Component {
         const response = await fetch(url);
         const data = await response.json();
         this.setState({ allnotebooks: data });
+    }
+
+    fetchRooms = async () => {
+        const url = "http://192.168.0.94:8019/classroom";
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data)
+        this.setState({ rooms: data });
     }
 
     updateWithEvent(event) {
@@ -78,7 +91,7 @@ export default class ShowNotebook extends React.Component {
         const value = changeEvent.target.value
         if (value) {
             var selectedPerson = JSON.parse(value)
-    
+
             this.setState({
                 selectedPerson: value,
                 person_id: selectedPerson.id,
@@ -92,12 +105,30 @@ export default class ShowNotebook extends React.Component {
         }
     }
 
+    handleRoomChange = changeEvent => {
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedRoom = JSON.parse(value)
+
+            this.setState({
+                selectedRoom: value,
+                location_id: selectedRoom.id,
+            })
+            console.log(selectedRoom)
+        } else {
+            this.setState({
+                selectedRoom: '',
+                location_id: ''
+            })
+        }
+    }
+
     async putData() {
         console.log(this.state.selectedPerson)
         console.log(this.state.selectedPerson.id)
 
         var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
-        // var location = this.state.notebook.location_id === '' ? null : Number(this.state.notebook.location_id)
+        var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
 
 
         const body = {
@@ -106,7 +137,7 @@ export default class ShowNotebook extends React.Component {
             make: this.state.toUpdate.make,
             model: this.state.toUpdate.model,
             person_id: person_id,
-            // location_id: location
+            location_id: location_id
         }
 
         try {
@@ -156,8 +187,8 @@ export default class ShowNotebook extends React.Component {
                             <div>Modell: {allnotebook.model}</div><br></br>
                             <div>SN: {allnotebook.serial_number}</div><br></br>
                             <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
-                            {/* <div>Standort: {allnotebook.classroom != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br> */}
-                            <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div><br></br>
+                            <div>Standort: {allnotebook.classroom.room != null ? allnotebook.classroom.room : ""}</div><br></br>
+                            {/* <div>Räumlichkeit: {allnotebook.adresslocations[0].address.place != null ? allnotebook.adresslocations[0].address.place : ""}</div><br></br> */}
 
                             <div className="button-wrapper">
                                 <div className="add-button2" onClick={() => this.deleteData(allnotebook.id)}>Löschen</div>
@@ -176,6 +207,13 @@ export default class ShowNotebook extends React.Component {
                                             <option value="" defaultValue>Person auswählen</option>
                                             {this.state.personen.map((personen, key) => {
                                                 return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                                            })}
+                                        </select>
+
+                                        <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                                            <option value="" defaultValue >Raum auswählen</option>
+                                            {this.state.rooms.map((rooms, key) => {
+                                                return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + " / " + rooms.adresslocations[0].address.place}</option>
                                             })}
                                         </select>
 
