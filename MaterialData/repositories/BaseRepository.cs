@@ -52,11 +52,11 @@ namespace MaterialData.repository
             return err;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var t = Entities.Find<T>(id);
             Entities.Remove(t);
-            Entities.SaveChanges();
+            await Entities.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll()
@@ -72,10 +72,10 @@ namespace MaterialData.repository
             return item;
         }
 
-        public void Save(T t)
+        public async Task Save(T t)
         {
             Entities.Add(t);
-            Entities.SaveChanges();
+            await Entities.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T t)
