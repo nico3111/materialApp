@@ -156,7 +156,7 @@ export default class ShowNotebook extends React.Component {
                             <div>Modell: {allnotebook.model}</div><br></br>
                             <div>SN: {allnotebook.serial_number}</div><br></br>
                             <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
-                            <div>Standort: {allnotebook.classroom != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br>
+                            {/* <div>Standort: {allnotebook.classroom != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br> */}
                             <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div><br></br>
 
                             <div className="button-wrapper">

@@ -26,7 +26,7 @@ export default class AddNotebook extends React.Component {
         await this.fetchPersons()
     }
 
-    
+
     fetchPersons = async () => {
         const url = "http://192.168.0.94:8016/person";
         const response = await fetch(url);
@@ -36,7 +36,7 @@ export default class AddNotebook extends React.Component {
     }
 
     fetchRooms = async () => {
-        const url = "http://192.168.0.94:8015/material/notebook";
+        const url = "http://192.168.0.94:8019/classroom";
         const response = await fetch(url);
         const data = await response.json();
         console.log(data)
@@ -47,7 +47,7 @@ export default class AddNotebook extends React.Component {
         const value = changeEvent.target.value
         if (value) {
             var selectedPerson = JSON.parse(value)
-    
+
             this.setState({
                 selectedPerson: value,
                 person_id: selectedPerson.id,
@@ -85,7 +85,7 @@ export default class AddNotebook extends React.Component {
     async postData() {
         var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
         var location = this.state.location_id === '' ? null : Number(this.state.location_id)
-        
+
         const body = {
             serial_number: this.state.serial_number,
             make: this.state.make,
@@ -135,11 +135,19 @@ export default class AddNotebook extends React.Component {
                 <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
 
                 <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                        <option value="" defaultValue >Person auswählen</option>
-                        {this.state.personen.map((personen, key) => {
-                            return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
-                        })}
+                    <option value="" defaultValue >Person auswählen</option>
+                    {this.state.personen.map((personen, key) => {
+                        return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                    })}
                 </select>
+
+                <select className="input-field" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                    <option value="" defaultValue >Raum auswählen</option>
+                    {this.state.rooms.map((rooms, key) => {
+                        return <option key={key} value={JSON.stringify[rooms]}>{rooms.room + " / " + rooms.adresslocations[0].address.place}</option>
+                    })}
+                </select>
+
                 <input className="input-field" value={this.state.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)} placeholder="Standort"></input>
                 <div type="submit" className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
             </div>
