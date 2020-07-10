@@ -151,6 +151,10 @@ export default class ShowNotebook extends React.Component {
             }
 
             let result = await fetch('http://192.168.0.94:8015/material/notebook/', req)
+            const r = await result.text()
+            if (r !== "")
+                alert(r)
+
 
             this.fetchNotebooks()
 
@@ -161,6 +165,7 @@ export default class ShowNotebook extends React.Component {
             console.log(error)
         }
     }
+
 
     render() {
 
@@ -179,15 +184,17 @@ export default class ShowNotebook extends React.Component {
                     <div className="line2"></div>
                 </div>
                 <AddNotebook fetchNotebooks={this.fetchNotebooks} />
-                {this.state.allnotebooks.map(allnotebook => (
-                    <div className="notebooks">
+                {this.state.allnotebooks.map(allnotebook => {
+
+                    return (
+                        <div className="notebooks">
                         <div className="show-list">
                             <div className="head-text">Notebook</div>
                             <div>Marke: {allnotebook.make}</div><br></br>
                             <div>Modell: {allnotebook.model}</div><br></br>
                             <div>SN: {allnotebook.serial_number}</div><br></br>
                             <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
-                            <div>Standort: {allnotebook.classroom && allnotebook.classroom.adressloc != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br>
+                            <div>Standort: {allnotebook.classroom && allnotebook.classroom.addressloc != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br>
                             <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div><br></br>
 
                             <div className="button-wrapper">
@@ -223,8 +230,10 @@ export default class ShowNotebook extends React.Component {
                             </Modal>}
 
                         </div>
-                    </div>))}
-
+                    </div>
+                    )
+                }
+                )}
             </div>
         )
     }
