@@ -4,7 +4,6 @@ using MaterialData.repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Ubiety.Dns.Core;
 
 namespace MaterialData
 {
@@ -31,23 +30,18 @@ namespace MaterialData
                 errList.Add("𝗠𝗮𝗿𝗸𝗲");
 
             if (string.IsNullOrEmpty(item.model))
-            {
                 errList.Add("𝗠𝗼𝗱𝗲𝗹𝗹");
-            }
 
             if (string.IsNullOrEmpty(item.serial_number))
-            {
                 errList.Add("𝗦𝗲𝗿𝗶𝗲𝗻𝗻𝘂𝗺𝗺𝗲𝗿");
-            }
 
             var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
-            if (existingItem != null)
+            if (existingItem != null && item.id != existingItem.id)
                 throw new DuplicateEntryException("Seriennummer in Datenbank bereits vorhanden!");
 
             if (errList.Count > 0)
             {
                 string err = BuildErrorMessage(errList);
-
                 throw new InvalidInputException(err);
             }
         }

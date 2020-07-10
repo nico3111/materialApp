@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using MaterialData.exceptions;
 
 namespace MaterialREST.Controllers
 {
@@ -54,6 +55,7 @@ namespace MaterialREST.Controllers
             {
                 Console.WriteLine(e.Message);
                 Response.StatusCode = 500;
+                Response.WriteAsync(e.Message);
             }
             return items;
         }
@@ -71,63 +73,79 @@ namespace MaterialREST.Controllers
             {
                 Console.WriteLine(e);
                 Response.StatusCode = 500;
+                Response.WriteAsync(e.Message);
             }
             return item;
         }
 
         [HttpPost]
-        public void Post([FromBody] T item)
+        public async void Post([FromBody] T item)
         {
             try
             {
                 Repo.IsValid(item);
                 var item1 = Repo.SetDefaultLocation(item);
-                Repo.Save(item1);
+                await Repo.Save(item1);
                 Response.StatusCode = 201;
             }
-            catch (MaterialData.exceptions.InvalidInputException e)
+            catch (InvalidInputException e)
             {
                 Response.StatusCode = 403;
-                Response.WriteAsync(e.Message);
+                await Response.WriteAsync(e.Message);
             }
-            catch (MaterialData.exceptions.DuplicateEntryException e)
+            catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
-                Response.WriteAsync(e.Message);
+                await Response.WriteAsync(e.Message);
             }
             catch (Exception e)
             {
                 Response.StatusCode = 500;
-                Response.WriteAsync(e.Message);
+                await Response.WriteAsync(e.Message);
             }
         }
 
         [HttpPut]
-        public void Put([FromBody] T item)
+        public async void Put([FromBody] T item)
         {
             try
             {
-                Repo.Update(item);
+                Repo.IsValid(item);
+                item = Repo.SetDefaultLocation(item);
+                await Repo.UpdateAsync(item);
                 Response.StatusCode = 200;
+            }
+            catch (DuplicateEntryException e)
+            {
+                Response.StatusCode = 409;
+                await Response.WriteAsync(e.Message);
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e);
+                Response.StatusCode = 418;
+                await Response.WriteAsync(e.Message);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Response.StatusCode = 500;
+                await Response.WriteAsync(e.Message);
             }
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             try
             {
-                Repo.Delete(id);
+                await Repo.Delete(id);
                 Response.StatusCode = 200;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Response.StatusCode = 500;
+                await Response.WriteAsync(e.Message);
             }
         }
     }

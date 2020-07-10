@@ -1,6 +1,7 @@
 ﻿using MaterialData.models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MaterialData.repository
 {
@@ -31,7 +32,7 @@ namespace MaterialData.repository
         public abstract void IsValid(T item);
 
         /// <summary>
-        /// Builds message returned to frontend
+        /// Builds a errormessage thats returned to frontend
         /// </summary>
         /// <param name="errList"></param>
         /// <returns></returns>
@@ -51,11 +52,11 @@ namespace MaterialData.repository
             return err;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var t = Entities.Find<T>(id);
             Entities.Remove(t);
-            Entities.SaveChanges();
+            await Entities.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll()
@@ -71,16 +72,18 @@ namespace MaterialData.repository
             return item;
         }
 
-        public void Save(T t)
+        public async Task Save(T t)
         {
             Entities.Add(t);
-            Entities.SaveChanges();
+            await Entities.SaveChangesAsync();
         }
 
-        public void Update(T t)
+        public async Task UpdateAsync(T t)
         {
-            Entities.Update(t);
-            Entities.SaveChanges();
+            var e = Entities.Set<T>().FirstOrDefault(x => x.id == t.id);
+            Entities.Entry(e).CurrentValues.SetValues(t);
+            Entities.Update(e);
+            await Entities.SaveChangesAsync();
         }
     }
 }

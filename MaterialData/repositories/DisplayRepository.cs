@@ -31,13 +31,12 @@ namespace MaterialData.repository
                 errList.Add("𝗠𝗼𝗱𝗲𝗹𝗹");
 
             var existingItem = Entities.Set<display>().FirstOrDefault(x => x.serial_number == item.serial_number);
-            if (existingItem != null)
+            if (existingItem != null && item.id != existingItem.id)
                 throw new DuplicateEntryException("Seriennummer in Datenbank bereits vorhanden!");
 
             if (errList.Count > 0)
             {
                 string err = BuildErrorMessage(errList);
-
                 throw new InvalidInputException(err);
             }
         }
