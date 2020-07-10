@@ -33,7 +33,6 @@ namespace MaterialData.repository
             if (errList.Count > 0)
             {
                 string err = BuildErrorMessage(errList);
-
                 throw new InvalidInputException(err);
             }
         }

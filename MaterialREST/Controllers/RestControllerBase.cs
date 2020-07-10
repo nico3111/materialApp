@@ -103,12 +103,24 @@ namespace MaterialREST.Controllers
         }
 
         [HttpPut]
-        public void Put([FromBody] T item)
+        public async void Put([FromBody] T item)
         {
             try
             {
-                Repo.Update(item);
+                Repo.IsValid(item);
+                item = Repo.SetDefaultLocation(item);
+                await Repo.UpdateAsync(item);
                 Response.StatusCode = 200;
+            }
+            catch (MaterialData.exceptions.DuplicateEntryException e)
+            {
+                Response.StatusCode = 409;
+                Response.WriteAsync(e.Message);
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e);
+                Response.StatusCode = 418;
             }
             catch (Exception e)
             {
