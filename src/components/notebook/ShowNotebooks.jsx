@@ -12,13 +12,16 @@ export default class ShowNotebook extends React.Component {
         allnotebooks: [],
         open: false,
         showUpdate: false,
-        toUpdate: null,
         params: { id: null },
         selectedPerson: '',
         rooms: [],
         paramsRoom: { id: null },
         selectedRoom: '',
-        personId: ''
+        personId: '',
+        
+        toUpdate: null,
+        personToUpdate: null,
+        wasPersonToUpdateUpdated: false
     };
 
     async componentDidMount() {
@@ -61,7 +64,8 @@ export default class ShowNotebook extends React.Component {
     onOpenModal = (toUpdate) => {
         this.setState({
             open: true,
-            toUpdate: toUpdate
+            toUpdate: toUpdate,
+            personToUpdate: toUpdate.person
         });
     }
     onCloseModal = () => {
@@ -105,6 +109,25 @@ export default class ShowNotebook extends React.Component {
         }
     }
 
+    handlePersonToUpdateChange = changeEvent => {
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedPerson = JSON.parse(value)
+
+            this.setState({
+                personToUpdate: selectedPerson,
+                person_id: selectedPerson.id,
+                wasPersonToUpdateUpdated: true
+            })
+            console.log(selectedPerson.id)
+        } else {
+            this.setState({
+                personToUpdate: '',
+                person_id: ''
+            })
+        }
+    }
+
     handleRoomChange = changeEvent => {
         const value = changeEvent.target.value
         if (value) {
@@ -124,10 +147,8 @@ export default class ShowNotebook extends React.Component {
     }
 
     async putData() {
-        console.log(this.state.selectedPerson)
-        console.log(this.state.selectedPerson.id)
 
-        var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
+        var person_id = this.state.person_id === '' ? null : Number(this.state.personToUpdate.id)
         var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
 
 
@@ -166,6 +187,13 @@ export default class ShowNotebook extends React.Component {
         }
     }
 
+    renderOption = (personen) => {
+        if (this.state.toUpdate.person && personen.id === this.state.personToUpdate.id) {
+            return <option key={personen.id} defaultValue={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option> 
+        } 
+        
+        return <option key={personen.key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+    }
 
     render() {
 
@@ -210,10 +238,14 @@ export default class ShowNotebook extends React.Component {
                                         <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                                            <option value="" defaultValue>Person auswählen</option>
-                                            {this.state.personen.map((personen, key) => {
-                                                return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                                        <select className="input-field-dropdown" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
+                                            
+                                            {this.state.personToUpdate && 
+                                                <option hidden={this.state.wasPersonToUpdateUpdated} value={JSON.stringify(this.state.personToUpdate)}>{this.state.personToUpdate.name1 + " " + this.state.personToUpdate.name2}</option>
+                                            }
+                                            <option value="">Person auswählen</option>
+                                            {this.state.personen.map((person, key) => {
+                                                return this.renderOption(person)
                                             })}
                                         </select>
 
