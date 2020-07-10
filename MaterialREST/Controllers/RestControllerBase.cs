@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using MaterialData.exceptions;
 
 namespace MaterialREST.Controllers
 {
@@ -85,12 +86,12 @@ namespace MaterialREST.Controllers
                 Repo.Save(item1);
                 Response.StatusCode = 201;
             }
-            catch (MaterialData.exceptions.InvalidInputException e)
+            catch (InvalidInputException e)
             {
                 Response.StatusCode = 403;
                 Response.WriteAsync(e.Message);
             }
-            catch (MaterialData.exceptions.DuplicateEntryException e)
+            catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
                 Response.WriteAsync(e.Message);
@@ -112,10 +113,10 @@ namespace MaterialREST.Controllers
                 await Repo.UpdateAsync(item);
                 Response.StatusCode = 200;
             }
-            catch (MaterialData.exceptions.DuplicateEntryException e)
+            catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
-                Response.WriteAsync(e.Message);
+                await Response.WriteAsync(e.Message);
             }
             catch (InvalidOperationException e)
             {
