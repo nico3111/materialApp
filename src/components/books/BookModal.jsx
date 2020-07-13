@@ -3,7 +3,7 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 const { fetchPersons } = require('../../util/HttpHelper');
 
-export default class NotebookModal extends React.Component {
+export default class BookModal extends React.Component {
 
     state = {
         params: { id: null },
@@ -27,7 +27,7 @@ export default class NotebookModal extends React.Component {
         const persons = await fetchPersons()
         console.log(persons)
         this.setState({ personen: persons });
-        
+
     }
 
     fetchRooms = async () => {
@@ -115,9 +115,9 @@ export default class NotebookModal extends React.Component {
 
         const body = {
             id: this.state.toUpdate.id,
-            serial_number: this.state.toUpdate.serial_number,
-            make: this.state.toUpdate.make,
-            model: this.state.toUpdate.model,
+            title: this.state.toUpdate.title,
+            isbn: this.state.toUpdate.isbn,
+            quantity: this.state.toUpdate.quantity,
             person_id: person_id,
             location_id: location_id
         }
@@ -138,7 +138,7 @@ export default class NotebookModal extends React.Component {
                 alert(r)
 
 
-            this.props.fetchNotebooks()
+            this.props.fetchBooks()
 
             this.props.onClose();
 
@@ -156,18 +156,18 @@ export default class NotebookModal extends React.Component {
         return <option key={personen.key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
     }
 
+
     render() {
         return (
-            
-               <Modal open={this.props.open} onClose={this.props.onClose}>
-                    <div className="modal-wrapper">
-                        <div className="modal-main-text">Update Notebook
-                            <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                            <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                            <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
-                            <select className="input-field-dropdown" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
+            <Modal Modal open={this.props.open} onClose={this.props.onClose}>
+                <div className="modal-wrapper">
+                    <div className="modal-main-text">Buch Update
+                        <input value={this.state.toUpdate.title} name="title" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <input value={this.state.toUpdate.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <input type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <select className="input-field-dropdown" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
 
-                                {this.state.personToUpdate &&
+                              {this.state.personToUpdate &&
                                     <option hidden={this.state.wasPersonToUpdateUpdated} value={JSON.stringify(this.state.personToUpdate)}>{this.state.personToUpdate.name1 + " " + this.state.personToUpdate.name2}</option>
                                 }
                                 <option value="">Person auswählen</option>
@@ -180,15 +180,16 @@ export default class NotebookModal extends React.Component {
                             <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                                 <option value="" defaultValue >Raum auswählen</option>
                                 {this.state.rooms.map((rooms, key) => {
-                                     var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                                    var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
                                     return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
                                 })}
                             </select>
 
-                            <button onClick={() => this.putData()}>Ändern</button>
-                        </div>
+                        <button onClick={() => this.putData()}>Ändern</button>
                     </div>
-            </Modal>
+                </div>
+
+            </Modal >
         )
     }
 }

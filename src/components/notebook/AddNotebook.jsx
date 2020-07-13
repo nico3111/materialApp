@@ -22,8 +22,10 @@ export default class AddNotebook extends React.Component {
     }
 
     async componentDidMount() {
-        await this.fetchRooms()
         await this.fetchPersons()
+        await this.fetchRooms()
+        
+
     }
 
 
@@ -33,6 +35,7 @@ export default class AddNotebook extends React.Component {
         const data = await response.json();
 
         this.setState({ personen: data });
+        console.log(data)
     }
 
     fetchRooms = async () => {
@@ -41,6 +44,7 @@ export default class AddNotebook extends React.Component {
         const data = await response.json();
 
         this.setState({ rooms: data });
+        console.log(data)
     }
 
     handlePersonChange = changeEvent => {
@@ -52,7 +56,6 @@ export default class AddNotebook extends React.Component {
                 selectedPerson: value,
                 person_id: selectedPerson.id,
             })
-            console.log(selectedPerson.id)
         } else {
             this.setState({
                 selectedPerson: '',
@@ -67,7 +70,7 @@ export default class AddNotebook extends React.Component {
             var selectedRoom = JSON.parse(value)
 
             this.setState({
-                selectedRoom:value,
+                selectedRoom: value,
                 location_id: selectedRoom.id,
             })
             console.log(selectedRoom)
@@ -150,7 +153,9 @@ export default class AddNotebook extends React.Component {
                 <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                     <option value="" defaultValue >Raum auswählen</option>
                     {this.state.rooms.map((rooms, key) => {
-                        return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + " / " + rooms.adresslocations[0].address.place}</option>
+                        console.log(rooms.adresslocations[0])
+                        var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                        return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
                     })}
                 </select>
 

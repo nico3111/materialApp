@@ -151,8 +151,8 @@ export default class ShowEquipment extends React.Component {
                         <div className="show-list">
                             <div className="head-text">Zubehör</div>
                             <div>Art: {allEquipment.type}</div><br></br>
-                            <div>Modell: {allEquipment.model}</div><br></br>
                             <div>Marke: {allEquipment.make}</div><br></br>
+                            <div>Modell: {allEquipment.model}</div><br></br>
                             <div>Menge: {allEquipment.quantity}</div><br></br>
                             <div>Person: {allEquipment.person != null ? allEquipment.person.name1 + " " + allEquipment.person.name2 : ""}</div><br></br>
                             <div>Standort: {allEquipment.classroom != null ? allEquipment.classroom.addressloc.address.place : ""}</div><br></br>

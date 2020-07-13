@@ -3,6 +3,7 @@ import '../notebook/AllNotebook.css'
 import AddBook from './AddBook';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import BookModal from './BookModal';
 const { fetchPersons } = require('../../util/HttpHelper')
 
 export default class ShowBook extends React.Component {
@@ -17,35 +18,33 @@ export default class ShowBook extends React.Component {
         selectedPerson: ''
     };
 
-
-
     async componentDidMount() {
-        this.fetchDisplays()
+        this.fetchBooks()
 
-        const persons = await fetchPersons()
-        this.setState({ personen: persons });
+        // const persons = await fetchPersons()
+        // this.setState({ personen: persons });
     }
 
-    fetchDisplays = async () => {
+    fetchBooks = async () => {
         const url = "http://192.168.0.94:8015/material/book";
         const response = await fetch(url);
         const data = await response.json();
         this.setState({ allBooks: data });
     }
 
-    updateWithEvent(event) {
-        const key = event.target.name;
-        const value = event.target.value;
+    // updateWithEvent(event) {
+    //     const key = event.target.name;
+    //     const value = event.target.value;
 
-        this.setState(prev => ({
-            toUpdate: {
-                ...prev.toUpdate,
-                [key]: value
-            }
-        }))
+    //     this.setState(prev => ({
+    //         toUpdate: {
+    //             ...prev.toUpdate,
+    //             [key]: value
+    //         }
+    //     }))
 
-        console.log(this.state.toUpdate)
-    }
+    //     console.log(this.state.toUpdate)
+    // }
 
     onOpenModal = (toUpdate) => {
         this.setState({
@@ -68,7 +67,7 @@ export default class ShowBook extends React.Component {
                 fetch("http://192.168.0.94:8015/material/book/" + id, {
                     method: 'delete',
                     mode: 'cors'
-                }).then(this.fetchDisplays)
+                }).then(this.fetchBooks)
 
             } catch (error) {
                 console.log(error)
@@ -76,56 +75,56 @@ export default class ShowBook extends React.Component {
         }
     }
 
-    handlePersonChange = changeEvent => {
-        var selectedPerson = JSON.parse(changeEvent.target.value);
+    // handlePersonChange = changeEvent => {
+    //     var selectedPerson = JSON.parse(changeEvent.target.value);
 
-        this.setState({
-            selectedPerson: changeEvent.target.value,
-            id: selectedPerson.id,
-        })
-    }
+    //     this.setState({
+    //         selectedPerson: changeEvent.target.value,
+    //         id: selectedPerson.id,
+    //     })
+    // }
 
-    async putData() {
-        console.log(this.state.selectedPerson)
-        console.log(this.state.id)
+    // async putData() {
+    //     console.log(this.state.selectedPerson)
+    //     console.log(this.state.id)
 
-        var person_id = this.state.id === '' ? null : Number(this.state.id)
-        // var location = this.state.notebook.location_id === '' ? null : Number(this.state.notebook.location_id)
+    //     var person_id = this.state.id === '' ? null : Number(this.state.id)
+    //     // var location = this.state.notebook.location_id === '' ? null : Number(this.state.notebook.location_id)
 
 
-        const body = {
-            id: this.state.toUpdate.id,
-            title: this.state.toUpdate.title,
-            isbn: this.state.toUpdate.isbn,
-            quantity: this.state.toUpdate.quantity,
-            person_id: person_id,
-            //     location_id: location
-        }
+    //     const body = {
+    //         id: this.state.toUpdate.id,
+    //         title: this.state.toUpdate.title,
+    //         isbn: this.state.toUpdate.isbn,
+    //         quantity: this.state.toUpdate.quantity,
+    //         person_id: person_id,
+    //         //     location_id: location
+    //     }
 
-        try {
-            var req = {
-                method: 'put',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(body)
-            }
+    //     try {
+    //         var req = {
+    //             method: 'put',
+    //             mode: 'cors',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(body)
+    //         }
 
-            let result = await fetch('http://192.168.0.94:8015/material/book/', req)
-            const r = await result.text()
-            if (r !== "")
-                alert(r)
+    //         let result = await fetch('http://192.168.0.94:8015/material/book/', req)
+    //         const r = await result.text()
+    //         if (r !== "")
+    //             alert(r)
 
-            this.fetchDisplays()
+    //         this.fetchBooks()
 
-            this.onCloseModal();
+    //         this.onCloseModal();
 
-            console.log(body)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    //         console.log(body)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
 
     render() {
@@ -143,48 +142,33 @@ export default class ShowBook extends React.Component {
                     <div className="line-text">Bücher</div>
                     <div className="line2"></div>
                 </div>
-                <AddBook fetchDisplays={this.fetchDisplays} />
-                
-                {this.state.allBooks.map(allBooks => (
-                    <div className="notebooks">
-                        <div className="show-list">
-                            <div className="head-text">Buch</div>
-                            <div>Titel: {allBooks.title}</div><br></br>
-                            <div>ISBN: {allBooks.isbn}</div><br></br>
-                            <div>Anzahl: {allBooks.quantity}</div><br></br>
-                            <div>Person: {allBooks.person != null ? allBooks.person.name1 + " " + allBooks.person.name2 : ""}</div><br></br>
-                            <div>Standort: {allBooks.classroom != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
-                            <div>Räumlichkeit: {allBooks.classroom != null ? allBooks.classroom.room : ""}</div><br></br>
+                <AddBook fetchBooks={this.fetchBooks} />
+                {this.state.allBooks.map(allBooks => {
 
-                            <div className="button-wrapper">
-                                <div className="add-button2" onClick={() => this.deleteData(allBooks.id)}>Löschen</div>
-                                <div className="add-button2" onClick={() => this.onOpenModal(allBooks)}>Ändern</div>
-                            </div>
+                    return (
+                        <div className="notebooks">
+                            <div className="show-list">
+                                <div className="head-text">Buch</div>
+                                <div>Titel: {allBooks.title}</div><br></br>
+                                <div>ISBN: {allBooks.isbn}</div><br></br>
+                                <div>Anzahl: {allBooks.quantity}</div><br></br>
+                                <div>Person: {allBooks.person != null ? allBooks.person.name1 + " " + allBooks.person.name2 : ""}</div><br></br>
+                                <div>Standort: {allBooks.classroom && allBooks.classroom.addressloc != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
+                                <div>Räumlichkeit: {allBooks.classroom != null ? allBooks.classroom.room : ""}</div><br></br>
 
-                            {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
-
-                                <div className="modal-wrapper">
-                                    <div className="modal-main-text">Buch Update
-                                       <input value={this.state.toUpdate.title} name="title" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input value={this.state.toUpdate.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                                            <option value="" disabled defaultValue hidden>Person auswählen</option>
-                                            {this.state.personen.map((personen, key) => {
-                                                return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
-                                            })}
-                                        </select>
-
-                                        <button onClick={() => this.putData()}>Ändern</button>
-                                    </div>
+                                <div className="button-wrapper">
+                                    <div className="add-button2" onClick={() => this.deleteData(allBooks.id)}>Löschen</div>
+                                    <div className="add-button2" onClick={() => this.onOpenModal(allBooks)}>Ändern</div>
                                 </div>
-                            </Modal>}
 
+                                {this.state.toUpdate != null && <BookModal fetchBooks={this.fetchBooks} toUpdate={this.state.toUpdate} personToUpdate={this.state.toUpdate.person} open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
+                                </BookModal>}
 
-
+                            </div>
                         </div>
-                    </div>))}
-
+                    )
+                }
+                )}
             </div>
         )
     }
