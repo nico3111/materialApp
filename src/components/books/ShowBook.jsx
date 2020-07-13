@@ -97,6 +97,7 @@ export default class ShowBook extends React.Component {
             id: this.state.toUpdate.id,
             title: this.state.toUpdate.title,
             isbn: this.state.toUpdate.isbn,
+            quantity: this.state.toUpdate.quantity,
             person_id: person_id,
             //     location_id: location
         }
@@ -150,6 +151,7 @@ export default class ShowBook extends React.Component {
                             <div className="head-text">Buch</div>
                             <div>Titel: {allBooks.title}</div><br></br>
                             <div>ISBN: {allBooks.isbn}</div><br></br>
+                            <div>Anzahl: {allBooks.quantity}</div><br></br>
                             <div>Person: {allBooks.person != null ? allBooks.person.name1 + " " + allBooks.person.name2 : ""}</div><br></br>
                             <div>Standort: {allBooks.classroom != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
                             <div>Räumlichkeit: {allBooks.classroom != null ? allBooks.classroom.room : ""}</div><br></br>
@@ -165,6 +167,7 @@ export default class ShowBook extends React.Component {
                                     <div className="modal-main-text">Buch Update
                                        <input value={this.state.toUpdate.title} name="title" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <input value={this.state.toUpdate.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)}></input>
+                                        <input type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
                                         <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                                             <option value="" disabled defaultValue hidden>Person auswählen</option>
                                             {this.state.personen.map((personen, key) => {

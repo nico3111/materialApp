@@ -7,6 +7,7 @@ export default class AddDisplay extends React.Component {
         this.state = {
             title: '',
             isbn: '',
+            quantity: '',
             person_id: '',
             location_id: '',
             personen: [],
@@ -79,6 +80,7 @@ export default class AddDisplay extends React.Component {
         const body = {
             title: this.state.title,
             isbn: this.state.isbn,
+            quantity: this.state.quantity,
             person_id: person,
             location_id: location
         }
@@ -121,6 +123,7 @@ export default class AddDisplay extends React.Component {
                     <div className="head-text">Neues Buch</div>
                     <input className="input-field" value={this.state.title} name="title" onChange={(event) => this.updateWithEvent(event)} placeholder="Titel"></input>
                     <input className="input-field" value={this.state.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)} placeholder="ISBN"></input>
+                    <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
                     <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                         <option value="" disabled defaultValue hidden>Person auswählen</option>
                         {this.state.personen.map((personen, key) => {
