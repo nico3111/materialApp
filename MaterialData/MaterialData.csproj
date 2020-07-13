@@ -175,6 +175,7 @@
   <ItemGroup>
     <Compile Include="exceptions\DuplicateEntryException.cs" />
     <Compile Include="exceptions\InvalidInputException.cs" />
+    <Compile Include="exceptions\NotAddedButUpdatedException.cs" />
     <Compile Include="models\location\addressLocation.cs" />
     <Compile Include="models\location\address.cs" />
     <Compile Include="models\material\book.cs" />

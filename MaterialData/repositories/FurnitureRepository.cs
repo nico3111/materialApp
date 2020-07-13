@@ -35,9 +35,18 @@ namespace MaterialData.repository
                 string err = BuildErrorMessage(errList);
                 throw new InvalidInputException(err);
             }
+
+            var existingFurniture = Entities.Set<furniture>().FirstOrDefault(x => x.type == item.type);
+            if (existingFurniture != null && existingFurniture.id != item.id)
+            {
+                existingFurniture.quantity += item.quantity;
+                Entities.furniture.Update(existingFurniture);
+                Entities.SaveChanges();
+                throw new NotAddedButUpdatedException($"{existingFurniture.type} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
+            }
         }
 
-        public override furniture SetDefaultLocation(furniture item)
+        public override furniture SetLocation(furniture item)
         {
             if (item.location_id == null)
                 item.location_id = defaultLocation;

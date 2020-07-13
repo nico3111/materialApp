@@ -84,9 +84,12 @@ namespace MaterialREST.Controllers
             try
             {
                 Repo.IsValid(item);
-                var item1 = Repo.SetDefaultLocation(item);
-                await Repo.Save(item1);
-                Response.StatusCode = 201;
+                if (item != null)
+                {
+                    var item1 = Repo.SetLocation(item);
+                    await Repo.Save(item1);
+                    Response.StatusCode = 201;
+                }
             }
             catch (InvalidInputException e)
             {
@@ -96,6 +99,11 @@ namespace MaterialREST.Controllers
             catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
+                await Response.WriteAsync(e.Message);
+            }
+            catch (NotAddedButUpdatedException e)
+            {
+                Response.StatusCode = 200;
                 await Response.WriteAsync(e.Message);
             }
             catch (Exception e)
@@ -111,7 +119,7 @@ namespace MaterialREST.Controllers
             try
             {
                 Repo.IsValid(item);
-                item = Repo.SetDefaultLocation(item);
+                item = Repo.SetLocation(item);
                 await Repo.UpdateAsync(item);
                 Response.StatusCode = 200;
             }

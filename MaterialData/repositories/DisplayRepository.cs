@@ -41,7 +41,7 @@ namespace MaterialData.repository
             }
         }
 
-        public override display SetDefaultLocation(display item)
+        public override display SetLocation(display item)
         {
             if (item.location_id == null)
                 item.location_id = defaultLocation;

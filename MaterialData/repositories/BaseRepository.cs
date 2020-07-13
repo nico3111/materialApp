@@ -8,7 +8,7 @@ namespace MaterialData.repository
     public abstract class BaseRepository<T> where T : Material
     {
         public DcvEntities Entities;
-        public int defaultLocation = 4; //id in DB
+        public int defaultLocation = 4; //id from default place in DB
 
         public BaseRepository(DcvEntities entities)
         {
@@ -22,7 +22,7 @@ namespace MaterialData.repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public abstract T SetDefaultLocation(T item);
+        public abstract T SetLocation(T item);
 
         /// <summary>
         /// Throws Exception if Entry is Invalid
