@@ -28,7 +28,7 @@ namespace MaterialData.repository
             if (string.IsNullOrEmpty(item.type))
                 errList.Add("𝗔𝗿𝘁");
 
-            if (item.quantity == (null))
+            if (item.quantity == null)
                 errList.Add("𝗔𝗻𝘇𝗮𝗵𝗹");
 
             if (errList.Count > 0)
