@@ -42,7 +42,7 @@ namespace MaterialData.repository
                 existingFurniture.quantity += item.quantity;
                 Entities.furniture.Update(existingFurniture);
                 Entities.SaveChanges();
-                throw new DuplicateEntryException($"{existingFurniture.type} bereits vorhanden, {item.quantity} Stück wurden hinzugefügt.");
+                throw new NotAddedButUpdatedException($"{existingFurniture.type} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
             }
         }
 

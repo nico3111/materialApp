@@ -36,14 +36,14 @@ namespace MaterialData.repository
                 string err = BuildErrorMessage(errList);
                 throw new InvalidInputException(err);
             }
-
+            //NEEDS MORE TESTING
             var existingEquipment = Entities.Set<equipment>().FirstOrDefault(x => x.type == item.type && x.make == item.make && x.model == item.model);
             if (existingEquipment != null && existingEquipment.id != item.id)
             {
                 existingEquipment.quantity += item.quantity;
                 Entities.equipment.Update(existingEquipment);
                 Entities.SaveChanges();
-                throw new DuplicateEntryException($"{existingEquipment.type} {existingEquipment.make} {existingEquipment.model} bereits vorhanden, {item.quantity} Stück wurden hinzugefügt.");
+                throw new NotAddedButUpdatedException($"{existingEquipment.type} {existingEquipment.make} {existingEquipment.model} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
             }
         }
 

@@ -101,6 +101,11 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 409;
                 await Response.WriteAsync(e.Message);
             }
+            catch (NotAddedButUpdatedException e)
+            {
+                Response.StatusCode = 200;
+                await Response.WriteAsync(e.Message);
+            }
             catch (Exception e)
             {
                 Response.StatusCode = 500;

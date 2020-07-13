@@ -40,7 +40,7 @@ namespace MaterialData.repository
                 existingBook.quantity += item.quantity;
                 Entities.book.Update(existingBook);
                 Entities.SaveChanges();
-                throw new DuplicateEntryException($"Buch {existingBook.title} bereits vorhanden, {item.quantity} Stück wurden hinzugefügt.");
+                throw new NotAddedButUpdatedException($"Buch {existingBook.title} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
             }
 
             var existingIsbn = Entities.Set<book>().FirstOrDefault(x => x.title != item.title && x.isbn == item.isbn);
