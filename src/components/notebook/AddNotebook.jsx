@@ -31,7 +31,7 @@ export default class AddNotebook extends React.Component {
         const url = "http://192.168.0.94:8016/person";
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data)
+
         this.setState({ personen: data });
     }
 
@@ -39,7 +39,7 @@ export default class AddNotebook extends React.Component {
         const url = "http://192.168.0.94:8019/classroom";
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data)
+
         this.setState({ rooms: data });
     }
 
