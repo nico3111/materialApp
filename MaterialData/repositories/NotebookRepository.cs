@@ -46,7 +46,7 @@ namespace MaterialData
             }
         }
 
-        public override notebook SetDefaultLocation(notebook item)
+        public override notebook SetLocation(notebook item)
         {
             if (item.location_id == null && item.person_id == null)
                 item.location_id = defaultLocation;

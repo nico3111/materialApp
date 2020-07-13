@@ -37,7 +37,7 @@ namespace MaterialData.repository
             }
         }
 
-        public override furniture SetDefaultLocation(furniture item)
+        public override furniture SetLocation(furniture item)
         {
             if (item.location_id == null)
                 item.location_id = defaultLocation;

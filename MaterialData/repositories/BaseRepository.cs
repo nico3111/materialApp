@@ -22,7 +22,7 @@ namespace MaterialData.repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public abstract T SetDefaultLocation(T item);
+        public abstract T SetLocation(T item);
 
         /// <summary>
         /// Throws Exception if Entry is Invalid
