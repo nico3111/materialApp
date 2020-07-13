@@ -31,6 +31,14 @@ namespace MaterialData.repository
             if (string.IsNullOrEmpty(item.isbn))
                 errList.Add("𝗜𝗦𝗕𝗡");
 
+            var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
+            if (existingBook != null)
+                throw new DuplicateEntryException("Buch bereits vorhanden!");
+
+            var existingIsbn = Entities.Set<book>().FirstOrDefault(x => x.title != item.title && x.isbn == item.isbn);
+            if (existingIsbn != null)
+                throw new DuplicateEntryException("Buch mit selben ISBN und anderem Titel bereits vorhanden!");
+
             if (errList.Count > 0)
             {
                 string err = BuildErrorMessage(errList);

@@ -1,11 +1,11 @@
 ﻿using MaterialData;
+using MaterialData.exceptions;
 using MaterialData.models;
 using MaterialData.repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using MaterialData.exceptions;
 
 namespace MaterialREST.Controllers
 {
