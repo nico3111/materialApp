@@ -2,7 +2,7 @@ import React from 'react';
 import '../notebook/AllNotebook.css'
 import AddNotebook from './AddNotebook';
 import NotebookModal from './NotebookModal';
-const { fetchPersons } = require('../../util/HttpHelper')
+const { fetchPersons, fetchNotebooks, deleteNotebook } = require('../../util/HttpHelper')
 
 export default class ShowNotebook extends React.Component {
 
@@ -19,10 +19,8 @@ export default class ShowNotebook extends React.Component {
     }
 
     fetchNotebooks = async () => {
-        const url = "http://192.168.0.94:8015/material/notebook";
-        const response = await fetch(url);
-        const data = await response.json();
-        this.setState({ allnotebooks: data });
+        const notebooks = await fetchNotebooks()
+        this.setState({ allnotebooks: notebooks });
     }
 
     onOpenModal = (toUpdate) => {
@@ -44,11 +42,10 @@ export default class ShowNotebook extends React.Component {
         if (window.confirm("Möchten Sie wirklich löschen")) {
 
             try {
-                fetch("http://192.168.0.94:8015/material/notebook/" + id, {
-                    method: 'delete',
-                    mode: 'cors'
-                }).then(this.fetchNotebooks)
-
+                const status = await deleteNotebook(id)
+                if (status === 200) {
+                    this.fetchNotebooks()
+                }
             } catch (error) {
                 console.log(error)
             }

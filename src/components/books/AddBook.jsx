@@ -1,4 +1,5 @@
 import React from 'react';
+const { fetchPersons, fetchRooms } = require('../../util/HttpHelper');
 
 export default class AddDisplay extends React.Component {
 
@@ -26,20 +27,13 @@ export default class AddDisplay extends React.Component {
     }
 
     fetchPersons = async () => {
-        const url = "http://192.168.0.94:8016/person";
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data)
-        this.setState({ personen: data });
+        const persons = await fetchPersons()
+        this.setState({ personen: persons });
     }
 
     fetchRooms = async () => {
-        const url = "http://192.168.0.94:8019/classroom";
-        const response = await fetch(url);
-        const data = await response.json();
-
-        this.setState({ rooms: data });
-        console.log(data)
+        const rooms = await fetchRooms()
+        this.setState({ rooms: rooms });
     }
 
     handlePersonChange = changeEvent => {
@@ -51,6 +45,9 @@ export default class AddDisplay extends React.Component {
                 selectedPerson: value,
                 person_id: selectedPerson.id,
             })
+            console.log(value)
+            console.log(selectedPerson)
+
         } else {
             this.setState({
                 selectedPerson: '',
@@ -87,7 +84,7 @@ export default class AddDisplay extends React.Component {
 
     async postData() {
 
-        var person = this.state.id === '' ? null : Number(this.state.id)
+        var person = this.state.person_id === '' ? null : Number(this.state.person_id)
         var location = this.state.location_id === '' ? null : Number(this.state.location_id)
 
         const body = {

@@ -1,8 +1,9 @@
 import React from 'react';
 import '../notebook/AllNotebook.css'
 import AddDisplay from './AddDisplay';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
+import DisplayModal from '../display/DisplayModal';
+const { fetchDisplays } = require('../../util/HttpHelper')
+
 
 export default class ShowDisplay extends React.Component {
 
@@ -19,25 +20,23 @@ export default class ShowDisplay extends React.Component {
     }
 
     fetchDisplays = async () => {
-        const url = "http://192.168.0.94:8015/material/display";
-        const response = await fetch(url);
-        const data = await response.json();
-        this.setState({ allDisplays: data });
+        const displays = await fetchDisplays()
+        this.setState({ allDisplays: displays });
     }
 
-    updateWithEvent(event) {
-        const key = event.target.name;
-        const value = event.target.value;
+    // updateWithEvent(event) {
+    //     const key = event.target.name;
+    //     const value = event.target.value;
 
-        this.setState(prev => ({
-            toUpdate: {
-                ...prev.toUpdate,
-                [key]: value
-            }
-        }))
+    //     this.setState(prev => ({
+    //         toUpdate: {
+    //             ...prev.toUpdate,
+    //             [key]: value
+    //         }
+    //     }))
 
-        console.log(this.state.toUpdate)
-    }
+    //     console.log(this.state.toUpdate)
+    // }
 
     onOpenModal = (toUpdate) => {
         this.setState({
@@ -68,40 +67,7 @@ export default class ShowDisplay extends React.Component {
         }
     }
 
-    async putData() {
 
-        const body = {
-            id: this.state.toUpdate.id,
-            model: this.state.toUpdate.model,
-            make: this.state.toUpdate.make,
-            serial_number: this.state.toUpdate.serial_number,
-            location_id: this.state.toUpdate.location_id
-        }
-
-        try {
-            var req = {
-                method: 'put',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(body)
-            }
-
-            let result = await fetch('http://192.168.0.94:8015/material/display', req)
-            const r = await result.text()
-            if (r !== "")
-                alert(r)
-
-            this.fetchDisplays()
-
-            this.onCloseModal();
-
-            console.log(body)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     render() {
         if (this.props.isShowing === false) {
@@ -126,29 +92,21 @@ export default class ShowDisplay extends React.Component {
                             <div>Marke: {allDisplays.make}</div><br></br>
                             <div>Modell: {allDisplays.model}</div><br></br>
                             <div>SN: {allDisplays.serial_number}</div><br></br>
-                            <div>Standort: {allDisplays.classroom != null ? allDisplays.classroom.addressloc.address.place : ""}</div><br></br>
+                            <div>Standort: {allDisplays.classroom && allDisplays.classroom.addressloc != null ? allDisplays.classroom.addressloc.address.place : ""}</div><br></br>
                             <div>Räumlichkeit: {allDisplays.classroom != null ? allDisplays.classroom.room : ""}</div><br></br>
                             <div className="button-wrapper">
                                 <div className="add-button2" onClick={() => this.deleteData(allDisplays.id)}>Löschen</div>
                                 <div className="add-button2" onClick={() => this.onOpenModal(allDisplays)}>Ändern</div>
                             </div>
 
-                            {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
-
-                                <div className="modal-wrapper">
-                                    <div className="modal-main-text">Display Update
-                                        <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input value={this.state.toUpdate.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <button onClick={() => this.putData()}>Ändern</button>
-                                    </div>
-                                </div>
-                            </Modal>}
+                            {/* {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}> */}
+                            {this.state.toUpdate != null && <DisplayModal fetchDisplays={this.fetchDisplays} toUpdate={this.state.toUpdate} open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
+                            </DisplayModal>}
 
                         </div>
-                    </div>))}
-
+                    </div>
+                )
+                )}
             </div>
         )
     }

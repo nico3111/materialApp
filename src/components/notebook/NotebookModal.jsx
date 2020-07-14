@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-const { fetchPersons } = require('../../util/HttpHelper');
+const { fetchPersons, fetchRooms } = require('../../util/HttpHelper');
 
 export default class NotebookModal extends React.Component {
 
@@ -25,17 +25,12 @@ export default class NotebookModal extends React.Component {
 
     fetchPersonens = async () => {
         const persons = await fetchPersons()
-        console.log(persons)
         this.setState({ personen: persons });
-        
     }
 
     fetchRooms = async () => {
-        const url = "http://192.168.0.94:8019/classroom";
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data)
-        this.setState({ rooms: data });
+      const rooms = await fetchRooms()
+        this.setState({ rooms: rooms });
     }
 
     updateWithEvent(event) {

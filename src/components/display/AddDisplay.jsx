@@ -1,4 +1,5 @@
 import React from 'react';
+const { fetchRooms } = require('../../util/HttpHelper');
 
 export default class AddDisplay extends React.Component {
 
@@ -8,14 +9,43 @@ export default class AddDisplay extends React.Component {
             serial_number: '',
             make: '',
             model: '',
-            location_id: ''
+            location_id: '',
+            rooms: [],
+            paramsRoom: { id: null },
+            selectedRoom: '',
+        }
+    }
+
+    async componentDidMount() {
+        await this.fetchRooms()
+    }
+
+    fetchRooms = async () => {
+        const rooms = await fetchRooms()
+        this.setState({ rooms: rooms });
+    }
+
+    handleRoomChange = changeEvent => {
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedRoom = JSON.parse(value)
+
+            this.setState({
+                selectedRoom: value,
+                location_id: selectedRoom.id,
+            })
+            console.log(selectedRoom)
+        } else {
+            this.setState({
+                selectedRoom: '',
+                location_id: ''
+            })
         }
     }
 
     updateWithEvent(event) {
         const key = event.target.name;
         const value = event.target.value;
-
         this.setState({
             [key]: value
         })
@@ -70,7 +100,15 @@ export default class AddDisplay extends React.Component {
                     <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
                     <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
                     <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
-                    <input className="input-field" value={this.state.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)} placeholder="Standort"></input>
+
+                    <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                        <option value="" defaultValue >Raum auswählen</option>
+                        {this.state.rooms.map((rooms, key) => {
+                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                        })}
+                    </select>
+
                     <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
                 </div>
             </div>

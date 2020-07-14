@@ -1,10 +1,8 @@
 import React from 'react';
 import '../notebook/AllNotebook.css'
 import AddBook from './AddBook';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
 import BookModal from './BookModal';
-const { fetchPersons } = require('../../util/HttpHelper')
+const { fetchBooks } = require('../../util/HttpHelper')
 
 export default class ShowBook extends React.Component {
 
@@ -20,31 +18,13 @@ export default class ShowBook extends React.Component {
 
     async componentDidMount() {
         this.fetchBooks()
-
-        // const persons = await fetchPersons()
-        // this.setState({ personen: persons });
     }
 
     fetchBooks = async () => {
-        const url = "http://192.168.0.94:8015/material/book";
-        const response = await fetch(url);
-        const data = await response.json();
-        this.setState({ allBooks: data });
+        const books = await fetchBooks()
+        this.setState({ allBooks : books });
     }
 
-    // updateWithEvent(event) {
-    //     const key = event.target.name;
-    //     const value = event.target.value;
-
-    //     this.setState(prev => ({
-    //         toUpdate: {
-    //             ...prev.toUpdate,
-    //             [key]: value
-    //         }
-    //     }))
-
-    //     console.log(this.state.toUpdate)
-    // }
 
     onOpenModal = (toUpdate) => {
         this.setState({
@@ -74,58 +54,6 @@ export default class ShowBook extends React.Component {
             }
         }
     }
-
-    // handlePersonChange = changeEvent => {
-    //     var selectedPerson = JSON.parse(changeEvent.target.value);
-
-    //     this.setState({
-    //         selectedPerson: changeEvent.target.value,
-    //         id: selectedPerson.id,
-    //     })
-    // }
-
-    // async putData() {
-    //     console.log(this.state.selectedPerson)
-    //     console.log(this.state.id)
-
-    //     var person_id = this.state.id === '' ? null : Number(this.state.id)
-    //     // var location = this.state.notebook.location_id === '' ? null : Number(this.state.notebook.location_id)
-
-
-    //     const body = {
-    //         id: this.state.toUpdate.id,
-    //         title: this.state.toUpdate.title,
-    //         isbn: this.state.toUpdate.isbn,
-    //         quantity: this.state.toUpdate.quantity,
-    //         person_id: person_id,
-    //         //     location_id: location
-    //     }
-
-    //     try {
-    //         var req = {
-    //             method: 'put',
-    //             mode: 'cors',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(body)
-    //         }
-
-    //         let result = await fetch('http://192.168.0.94:8015/material/book/', req)
-    //         const r = await result.text()
-    //         if (r !== "")
-    //             alert(r)
-
-    //         this.fetchBooks()
-
-    //         this.onCloseModal();
-
-    //         console.log(body)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
 
     render() {
         if (this.props.isShowing === false) {

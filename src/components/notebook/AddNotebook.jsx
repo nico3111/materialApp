@@ -1,6 +1,6 @@
 import React from 'react';
 import '../notebook/SaveNewNotebook.css';
-const { fetchPersons } = require('../../util/HttpHelper')
+const { fetchPersons, fetchRooms } = require('../../util/HttpHelper')
 
 export default class AddNotebook extends React.Component {
     constructor(props) {
@@ -30,21 +30,13 @@ export default class AddNotebook extends React.Component {
 
 
     fetchPersons = async () => {
-        const url = "http://192.168.0.94:8016/person";
-        const response = await fetch(url);
-        const data = await response.json();
-
-        this.setState({ personen: data });
-        console.log(data)
+        const persons = await fetchPersons()
+        this.setState({ personen: persons });
     }
 
     fetchRooms = async () => {
-        const url = "http://192.168.0.94:8019/classroom";
-        const response = await fetch(url);
-        const data = await response.json();
-
-        this.setState({ rooms: data });
-        console.log(data)
+        const rooms = await fetchRooms()
+        this.setState({ rooms: rooms });
     }
 
     handlePersonChange = changeEvent => {
