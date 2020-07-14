@@ -14,7 +14,7 @@ namespace MaterialData.repository
 
         public override void GetRelation()
         {
-            Entities.notebook
+            Entities.furniture
                 .Include(x => x.classroom)
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)

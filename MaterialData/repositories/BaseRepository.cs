@@ -80,6 +80,7 @@ namespace MaterialData.repository
 
         public async Task UpdateAsync(T t)
         {
+            //GetRelation(); // for errorHandling in BookController
             var e = Entities.Set<T>().FirstOrDefault(x => x.id == t.id);
             Entities.Entry(e).CurrentValues.SetValues(t);
             Entities.Update(e);

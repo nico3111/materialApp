@@ -87,8 +87,12 @@ namespace MaterialREST.Controllers
                 if (item != null)
                 {
                     var item1 = Repo.SetLocation(item);
-                    await Repo.Save(item1);
-                    Response.StatusCode = 201;
+                    if(item1 != null)
+                    {
+                        await Repo.Save(item1);
+                        Response.StatusCode = 201;
+                    }
+                   
                 }
             }
             catch (InvalidInputException e)
