@@ -106,7 +106,7 @@ export default class BookModal extends React.Component {
 
     async putData() {
 
-        var person_id = this.state.person_id === '' ? null : Number(this.state.personToUpdate.id)
+        var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
         var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
 
 
