@@ -36,7 +36,7 @@ namespace MaterialData.repository
                 throw new InvalidInputException(err);
             }
 
-            AddIfExisting(item);
+            //AddIfExisting(item);
         }
 
         private void AddIfExisting(furniture item)

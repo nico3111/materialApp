@@ -43,11 +43,11 @@ namespace MaterialData.repository
             if (errList.Count > 0)
             {
                 string err = BuildErrorMessage(errList);
-                throw new InvalidInputException(err);
+                throw new InvalidInputException(err); 
             }
         }
 
-        private void AddIfExisting(book item)
+        /*private void AddIfExisting(book item)
         {
             var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
             if (existingBook != null && existingBook.id != item.id)
@@ -57,21 +57,27 @@ namespace MaterialData.repository
                 Entities.SaveChanges();
                 throw new NotAddedButUpdatedException($"Buch {existingBook.title} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
             }
-        }
+        }*/
 
         public override book SetLocation(book item)
         {
-            if (item.location_id != null)
+            if (item.location_id == null && item.person_id == null)           
+                item.location_id = defaultLocation;
+            
+
+            if (item.location_id != null && item.id > 0)
             {
                 item = ReturnBook(item);
                 return item;
             }
 
             if (item.person_id != null)
+            {
                 item = RentBook(item);
+                return item;
+            }
 
-            if (item.location_id == null && item.person_id == null)
-                item.location_id = defaultLocation;
+            
 
             return item;
         }
@@ -100,7 +106,6 @@ namespace MaterialData.repository
         private book RentBook(book book)
         {
             book existingBook = Entities.book.FirstOrDefault(x => x.id == book.id);
-            //POST, TEST IT IN PUT
             if (existingBook != null)
             {
                 book.quantity = 1;
@@ -108,9 +113,17 @@ namespace MaterialData.repository
                 book.location_id = null;
 
                 Entities.book.Add(book);
-                Entities.SaveChanges();
 
                 existingBook.quantity--;
+                if(existingBook.quantity <= 0)
+                {
+                    Entities.book.Remove(existingBook);
+                    existingBook = null;
+                }
+
+
+                Entities.SaveChanges();
+
                 return existingBook;
             }
             else
