@@ -24,20 +24,6 @@ export default class ShowDisplay extends React.Component {
         this.setState({ allDisplays: displays });
     }
 
-    // updateWithEvent(event) {
-    //     const key = event.target.name;
-    //     const value = event.target.value;
-
-    //     this.setState(prev => ({
-    //         toUpdate: {
-    //             ...prev.toUpdate,
-    //             [key]: value
-    //         }
-    //     }))
-
-    //     console.log(this.state.toUpdate)
-    // }
-
     onOpenModal = (toUpdate) => {
         this.setState({
             open: true,
@@ -99,7 +85,6 @@ export default class ShowDisplay extends React.Component {
                                 <div className="add-button2" onClick={() => this.onOpenModal(allDisplays)}>Ändern</div>
                             </div>
 
-                            {/* {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}> */}
                             {this.state.toUpdate != null && <DisplayModal fetchDisplays={this.fetchDisplays} toUpdate={this.state.toUpdate} open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
                             </DisplayModal>}
 

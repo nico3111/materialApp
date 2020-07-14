@@ -1,8 +1,8 @@
 import React from 'react';
 import '../notebook/AllNotebook.css'
 import AddFurniture from './AddFurniture';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
+import FurnitureModal from '../furniture/FurnitureModal';
+const { fetchFurniture } = require('../../util/HttpHelper')
 
 export default class ShowFurniture extends React.Component {
 
@@ -19,24 +19,8 @@ export default class ShowFurniture extends React.Component {
     }
 
     fetchFurniture = async () => {
-        const url = "http://192.168.0.94:8015/material/furniture";
-        const response = await fetch(url);
-        const data = await response.json();
-        this.setState({ allFurniture: data });
-    }
-
-    updateWithEvent(event) {
-        const key = event.target.name;
-        const value = event.target.value;
-
-        this.setState(prev => ({
-            toUpdate: {
-                ...prev.toUpdate,
-                [key]: value
-            }
-        }))
-
-        console.log(this.state.toUpdate)
+        const furniture = await fetchFurniture()
+        this.setState({ allFurniture: furniture });
     }
 
     onOpenModal = (toUpdate) => {
@@ -68,39 +52,6 @@ export default class ShowFurniture extends React.Component {
         }
     }
 
-    async putData() {
-
-        const body = {
-            id: this.state.toUpdate.id,
-            type: this.state.toUpdate.type,
-            quantity: this.state.toUpdate.quantity,
-            location_id: this.state.toUpdate.location_id
-        }
-
-        try {
-            var req = {
-                method: 'put',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(body)
-            }
-
-            let result = await fetch('http://192.168.0.94:8015/material/furniture', req)
-            const r = await result.text()
-            if (r !== "")
-                alert(r)
-
-            this.fetchFurniture()
-
-            this.onCloseModal();
-
-            console.log(body)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     render() {
         if (this.props.isShowing === false) {
@@ -133,21 +84,11 @@ export default class ShowFurniture extends React.Component {
                                 <div className="add-button2" onClick={() => this.onOpenModal(allFurniture)}>Ändern</div>
                             </div>
 
-                            {this.state.toUpdate != null && <Modal open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
-
-                                <div className="modal-wrapper">
-                                    <div className="modal-main-text">Mobiliar Update
-                                        <input value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <input value={this.state.toUpdate.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)}></input>
-                                        <button onClick={() => this.putData()}>Ändern</button>
-                                    </div>
-                                </div>
-                            </Modal>}
+                            {this.state.toUpdate != null && <FurnitureModal fetchFurniture={this.fetchFurniture} toUpdate={this.state.toUpdate} open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
+                            </FurnitureModal>}
 
                         </div>
                     </div>))}
-
             </div>
         )
     }

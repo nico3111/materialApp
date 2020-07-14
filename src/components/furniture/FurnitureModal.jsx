@@ -1,18 +1,16 @@
 import React from 'react';
-const { fetchRooms } = require('../../util/HttpHelper');
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+const { fetchDisplays, fetchRooms } = require('../../util/HttpHelper');
 
-export default class AddFurniture extends React.Component {
+export default class FurnitureModal extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            type: '',
-            quantity: '',
-            location_id: '',
-            rooms: [],
-            paramsRoom: { id: null },
-            selectedRoom: '',
-        }
+    state = {
+
+        rooms: [],
+        paramsRoom: { id: null },
+        selectedRoom: '',
+        toUpdate: this.props.toUpdate,
     }
 
     async componentDidMount() {
@@ -22,7 +20,20 @@ export default class AddFurniture extends React.Component {
     fetchRooms = async () => {
         const rooms = await fetchRooms()
         this.setState({ rooms: rooms });
-        console.log(rooms)
+    }
+
+    updateWithEvent(event) {
+        const key = event.target.name;
+        const value = event.target.value;
+
+        this.setState(prev => ({
+            toUpdate: {
+                ...prev.toUpdate,
+                [key]: value
+            }
+        }))
+
+        console.log(this.state.toUpdate)
     }
 
     handleRoomChange = changeEvent => {
@@ -43,28 +54,20 @@ export default class AddFurniture extends React.Component {
         }
     }
 
-    updateWithEvent(event) {
-        const key = event.target.name;
-        const value = event.target.value;
+    async putData() {
 
-        this.setState({
-            [key]: value
-        })
-    }
-
-    async postData() {
-
-        var location = this.state.location_id === '' ? null : Number(this.state.location_id)
+        var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
 
         const body = {
-            type: this.state.type,
-            quantity: this.state.quantity,
-            location_id: location
+            id: this.state.toUpdate.id,
+            type: this.state.toUpdate.type,
+            quantity: this.state.toUpdate.quantity,
+            location_id: location_id
         }
 
         try {
             var req = {
-                method: 'post',
+                method: 'put',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,11 +82,7 @@ export default class AddFurniture extends React.Component {
 
             this.props.fetchFurniture()
 
-            this.setState({
-                type: '',
-                quantity: '',
-                location_id: ''
-            })
+            this.props.onClose();
 
             console.log(body)
         } catch (error) {
@@ -93,12 +92,12 @@ export default class AddFurniture extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="input-wrapper">
-                    <div className="head-text">Neues Mobiliar</div>
-                    <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
-                    <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
-                   
+            <Modal Modal open={this.props.open} onClose={this.props.onClose}>
+            <div className="modal-wrapper">
+                <div className="modal-main-text">Mobiliar Update
+                <input value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
+                    <input type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
+
                     <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                         <option value="" defaultValue >Raum auswählen</option>
                         {this.state.rooms.map((rooms, key) => {
@@ -107,9 +106,11 @@ export default class AddFurniture extends React.Component {
                         })}
                     </select>
 
-                    <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
+                    <button onClick={() => this.putData()}>Ändern</button>
+                    </div>
                 </div>
-            </div>
+
+            </Modal >
         )
     }
 }
