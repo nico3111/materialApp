@@ -120,8 +120,11 @@ namespace MaterialREST.Controllers
             {
                 Repo.IsValid(item);
                 item = Repo.SetLocation(item);
-                await Repo.UpdateAsync(item);
-                Response.StatusCode = 200;
+                if (item != null)
+                {
+                    await Repo.UpdateAsync(item);
+                    Response.StatusCode = 200;
+                }
             }
             catch (DuplicateEntryException e)
             {

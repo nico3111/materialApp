@@ -34,14 +34,7 @@ namespace MaterialData.repository
             if (item.quantity == null)
                 errList.Add("𝗔𝗻𝘇𝗮𝗵𝗹");
 
-            var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
-            if (existingBook != null && existingBook.id != item.id)
-            {
-                existingBook.quantity += item.quantity;
-                Entities.book.Update(existingBook);
-                Entities.SaveChanges();
-                throw new NotAddedButUpdatedException($"Buch {existingBook.title} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
-            }
+            //AddIfExisting(item);
 
             var existingIsbn = Entities.Set<book>().FirstOrDefault(x => x.title != item.title && x.isbn == item.isbn);
             if (existingIsbn != null && existingIsbn.id != item.id)
@@ -54,10 +47,25 @@ namespace MaterialData.repository
             }
         }
 
+        private void AddIfExisting(book item)
+        {
+            var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
+            if (existingBook != null && existingBook.id != item.id)
+            {
+                existingBook.quantity += item.quantity;
+                Entities.book.Update(existingBook);
+                Entities.SaveChanges();
+                throw new NotAddedButUpdatedException($"Buch {existingBook.title} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
+            }
+        }
+
         public override book SetLocation(book item)
         {
             if (item.location_id != null)
+            {
                 item = ReturnBook(item);
+                return item;
+            }
 
             if (item.person_id != null)
                 item = RentBook(item);
@@ -73,26 +81,40 @@ namespace MaterialData.repository
             book existingBook = Entities.book.FirstOrDefault(x => x.isbn == book.isbn && x.location_id == book.location_id);
             if (existingBook != null)
             {
-                existingBook.quantity++;
+                existingBook.quantity += book.quantity;
                 Entities.book.Remove(book);
                 Entities.SaveChanges();
             }
+            else
+            {
+                book newBook = new book { id = 0, title = book.title, isbn = book.isbn, quantity = book.quantity, location_id = book.location_id };
+                Entities.book.Remove(book);
+                Entities.book.Add(newBook);
+                Entities.SaveChanges();
+                return null;
+            }
+
             return existingBook;
         }
 
         private book RentBook(book book)
         {
             book existingBook = Entities.book.FirstOrDefault(x => x.id == book.id);
+            //POST, TEST IT IN PUT
+            if (existingBook != null)
+            {
+                book.quantity = 1;
+                book.id = 0;
+                book.location_id = null;
 
-            book.quantity = 1;
-            book.id = 0;
-            book.location_id = null;
+                Entities.book.Add(book);
+                Entities.SaveChanges();
 
-            Entities.book.Add(book);
-            Entities.SaveChanges();
-
-            existingBook.quantity--;
-            return existingBook;
+                existingBook.quantity--;
+                return existingBook;
+            }
+            else
+                return book;
         }
     }
 }

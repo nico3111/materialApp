@@ -36,6 +36,11 @@ namespace MaterialData.repository
                 throw new InvalidInputException(err);
             }
 
+            AddIfExisting(item);
+        }
+
+        private void AddIfExisting(furniture item)
+        {
             var existingFurniture = Entities.Set<furniture>().FirstOrDefault(x => x.type == item.type);
             if (existingFurniture != null && existingFurniture.id != item.id)
             {

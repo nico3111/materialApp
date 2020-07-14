@@ -36,7 +36,11 @@ namespace MaterialData.repository
                 string err = BuildErrorMessage(errList);
                 throw new InvalidInputException(err);
             }
-            //NEEDS MORE TESTING
+            AddIfExisting(item);
+        }
+
+        private void AddIfExisting(equipment item)
+        {
             var existingEquipment = Entities.Set<equipment>().FirstOrDefault(x => x.type == item.type && x.make == item.make && x.model == item.model);
             if (existingEquipment != null && existingEquipment.id != item.id)
             {
