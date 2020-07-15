@@ -39,7 +39,7 @@ namespace MaterialData.repository
             var existingIsbn = Entities.Set<book>().FirstOrDefault(x => x.title != item.title && x.isbn == item.isbn);
             if (existingIsbn != null && existingIsbn.id != item.id)
                 throw new DuplicateEntryException($"Buch mit selben ISBN unter dem Titel \"{existingIsbn.title}\" bereits vorhanden!");
-                
+
             if (errList.Count > 0)
             {
                 string err = BuildErrorMessage(errList);
@@ -47,7 +47,7 @@ namespace MaterialData.repository
             }
 
             if (item.quantity < 1)
-                throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein, du Depp!");
+                throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
         }
 
         /*private void AddIfExisting(book item)
@@ -67,9 +67,12 @@ namespace MaterialData.repository
             if (item.location_id == null && item.person_id == null)
                 item.location_id = defaultLocation;
 
-            if (item.location_id != null && item.id > 0)            
+            if (item.location_id != null && item.person_id != null)
+                throw new DuplicateEntryException("Bitte Buch einer Person ODER einem Standort zuweisen!");
+
+            if (item.location_id != null && item.id > 0)
                 return ReturnBook(item);
-                            
+
             if (item.person_id != null)
             {
                 item = RentBook(item);
@@ -79,7 +82,7 @@ namespace MaterialData.repository
             if (item.id == 0)
             {
                 var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
-                if (existingBook != null && existingBook.id != item.id)
+                if (existingBook != null && existingBook.id != item.id && existingBook.location_id == item.location_id)
                 {
                     existingBook.quantity += item.quantity;
                     Entities.book.Update(existingBook);
@@ -96,13 +99,11 @@ namespace MaterialData.repository
             book existingBook = Entities.book.FirstOrDefault(x => x.isbn == book.isbn && x.title == book.title);
             book sameBookInDb = Entities.book.FirstOrDefault(x => x.id == book.id);
 
-            
-
             if (existingBook != null && existingBook.id == book.id)
                 return book;
 
             if (sameBookInDb.quantity < book.quantity)
-                throw new InvalidInputException("Es können nicht mehr Bücher zurückgegeben werden als ausgeliehen wurden, Arschkopf!");
+                throw new InvalidInputException("Es können nicht mehr Bücher zurückgegeben werden als ausgeliehen wurden!");
 
             if (existingBook != null && existingBook.location_id == book.location_id)
             {
@@ -134,9 +135,7 @@ namespace MaterialData.repository
             if (existingBook != null)
             {
                 if (existingBook.quantity < book.quantity)
-                    throw new InvalidInputException($"Die Anzahl ausgeliehender Bücher darf nicht den Lagerbestand überschreiten, Pappnase!");
-
-
+                    throw new InvalidInputException($"Die Anzahl ausgeliehender Bücher darf nicht den Lagerbestand überschreiten!");
                 else
                 {
                     book.quantity = 1;
@@ -147,7 +146,7 @@ namespace MaterialData.repository
 
                     existingBook.quantity -= book.quantity;
                 }
-                
+
                 if (existingBook.quantity <= 0)
                 {
                     Entities.book.Remove(existingBook);
