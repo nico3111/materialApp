@@ -22,7 +22,7 @@ export default class ShowBook extends React.Component {
 
     fetchBooks = async () => {
         const books = await fetchBooks()
-        this.setState({ allBooks : books });
+        this.setState({ allBooks: books });
     }
 
 
@@ -76,14 +76,15 @@ export default class ShowBook extends React.Component {
                     return (
                         <div className="notebooks">
                             <div className="show-list">
-                                <div className="head-text">Buch</div>
-                                <div>Titel: {allBooks.title}</div><br></br>
-                                <div>ISBN: {allBooks.isbn}</div><br></br>
-                                <div>Anzahl: {allBooks.quantity}</div><br></br>
-                                <div>Person: {allBooks.person != null ? allBooks.person.name1 + " " + allBooks.person.name2 : ""}</div><br></br>
-                                <div>Standort: {allBooks.classroom && allBooks.classroom.addressloc != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
-                                <div>Räumlichkeit: {allBooks.classroom != null ? allBooks.classroom.room : ""}</div><br></br>
-
+                                <div className="main-text">
+                                    <div className="head-text">Buch</div>
+                                    <div>Titel: {allBooks.title}</div><br></br>
+                                    <div>ISBN: {allBooks.isbn}</div><br></br>
+                                    <div>Anzahl: {allBooks.quantity}</div><br></br>
+                                    <div>Person: {allBooks.person != null ? allBooks.person.name1 + " " + allBooks.person.name2 : ""}</div><br></br>
+                                    <div>Standort: {allBooks.classroom && allBooks.classroom.addressloc != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
+                                    <div>Räumlichkeit: {allBooks.classroom != null ? allBooks.classroom.room : ""}</div><br></br>
+                                </div>
                                 <div className="button-wrapper">
                                     <div className="add-button2" onClick={() => this.deleteData(allBooks.id)}>Löschen</div>
                                     <div className="add-button2" onClick={() => this.onOpenModal(allBooks)}>Ändern</div>

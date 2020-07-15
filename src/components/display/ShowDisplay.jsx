@@ -74,13 +74,15 @@ export default class ShowDisplay extends React.Component {
                 {this.state.allDisplays.map(allDisplays => (
                     <div className="notebooks">
                         <div className="show-list">
-                            <div className="head-text">Bildschirm</div>
-                            <div>Marke: {allDisplays.make}</div><br></br>
-                            <div>Modell: {allDisplays.model}</div><br></br>
-                            <div>SN: {allDisplays.serial_number}</div><br></br>
-                            {console.log(allDisplays)}
-                            <div>Standort: {allDisplays.classroom && allDisplays.classroom.addressloc != null ? allDisplays.classroom.addressloc.address.place : ""}</div><br></br>
-                            <div>Räumlichkeit: {allDisplays.classroom != null ? allDisplays.classroom.room : ""}</div><br></br>
+                            <div className="main-text">
+                                <div className="head-text">Bildschirm</div>
+                                <div>Marke: {allDisplays.make}</div><br></br>
+                                <div>Modell: {allDisplays.model}</div><br></br>
+                                <div>SN: {allDisplays.serial_number}</div><br></br>
+                                {console.log(allDisplays)}
+                                <div>Standort: {allDisplays.classroom && allDisplays.classroom.addressloc != null ? allDisplays.classroom.addressloc.address.place : ""}</div><br></br>
+                                <div>Räumlichkeit: {allDisplays.classroom != null ? allDisplays.classroom.room : ""}</div><br></br>
+                            </div>
                             <div className="button-wrapper">
                                 <div className="add-button2" onClick={() => this.deleteData(allDisplays.id)}>Löschen</div>
                                 <div className="add-button2" onClick={() => this.onOpenModal(allDisplays)}>Ändern</div>

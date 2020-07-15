@@ -95,18 +95,19 @@ export default class AddFurniture extends React.Component {
         return (
             <div>
                 <div className="input-wrapper">
-                    <div className="head-text">Neues Mobiliar</div>
-                    <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
-                    <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
-                   
-                    <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
-                        <option value="" defaultValue >Raum auswählen</option>
-                        {this.state.rooms.map((rooms, key) => {
-                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
-                        })}
-                    </select>
+                    <div>
+                        <div className="head-text">Neues Mobiliar</div>
+                        <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
+                        <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
 
+                        <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                            <option value="" defaultValue >Raum auswählen</option>
+                            {this.state.rooms.map((rooms, key) => {
+                                var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                                return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                            })}
+                        </select>
+                    </div>
                     <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
                 </div>
             </div>

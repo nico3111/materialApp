@@ -129,26 +129,27 @@ export default class AddDisplay extends React.Component {
     render() {
         return (
             <div className="input-wrapper">
-                <div className="head-text">Neues Buch</div>
-                <input className="input-field" value={this.state.title} name="title" onChange={(event) => this.updateWithEvent(event)} placeholder="Titel"></input>
-                <input className="input-field" value={this.state.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)} placeholder="ISBN"></input>
-                <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
-                
-                <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                    <option value="" disabled defaultValue hidden>Person auswählen</option>
-                    {this.state.personen.map((personen, key) => {
-                        return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
-                    })}
-                </select>
+                <div>
+                    <div className="head-text">Neues Buch</div>
+                    <input className="input-field" value={this.state.title} name="title" onChange={(event) => this.updateWithEvent(event)} placeholder="Titel"></input>
+                    <input className="input-field" value={this.state.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)} placeholder="ISBN"></input>
+                    <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
 
-                <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
-                    <option value="" defaultValue >Raum auswählen</option>
-                    {this.state.rooms.map((rooms, key) => {
-                         var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                        return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
-                    })}
-                </select>
+                    <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
+                        <option value="" disabled defaultValue hidden>Person auswählen</option>
+                        {this.state.personen.map((personen, key) => {
+                            return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                        })}
+                    </select>
 
+                    <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                        <option value="" defaultValue >Raum auswählen</option>
+                        {this.state.rooms.map((rooms, key) => {
+                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                        })}
+                    </select>
+                </div>
                 <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
             </div>
         )

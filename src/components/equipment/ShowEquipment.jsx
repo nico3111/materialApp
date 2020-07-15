@@ -74,26 +74,27 @@ export default class ShowEquipment extends React.Component {
                 {this.state.allEquipment.map(allEquipment => (
                     <div className="notebooks">
                         <div className="show-list">
-                            <div className="head-text">Zubehör</div>
-                            <div>Art: {allEquipment.type}</div><br></br>
-                            <div>Marke: {allEquipment.make}</div><br></br>
-                            <div>Modell: {allEquipment.model}</div><br></br>
-                            <div>Menge: {allEquipment.quantity}</div><br></br>
-                            <div>Person: {allEquipment.person != null ? allEquipment.person.name1 + " " + allEquipment.person.name2 : ""}</div><br></br>
-                            <div>Standort: {allEquipment.classroom && allEquipment.classroom.addressloc != null ? allEquipment.classroom.addressloc.address.place : ""}</div><br></br>
-                            <div>Räumlichkeit: {allEquipment.classroom != null ? allEquipment.classroom.room : ""}</div><br></br>
-
+                            <div className="main-text">
+                                <div className="head-text">Zubehör</div>
+                                <div>Art: {allEquipment.type}</div><br></br>
+                                <div>Marke: {allEquipment.make}</div><br></br>
+                                <div>Modell: {allEquipment.model}</div><br></br>
+                                <div>Menge: {allEquipment.quantity}</div><br></br>
+                                <div>Person: {allEquipment.person != null ? allEquipment.person.name1 + " " + allEquipment.person.name2 : ""}</div><br></br>
+                                <div>Standort: {allEquipment.classroom && allEquipment.classroom.addressloc != null ? allEquipment.classroom.addressloc.address.place : ""}</div><br></br>
+                                <div>Räumlichkeit: {allEquipment.classroom != null ? allEquipment.classroom.room : ""}</div><br></br>
+                            </div>
                             <div className="button-wrapper">
                                 <div className="add-button2" onClick={() => this.deleteData(allEquipment.id)}>Löschen</div>
                                 <div className="add-button2" onClick={() => this.onOpenModal(allEquipment)}>Ändern</div>
                             </div>
 
                             {this.state.toUpdate != null && <EquipmentModal fetchEquipment={this.fetchEquipment} toUpdate={this.state.toUpdate} personToUpdate={this.state.toUpdate.person} open={open} onClose={this.onCloseModal} center showCloseIcon={false}>
-                                </EquipmentModal>}
+                            </EquipmentModal>}
 
-                            </div>
                         </div>
-                    )
+                    </div>
+                )
                 )}
             </div>
         )

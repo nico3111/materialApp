@@ -1,8 +1,9 @@
 .input-wrapper {
-    width: 180px;
-    height: 300px;
+    width: 200px;
+    height: 320px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     border-radius: 5px;

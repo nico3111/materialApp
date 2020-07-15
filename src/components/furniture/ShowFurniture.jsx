@@ -74,18 +74,19 @@ export default class ShowFurniture extends React.Component {
                 {this.state.allFurniture.map(allFurniture => (
                     <div className="notebooks">
                         <div className="show-list">
-                            <div className="head-text">Mobiliar</div>
-                            <div>Art: {allFurniture.type}</div><br></br>
-                            <div>Anzahl: {allFurniture.quantity}</div><br></br>
-                            {console.log(allFurniture)}
-                            {console.log("loc " + allFurniture.classroom.addressloc)}
-                            {console.log("add" + allFurniture.classroom.addressloc.address)}
-                            {console.log("place "+ allFurniture.classroom.addressloc.address.place)}
-                            <div>Standort: {allFurniture.classroom && allFurniture.classroom.addressloc != null ? allFurniture.classroom.addressloc.address.place : ""}</div><br></br>
-                            {console.log(allFurniture)}
-                            
-                            <div>Räumlichkeit: {allFurniture.classroom != null ? allFurniture.classroom.room : ""}</div><br></br>
+                            <div className="main-text">
+                                <div className="head-text">Mobiliar</div>
+                                <div>Art: {allFurniture.type}</div><br></br>
+                                <div>Anzahl: {allFurniture.quantity}</div><br></br>
+                                {console.log(allFurniture)}
+                                {console.log("loc " + allFurniture.classroom.addressloc)}
+                                {console.log("add" + allFurniture.classroom.addressloc.address)}
+                                {console.log("place " + allFurniture.classroom.addressloc.address.place)}
+                                <div>Standort: {allFurniture.classroom && allFurniture.classroom.addressloc != null ? allFurniture.classroom.addressloc.address.place : ""}</div><br></br>
+                                {console.log(allFurniture)}
 
+                                <div>Räumlichkeit: {allFurniture.classroom != null ? allFurniture.classroom.room : ""}</div><br></br>
+                            </div>
                             <div className="button-wrapper">
                                 <div className="add-button2" onClick={() => this.deleteData(allFurniture.id)}>Löschen</div>
                                 <div className="add-button2" onClick={() => this.onOpenModal(allFurniture)}>Ändern</div>

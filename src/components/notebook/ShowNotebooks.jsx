@@ -78,14 +78,15 @@ export default class ShowNotebook extends React.Component {
                     return (
                         <div className="notebooks">
                             <div className="show-list">
-                                <div className="head-text">Notebook</div>
-                                <div>Marke: {allnotebook.make}</div><br></br>
-                                <div>Modell: {allnotebook.model}</div><br></br>
-                                <div>SN: {allnotebook.serial_number}</div><br></br>
-                                <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
-                                <div>Standort: {place}</div><br></br>
-                                <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div>
-
+                                <div className="main-text">
+                                    <div className="head-text">Notebook</div>
+                                    <div>Marke: {allnotebook.make}</div><br></br>
+                                    <div>Modell: {allnotebook.model}</div><br></br>
+                                    <div>SN: {allnotebook.serial_number}</div><br></br>
+                                    <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
+                                    <div>Standort: {place}</div><br></br>
+                                    <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div>
+                                </div>
                                 <div className="button-wrapper">
                                     <div className="add-button2" onClick={() => this.deleteData(allnotebook.id)}>Löschen</div>
                                     <div className="add-button2" onClick={() => this.onOpenModal(allnotebook)}>Ändern</div>

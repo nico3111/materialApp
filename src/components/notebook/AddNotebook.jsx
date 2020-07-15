@@ -129,6 +129,7 @@ export default class AddNotebook extends React.Component {
     render() {
         return (
             <div className="input-wrapper">
+<div>
                 <div className="head-text">Neues Notebook</div>
                 <input className="input-field" value={this.state.make} required name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
                 <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
@@ -148,7 +149,7 @@ export default class AddNotebook extends React.Component {
                         return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + " / " + x}</option>
                     })}
                 </select>
-
+</div>
                 <div type="submit" className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
             </div>
         )

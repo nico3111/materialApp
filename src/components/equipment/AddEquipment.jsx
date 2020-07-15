@@ -134,27 +134,28 @@ export default class AddDisplay extends React.Component {
         return (
             <div>
                 <div className="input-wrapper">
-                    <div className="head-text">Neues Zubehör</div>
-                    <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
-                    <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
-                    <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
-                    <input className="input-field" min="1" type="number" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Menge"></input>
+                    <div>
+                        <div className="head-text">Neues Zubehör</div>
+                        <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
+                        <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
+                        <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
+                        <input className="input-field" min="1" type="number" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Menge"></input>
 
-                    <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
-                        <option value="" disabled defaultValue hidden>Person auswählen</option>
-                        {this.state.personen.map((personen, key) => {
-                            return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
-                        })}
-                    </select>
+                        <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
+                            <option value="" disabled defaultValue hidden>Person auswählen</option>
+                            {this.state.personen.map((personen, key) => {
+                                return <option key={key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
+                            })}
+                        </select>
 
-                    <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
-                        <option value="" defaultValue >Raum auswählen</option>
-                        {this.state.rooms.map((rooms, key) => {
-                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
-                        })}
-                    </select>
-
+                        <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                            <option value="" defaultValue >Raum auswählen</option>
+                            {this.state.rooms.map((rooms, key) => {
+                                var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                                return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                            })}
+                        </select>
+                    </div>
                     <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
                 </div>
             </div>
