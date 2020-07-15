@@ -62,6 +62,7 @@ export default class DisplayModal extends React.Component {
             id: this.state.toUpdate.id,
             model: this.state.toUpdate.model,
             make: this.state.toUpdate.make,
+            quantity: this.state.toUpdate.quantity,
             serial_number: this.state.toUpdate.serial_number,
             location_id: location_id
         }
@@ -103,6 +104,8 @@ export default class DisplayModal extends React.Component {
                         <input className="input-modal" value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Modell:</div>
                         <input className="input-modal" value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Anzahl:</div>
+                        <input className="input-modal" type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Seriennummer:</div>
                         <input className="input-modal" value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Standort:</div>

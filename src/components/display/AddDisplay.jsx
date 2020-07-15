@@ -9,6 +9,7 @@ export default class AddDisplay extends React.Component {
             serial_number: '',
             make: '',
             model: '',
+            quantity: '',
             location_id: '',
             rooms: [],
             paramsRoom: { id: null },
@@ -59,6 +60,7 @@ export default class AddDisplay extends React.Component {
             serial_number: this.state.serial_number,
             make: this.state.make,
             model: this.state.model,
+            quantity: this.state.quantity,
             location_id: location
         }
 
@@ -83,7 +85,8 @@ export default class AddDisplay extends React.Component {
                 serial_number: '',
                 make: '',
                 model: '',
-                location_id: ''
+                location_id: '',
+                selectedRoom: ''
             })
 
             console.log(body)
@@ -98,9 +101,10 @@ export default class AddDisplay extends React.Component {
                 <div className="input-wrapper">
                     <div>
                         <div className="head-text">Neuer Bildschirm</div>
-                        <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
-                        <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
+                        <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke *"></input>
+                        <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell *"></input>
                         <input className="input-field" value={this.state.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)} placeholder="Seriennummer"></input>
+                        <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
 
                         <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                             <option value="" defaultValue >Raum auswählen</option>

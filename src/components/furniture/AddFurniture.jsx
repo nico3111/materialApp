@@ -82,7 +82,8 @@ export default class AddFurniture extends React.Component {
             this.setState({
                 type: '',
                 quantity: '',
-                location_id: ''
+                location_id: '',
+                selectedRoom: ''
             })
 
             console.log(body)
@@ -97,8 +98,8 @@ export default class AddFurniture extends React.Component {
                 <div className="input-wrapper">
                     <div>
                         <div className="head-text">Neues Mobiliar</div>
-                        <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art"></input>
-                        <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl"></input>
+                        <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art *"></input>
+                        <input type="number" min="1" className="input-field" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl *"></input>
 
                         <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                             <option value="" defaultValue >Raum auswählen</option>
