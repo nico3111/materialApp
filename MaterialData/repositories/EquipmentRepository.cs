@@ -36,6 +36,9 @@ namespace MaterialData.repository
                 string err = BuildErrorMessage(errList);
                 throw new InvalidInputException(err);
             }
+
+            if (item.quantity < 1)
+                throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
         }        
 
         public override equipment SetLocation(equipment item)

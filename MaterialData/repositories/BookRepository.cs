@@ -34,11 +34,9 @@ namespace MaterialData.repository
             if (item.quantity == null)
                 errList.Add("𝗔𝗻𝘇𝗮𝗵𝗹");
 
-            //AddIfExisting(item);
-
             var existingIsbn = Entities.Set<book>().FirstOrDefault(x => x.title != item.title && x.isbn == item.isbn);
             if (existingIsbn != null && existingIsbn.id != item.id)
-                throw new DuplicateEntryException($"Buch mit selben ISBN unter dem Titel \"{existingIsbn.title}\" bereits vorhanden!");
+                throw new DuplicateEntryException($"Buch mit der selben ISBN \"{item.isbn}\" unter dem Titel \"{existingIsbn.title}\" bereits vorhanden!");
 
             if (errList.Count > 0)
             {
@@ -48,19 +46,7 @@ namespace MaterialData.repository
 
             if (item.quantity < 1)
                 throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
-        }
-
-        /*private void AddIfExisting(book item)
-        {
-            var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
-            if (existingBook != null && existingBook.id != item.id)
-            {
-                existingBook.quantity += item.quantity;
-                Entities.book.Update(existingBook);
-                Entities.SaveChanges();
-                throw new NotAddedButUpdatedException($"Buch {existingBook.title} bereits vorhanden, {item.quantity} Stück hinzugefügt.");
-            }
-        }*/
+        }        
 
         public override book SetLocation(book item)
         {
@@ -129,7 +115,10 @@ namespace MaterialData.repository
             book alreadyBorrowedBook = Entities.book.FirstOrDefault(x => x.person_id == book.person_id);
 
             if (alreadyBorrowedBook != null)
-                throw new InvalidInputException($"Buch \"{book.title}\" wurde bereits an diese Person verliehen!");
+            {
+                GetRelation();
+                throw new InvalidInputException($"Buch \"{book.title}\" wurde bereits an \"{alreadyBorrowedBook.person.name1} {alreadyBorrowedBook.person.name2}\" verliehen!");
+            }
 
             if (existingBook != null)
             {
