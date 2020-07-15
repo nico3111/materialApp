@@ -37,7 +37,7 @@ namespace MaterialData
 
             var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null && item.id != existingItem.id)
-                throw new DuplicateEntryException("Seriennummer in Datenbank bereits vorhanden!");
+                throw new DuplicateEntryException($"Seriennummer \"{item.serial_number}\" in Datenbank bereits vorhanden! \n({existingItem.make} {existingItem.model})");
 
             if (errList.Count > 0)
             {

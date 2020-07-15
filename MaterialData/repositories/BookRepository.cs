@@ -129,8 +129,7 @@ namespace MaterialData.repository
             book alreadyBorrowedBook = Entities.book.FirstOrDefault(x => x.person_id == book.person_id);
 
             if (alreadyBorrowedBook != null)
-                throw new InvalidInputException("Buch wurde bereits an diese Person verliehen!");
-            //    $"{book.person.name1} {book.person.name2} hat bereits {book.title} ausgeliehen!"
+                throw new InvalidInputException($"Buch \"{book.title}\" wurde bereits an diese Person verliehen!");
 
             if (existingBook != null)
             {
