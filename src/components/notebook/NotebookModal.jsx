@@ -161,12 +161,17 @@ export default class NotebookModal extends React.Component {
 
             <UpdateModal open={this.props.open} onClose={this.props.onClose}>
                 <div className="modal-wrapper">
-                    <div className="head-wrapper-modal">
-                        <div className="modal-main-text">Update Notebook</div>
-                    </div>
+                    <div className="modal-content">
+                        <div className="head-wrapper-modal">
+                            <div className="modal-main-text">Update Notebook</div>
+                        </div>
+                        <div className="text-above-modal">Marke:</div>
                         <input className="input-modal" value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Modell:</div>
                         <input className="input-modal" value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Seriennummer:</div>
                         <input className="input-modal" value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Person:</div>
                         <select className="input-field-dropdown-modal" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
 
                             {this.state.personToUpdate &&
@@ -179,7 +184,7 @@ export default class NotebookModal extends React.Component {
                                 return this.renderOption(person)
                             })}
                         </select>
-
+                        <div className="text-above-modal">Standort:</div>
                         <select className="input-field-dropdown-modal" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                             <option value="" defaultValue >Raum auswählen</option>
                             {this.state.rooms.map((rooms, key) => {
@@ -187,10 +192,11 @@ export default class NotebookModal extends React.Component {
                                 return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
                             })}
                         </select>
-                        <div className="button-wrapper-modal">
-                            <button className="button-modal" onClick={() => this.putData()}>Ändern</button>
-                        </div>
                     </div>
+                    <div className="button-wrapper-modal">
+                        <button className="button-modal" onClick={() => this.putData()}>Ändern</button>
+                    </div>
+                </div>
 
             </UpdateModal>
         )

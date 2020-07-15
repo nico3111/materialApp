@@ -95,20 +95,25 @@ export default class DisplayModal extends React.Component {
         return (
             <UpdateModal open={this.props.open} onClose={this.props.onClose}>
                 <div className="modal-wrapper">
-                    <div className="head-wrapper-modal">
-                        <div className="modal-main-text">Display Update</div>
+                    <div className="modal-content">
+                        <div className="head-wrapper-modal">
+                            <div className="modal-main-text">Display Update</div>
+                        </div>
+                        <div className="text-above-modal">Marke:</div>
+                        <input className="input-modal" value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Modell:</div>
+                        <input className="input-modal" value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Seriennummer:</div>
+                        <input className="input-modal" value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Standort:</div>
+                        <select className="input-field-dropdown-modal" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                            <option value="" defaultValue >Raum auswählen</option>
+                            {this.state.rooms.map((rooms, key) => {
+                                var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                                return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                            })}
+                        </select>
                     </div>
-                    <input className="input-modal" value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                    <input className="input-modal" value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                    <input className="input-modal" value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
-
-                    <select className="input-field-dropdown-modal" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
-                        <option value="" defaultValue >Raum auswählen</option>
-                        {this.state.rooms.map((rooms, key) => {
-                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
-                        })}
-                    </select>
                     <div className="button-wrapper-modal">
                         <button className="button-modal" onClick={() => this.putData()}>Ändern</button>
                     </div>

@@ -98,10 +98,11 @@ export default class FurnitureModal extends React.Component {
                         <div className="head-wrapper-modal">
                             <div className="modal-main-text">Mobiliar Update</div>
                         </div>
-
+                        <div className="text-above-modal">Art:</div>
                         <input className="input-modal" value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Anzahl:</div>
                         <input className="input-modal" type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
-
+                        <div className="text-above-modal">Standort:</div>
                         <select className="input-field-dropdown-modal" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                             <option value="" defaultValue >Raum auswählen</option>
                             {this.state.rooms.map((rooms, key) => {
