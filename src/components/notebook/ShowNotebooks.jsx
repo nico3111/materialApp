@@ -1,5 +1,4 @@
 import React from 'react';
-import '../notebook/AllNotebook.css'
 import AddNotebook from './AddNotebook';
 import NotebookModal from './NotebookModal';
 const { fetchPersons, fetchNotebooks, deleteNotebook } = require('../../util/HttpHelper')

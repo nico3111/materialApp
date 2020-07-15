@@ -22,10 +22,8 @@ export default class AddNotebook extends React.Component {
     }
 
     async componentDidMount() {
-        await this.fetchPersons()
-        await this.fetchRooms()
-
-
+        this.fetchPersons()
+        this.fetchRooms()
     }
 
 

@@ -22,8 +22,8 @@ export default class AddDisplay extends React.Component {
     }
 
     async componentDidMount() {
-        await this.fetchRooms()
-        await this.fetchPersons()
+        this.fetchRooms()
+        this.fetchPersons()
     }
 
     fetchPersons = async () => {

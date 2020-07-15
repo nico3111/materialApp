@@ -1,6 +1,5 @@
 import React from 'react';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
+import UpdateModal from '../updateModal/UpdateModal';
 const { fetchDisplays, fetchRooms } = require('../../util/HttpHelper');
 
 export default class FurnitureModal extends React.Component {
@@ -15,7 +14,7 @@ export default class FurnitureModal extends React.Component {
     }
 
     async componentDidMount() {
-        await this.fetchRooms()
+        this.fetchRooms()
     }
 
     fetchRooms = async () => {
@@ -93,25 +92,30 @@ export default class FurnitureModal extends React.Component {
 
     render() {
         return (
-            <Modal Modal open={this.props.open} onClose={this.props.onClose}>
-            <div className="modal-wrapper">
-                <div className="modal-main-text">Mobiliar Update
-                <input value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
-                    <input type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
+            <UpdateModal open={this.props.open} onClose={this.props.onClose}>
+                <div className="modal-wrapper">
+                    <div className="modal-content">        
+                        <div className="head-wrapper-modal">
+                            <div className="modal-main-text">Mobiliar Update</div>
+                        </div>
 
-                    <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
-                        <option value="" defaultValue >Raum auswählen</option>
-                        {this.state.rooms.map((rooms, key) => {
-                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
-                        })}
-                    </select>
+                        <input className="input-modal" value={this.state.toUpdate.type} name="type" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <input className="input-modal" type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
 
-                    <button onClick={() => this.putData()}>Ändern</button>
+                        <select className="input-field-dropdown-modal" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                            <option value="" defaultValue >Raum auswählen</option>
+                            {this.state.rooms.map((rooms, key) => {
+                                var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                                return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                            })}
+                        </select>
+                    </div>
+                    <div className="button-wrapper-modal">
+                        <button className="button-modal" onClick={() => this.putData()}>Ändern</button>
                     </div>
                 </div>
 
-            </Modal >
+            </UpdateModal>
         )
     }
 }

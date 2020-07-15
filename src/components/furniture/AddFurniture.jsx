@@ -16,7 +16,7 @@ export default class AddFurniture extends React.Component {
     }
 
     async componentDidMount() {
-        await this.fetchRooms()
+        this.fetchRooms()
     }
 
     fetchRooms = async () => {
