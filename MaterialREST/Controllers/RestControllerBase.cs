@@ -130,18 +130,27 @@ namespace MaterialREST.Controllers
                         await Repo.UpdateAsync(item);
                         Response.StatusCode = 200;
                     }
-                }
-               
+                }               
             }
             catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
                 await Response.WriteAsync(e.Message);
             }
+            catch (InvalidInputException e)
+            {
+                Response.StatusCode = 403;
+                await Response.WriteAsync(e.Message);
+            }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e);
                 Response.StatusCode = 418;
+                await Response.WriteAsync(e.Message);
+            }
+            catch (NotAddedButUpdatedException e)
+            {
+                Response.StatusCode = 200;
                 await Response.WriteAsync(e.Message);
             }
             catch (Exception e)

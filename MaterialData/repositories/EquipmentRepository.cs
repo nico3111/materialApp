@@ -43,8 +43,8 @@ namespace MaterialData.repository
 
         public override equipment SetLocation(equipment item)
         {
-            if (item.location_id == null && item.person_id == null)
-                item.location_id = defaultLocation;
+            /*if (item.location_id == null && item.person_id == null)
+                item.classroom = defaultLocation;*/
 
             AddIfExisting(item);
 

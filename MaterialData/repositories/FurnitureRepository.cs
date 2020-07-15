@@ -38,27 +38,88 @@ namespace MaterialData.repository
 
             if (item.quantity < 1)
                 throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
-        }       
+        }
 
         public override furniture SetLocation(furniture item)
         {
-            if (item.location_id == null)
-                item.location_id = defaultLocation;
+            /*if (item.location_id == null)
+                item.classroom = defaultLocation;*/
 
-            AddIfExisting(item);
-
+            /*item = RebookItem(item);
+            if (item != null)*/
+            bool isAdded = AddIfExisting(item);
+            if (!isAdded)
+                RebookItem(item);
+            
             return item;
         }
-        private void AddIfExisting(furniture item)
+
+        private bool AddIfExisting(furniture item)
         {
-            var existingFurniture = Entities.Set<furniture>().FirstOrDefault(x => x.type == item.type && x.location_id == item.location_id);
-            if (existingFurniture != null && existingFurniture.id != item.id)
+            furniture existingFurniture = Entities.Set<furniture>().FirstOrDefault(x => x.type == item.type && x.location_id == item.location_id);
+            furniture sameFurnitureInDb = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
+            if (existingFurniture != null)
             {
+                GetRelation();
                 existingFurniture.quantity += item.quantity;
+
+                if(sameFurnitureInDb != null)
+                {
+                    sameFurnitureInDb.quantity -= item.quantity;
+                    if (sameFurnitureInDb.quantity <= 0)
+                        Entities.furniture.Remove(sameFurnitureInDb);
+                    else
+                        Entities.furniture.Update(sameFurnitureInDb);
+                }
+                
                 Entities.furniture.Update(existingFurniture);
+                //furniture sameFurnitureInDb = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
+
+                //Entities.furniture.Remove(sameFurnitureInDb);
+
                 Entities.SaveChanges();
-                throw new NotAddedButUpdatedException($"{item.type} wurde bestehendem Bestand hinzugefügt!");
+                throw new NotAddedButUpdatedException($"{item.type} wurde bestehendem Bestand in \n\"{existingFurniture.classroom.addressloc.classroom.room}, " +
+                                                      $"{existingFurniture.classroom.addressloc.address.street}, {existingFurniture.classroom.addressloc.address.place}\"\n hinzugefügt!");
+
+    
             }
+            return false;
+           /* else
+            {
+                furniture sameFurnitureInDb = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
+                sameFurnitureInDb.quantity -= item.quantity;
+                if (sameFurnitureInDb.quantity <= 0)
+                    Entities.furniture.Remove(sameFurnitureInDb);
+                else
+                    Entities.furniture.Update(sameFurnitureInDb);
+
+                item.id = 0;
+                Entities.furniture.Add(item);
+                Entities.SaveChanges();
+                return null;
+
+            }*/
+            //return item;
+        }
+
+        private furniture RebookItem(furniture item)
+        {
+            var existingFurniture = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
+            if (existingFurniture != null)
+            {
+                existingFurniture.quantity -= item.quantity;
+
+                if (existingFurniture.quantity <= 0)
+                    Entities.furniture.Remove(existingFurniture);
+                else
+                    Entities.furniture.Update(existingFurniture);
+
+                item.id = 0;
+                Entities.furniture.Add(item);
+                Entities.SaveChanges();
+                return null;
+            }
+            return item;
         }
     }
 }

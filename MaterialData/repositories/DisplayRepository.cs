@@ -40,14 +40,17 @@ namespace MaterialData.repository
                 throw new InvalidInputException(err);
             }
 
+            if (item.serial_number != null)
+                item.quantity = 1;
+
             if (item.quantity < 1)
                 throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
         }
 
         public override display SetLocation(display item)
         {
-            if (item.location_id == null)
-                item.location_id = defaultLocation;
+            /*if (item.location_id == null)
+                item.classroom = defaultLocation;*/
             return item;
         }
     }

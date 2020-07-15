@@ -50,8 +50,8 @@ namespace MaterialData.repository
 
         public override book SetLocation(book item)
         {
-            if (item.location_id == null && item.person_id == null)
-                item.location_id = defaultLocation;
+            /*if (item.location_id == null && item.person_id == null)
+                item.classroom = defaultLocation;*/
 
             if (item.location_id != null && item.person_id != null)
                 throw new DuplicateEntryException("Bitte Buch einer Person ODER einem Standort zuweisen!");
@@ -126,7 +126,7 @@ namespace MaterialData.repository
                     throw new InvalidInputException($"Die Anzahl ausgeliehender Bücher darf nicht den Lagerbestand überschreiten!");
                 else
                 {
-                    book.quantity = 1;
+                    //book.quantity = 1;
                     book.id = 0;
                     book.location_id = null;
 
