@@ -71,6 +71,11 @@ export default class ShowNotebook extends React.Component {
                 <AddNotebook fetchNotebooks={this.fetchNotebooks} />
                 {this.state.allnotebooks.map(allnotebook => {
 
+                    var place = ''
+                    if (allnotebook.classroom && allnotebook.classroom.addressloc && allnotebook.classroom.addressloc.address) {
+                        place = allnotebook.classroom.addressloc.address.place
+                    }
+
                     return (
                         <div className="notebooks">
                             <div className="show-list">
@@ -79,8 +84,8 @@ export default class ShowNotebook extends React.Component {
                                 <div>Modell: {allnotebook.model}</div><br></br>
                                 <div>SN: {allnotebook.serial_number}</div><br></br>
                                 <div>Person: {allnotebook.person != null ? allnotebook.person.name1 + " " + allnotebook.person.name2 : ""}</div><br></br>
-                                <div>Standort: {allnotebook.classroom && allnotebook.classroom.addressloc != null ? allnotebook.classroom.addressloc.address.place : ""}</div><br></br>
-                                <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div><br></br>
+                                <div>Standort: {place}</div><br></br>
+                                <div>Räumlichkeit: {allnotebook.classroom != null ? allnotebook.classroom.room : ""}</div>
 
                                 <div className="button-wrapper">
                                     <div className="add-button2" onClick={() => this.deleteData(allnotebook.id)}>Löschen</div>

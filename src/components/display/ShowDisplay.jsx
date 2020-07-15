@@ -78,6 +78,7 @@ export default class ShowDisplay extends React.Component {
                             <div>Marke: {allDisplays.make}</div><br></br>
                             <div>Modell: {allDisplays.model}</div><br></br>
                             <div>SN: {allDisplays.serial_number}</div><br></br>
+                            {console.log(allDisplays)}
                             <div>Standort: {allDisplays.classroom && allDisplays.classroom.addressloc != null ? allDisplays.classroom.addressloc.address.place : ""}</div><br></br>
                             <div>Räumlichkeit: {allDisplays.classroom != null ? allDisplays.classroom.room : ""}</div><br></br>
                             <div className="button-wrapper">

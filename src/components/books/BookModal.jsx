@@ -12,7 +12,8 @@ export default class BookModal extends React.Component {
         personen: [],
         paramsRoom: { id: null },
         selectedRoom: '',
-        personId: '',
+        person_id: null,
+        location_id: null,
         toUpdate: this.props.toUpdate,
         personToUpdate: this.props.personToUpdate,
         wasPersonToUpdateUpdated: false
@@ -62,7 +63,7 @@ export default class BookModal extends React.Component {
         } else {
             this.setState({
                 selectedPerson: '',
-                person_id: ''
+                person_id: null
             })
         }
     }
@@ -81,7 +82,7 @@ export default class BookModal extends React.Component {
         } else {
             this.setState({
                 personToUpdate: '',
-                person_id: ''
+                person_id: null
             })
         }
     }
@@ -99,15 +100,15 @@ export default class BookModal extends React.Component {
         } else {
             this.setState({
                 selectedRoom: '',
-                location_id: ''
+                location_id: null
             })
         }
     }
 
     async putData() {
 
-        var person_id = this.state.person_id === '' ? null : Number(this.state.person_id)
-        var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
+        var person_id = this.state.person_id === null ? null : Number(this.state.person_id)
+        var location_id = this.state.location_id === null ? null : Number(this.state.location_id)
 
 
         const body = {

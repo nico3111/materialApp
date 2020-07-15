@@ -1,4 +1,5 @@
 import React from 'react';
+const { fetchPersons, fetchRooms } = require('../../util/HttpHelper');
 
 export default class AddDisplay extends React.Component {
 
@@ -26,44 +27,53 @@ export default class AddDisplay extends React.Component {
     }
 
     fetchPersons = async () => {
-        const url = "http://192.168.0.94:8016/person";
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data)
-        this.setState({ personen: data });
+        const persons = await fetchPersons()
+        this.setState({ personen: persons });
     }
 
     fetchRooms = async () => {
-        const url = "http://192.168.0.94:8015/material/notebook";
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data)
-        this.setState({ rooms: data });
+        const rooms = await fetchRooms()
+        this.setState({ rooms: rooms });
     }
 
     handlePersonChange = changeEvent => {
-        this.setState({
-            selectedPerson: changeEvent.target.value,
-        })
-        var selectedPerson = JSON.parse(changeEvent.target.value);
-        this.setState({
-            ...this.state.params,
-            id: selectedPerson.id,
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedPerson = JSON.parse(value)
 
-        })
+            this.setState({
+                selectedPerson: value,
+                person_id: selectedPerson.id,
+            })
+            console.log(value)
+            console.log(selectedPerson)
+
+        } else {
+            this.setState({
+                selectedPerson: '',
+                person_id: ''
+            })
+        }
     }
 
     handleRoomChange = changeEvent => {
-        this.setState({
-            selectedRoom: changeEvent.target.value,
-        })
-        var selectedRoom = JSON.parse(changeEvent.target.value);
-        this.setState({
-            ...this.state.paramsRoom,
-            id: selectedRoom.id,
+        const value = changeEvent.target.value
+        if (value) {
+            var selectedRoom = JSON.parse(value)
 
-        })
+            this.setState({
+                selectedRoom: value,
+                location_id: selectedRoom.id,
+            })
+            console.log(selectedRoom)
+        } else {
+            this.setState({
+                selectedRoom: '',
+                location_id: ''
+            })
+        }
     }
+
 
     updateWithEvent(event) {
         const key = event.target.name;
@@ -129,6 +139,7 @@ export default class AddDisplay extends React.Component {
                     <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
                     <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
                     <input className="input-field" min="1" type="number" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Menge"></input>
+
                     <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                         <option value="" disabled defaultValue hidden>Person auswählen</option>
                         {this.state.personen.map((personen, key) => {
@@ -136,7 +147,14 @@ export default class AddDisplay extends React.Component {
                         })}
                     </select>
 
-                    <input className="input-field" value={this.state.location_id} name="location_id" onChange={(event) => this.updateWithEvent(event)} placeholder="Standort"></input>
+                    <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                        <option value="" defaultValue >Raum auswählen</option>
+                        {this.state.rooms.map((rooms, key) => {
+                            var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                        })}
+                    </select>
+
                     <div className="add-button" onClick={() => this.postData()}>Hinzufügen</div>
                 </div>
             </div>

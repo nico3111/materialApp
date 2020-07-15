@@ -11,6 +11,7 @@ export default class FurnitureModal extends React.Component {
         paramsRoom: { id: null },
         selectedRoom: '',
         toUpdate: this.props.toUpdate,
+        location_id: null
     }
 
     async componentDidMount() {
@@ -49,14 +50,14 @@ export default class FurnitureModal extends React.Component {
         } else {
             this.setState({
                 selectedRoom: '',
-                location_id: ''
+                location_id: null
             })
         }
     }
 
     async putData() {
 
-        var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
+        var location_id = this.state.location_id === null ? null : Number(this.state.location_id)
 
         const body = {
             id: this.state.toUpdate.id,

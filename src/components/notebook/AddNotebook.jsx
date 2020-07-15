@@ -24,7 +24,7 @@ export default class AddNotebook extends React.Component {
     async componentDidMount() {
         await this.fetchPersons()
         await this.fetchRooms()
-        
+
 
     }
 
@@ -118,7 +118,8 @@ export default class AddNotebook extends React.Component {
                 model: '',
                 location_id: '',
                 person_id: '',
-                selectedPerson: ''
+                selectedPerson: '',
+                selectedRoom: ''
             })
 
             console.log(body)
@@ -145,9 +146,8 @@ export default class AddNotebook extends React.Component {
                 <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                     <option value="" defaultValue >Raum auswählen</option>
                     {this.state.rooms.map((rooms, key) => {
-                        console.log(rooms.adresslocations[0])
                         var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                        return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                        return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + " / " + x}</option>
                     })}
                 </select>
 

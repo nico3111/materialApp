@@ -1,7 +1,10 @@
 import React from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import './modal.css';
 const { fetchPersons, fetchRooms } = require('../../util/HttpHelper');
+
+
 
 export default class NotebookModal extends React.Component {
 
@@ -12,10 +15,11 @@ export default class NotebookModal extends React.Component {
         personen: [],
         paramsRoom: { id: null },
         selectedRoom: '',
-        personId: '',
+        person_id: null,
         toUpdate: this.props.toUpdate,
         personToUpdate: this.props.personToUpdate,
-        wasPersonToUpdateUpdated: false
+        wasPersonToUpdateUpdated: false,
+        location_id: null
     }
 
     async componentDidMount() {
@@ -29,7 +33,7 @@ export default class NotebookModal extends React.Component {
     }
 
     fetchRooms = async () => {
-      const rooms = await fetchRooms()
+        const rooms = await fetchRooms()
         this.setState({ rooms: rooms });
     }
 
@@ -60,7 +64,7 @@ export default class NotebookModal extends React.Component {
         } else {
             this.setState({
                 selectedPerson: '',
-                person_id: ''
+                person_id: null
             })
         }
     }
@@ -79,7 +83,7 @@ export default class NotebookModal extends React.Component {
         } else {
             this.setState({
                 personToUpdate: '',
-                person_id: ''
+                person_id: null
             })
         }
     }
@@ -93,19 +97,21 @@ export default class NotebookModal extends React.Component {
                 selectedRoom: value,
                 location_id: selectedRoom.id,
             })
-            console.log(selectedRoom)
+            console.log(selectedRoom.id)
         } else {
             this.setState({
                 selectedRoom: '',
-                location_id: ''
+                location_id: null
             })
         }
     }
 
     async putData() {
 
-        var person_id = this.state.person_id === '' ? null : Number(this.state.personToUpdate.id)
-        var location_id = this.state.location_id === '' ? null : Number(this.state.location_id)
+        console.log(this.state.person_id);
+
+        var person_id = this.state.person_id === null ? null : Number(this.state.person_id)
+        var location_id = this.state.location_id === null ? null : Number(this.state.location_id)
 
 
         const body = {
@@ -143,6 +149,7 @@ export default class NotebookModal extends React.Component {
         }
     }
 
+
     renderOption = (personen) => {
         if (this.state.toUpdate.person && personen.id === this.state.toUpdate.person.id) {
             return <option key={personen.id} defaultValue={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
@@ -151,39 +158,52 @@ export default class NotebookModal extends React.Component {
         return <option key={personen.key} value={JSON.stringify(personen)}>{personen.name1 + " " + personen.name2}</option>
     }
 
+
+    style = {
+        overlay: {
+          backgroundColor: 'papayawhip'
+        },
+        content: {
+          color: 'lightsteelblue'
+        }
+      }
+
     render() {
         return (
-            
-               <Modal open={this.props.open} onClose={this.props.onClose}>
-                    <div className="modal-wrapper">
-                        <div className="modal-main-text">Update Notebook
+
+            <Modal open={this.props.open} onClose={this.props.onClose} classNames={{
+                overlay: 'Overlay',
+                modal: 'Modal',
+              }}>
+                <div className="modal-wrapper">
+                    <div className="modal-main-text">Update Notebook
                             <input value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                            <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                            <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
-                            <select className="input-field-dropdown" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
+                        <input value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <input value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <select className="input-field-dropdown" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
 
-                                {this.state.personToUpdate &&
-                                    <option hidden={this.state.wasPersonToUpdateUpdated} value={JSON.stringify(this.state.personToUpdate)}>{this.state.personToUpdate.name1 + " " + this.state.personToUpdate.name2}</option>
-                                }
-                                <option value="">Person auswählen</option>
-                              
-                                {this.state.personen.map((person, key) => {
-                                    return this.renderOption(person)
-                                })}
-                            </select>
+                            {this.state.personToUpdate &&
+                                <option hidden={this.state.wasPersonToUpdateUpdated} value={JSON.stringify(this.state.personToUpdate)}>{this.state.personToUpdate.name1 + " " + this.state.personToUpdate.name2}</option>
+                            }
+                            <option value="" >Person auswählen</option>
 
-                            <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
-                                <option value="" defaultValue >Raum auswählen</option>
-                                {this.state.rooms.map((rooms, key) => {
-                                     var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                                    return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
-                                })}
-                            </select>
+                            {this.state.personen.map((person, key) => {
+                                return this.renderOption(person)
+                            })}
+                        </select>
 
-                            <button onClick={() => this.putData()}>Ändern</button>
-                        </div>
+                        <select className="input-field-dropdown" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
+                            <option value="" defaultValue >Raum auswählen</option>
+                            {this.state.rooms.map((rooms, key) => {
+                                var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
+                                return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
+                            })}
+                        </select>
+
+                        <button onClick={() => this.putData()}>Ändern</button>
                     </div>
-            </Modal>
+                </div>
+            </Modal >
         )
     }
 }
