@@ -9,7 +9,7 @@ export default class AddDisplay extends React.Component {
             serial_number: '',
             make: '',
             model: '',
-            quantity: '',
+            quantity: null,
             location_id: '',
             rooms: [],
             paramsRoom: { id: null },
@@ -72,9 +72,10 @@ export default class AddDisplay extends React.Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
+        
             }
 
-            let result = await fetch('http://192.168.0.94:8015/material/display', req)
+            let result = await fetch('http://192.168.0.94:8015/material/display/', req)
             const r = await result.text()
             if (r !== "")
                 alert(r)
