@@ -42,6 +42,10 @@ function fetchEquipment() {
     .then(response => response.json())
 } 
 
+function fetchSearch() {
+    return fetch("http://192.168.0.94:8015/material/search")
+    .then(response => response.json())
+}
 
 
 export {
@@ -52,5 +56,6 @@ deleteNotebook,
 fetchBooks,
 fetchDisplays,
 fetchFurniture,
-fetchEquipment
+fetchEquipment,
+fetchSearch
 }

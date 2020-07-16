@@ -36,6 +36,7 @@ import ShowDispaly from './components/display/ShowDisplay';
 import ShowFurniture from './components/furniture/ShowFurniture';
 import ShowBook from './components/books/ShowBook';
 import ShowEquipment from './components/equipment/ShowEquipment';
+import ShowSearch from './components/search/ShowSearch';
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class App extends React.Component {
       showAllFurniture: false,
       showAllBooks: false,
       showEquipment: false,
+      showSearch: false,
     }
   }
 
@@ -67,12 +69,14 @@ class App extends React.Component {
             <FilterButton onClick={() => this.setState({ showAllFurniture: !this.state.showAllFurniture })} title="Mobiliar" isActive={this.state.showAllFurniture} />
             <FilterButton onClick={() => this.setState({ showAllBooks: !this.state.showAllBooks })} title="Bücher" isActive={this.state.showAllBooks} />
             <FilterButton onClick={() => this.setState({ showEquipment: !this.state.showEquipment })} title="Zubehör" isActive={this.state.showEquipment} />
+            <FilterButton onClick={() => this.setState({ showSearch: !this.state.showSearch })} title="Suchen" isActive={this.state.showSearch} />
           </div>
           {this.state.showAllNotebooks && <ShowNotebook isShowing={this.state.showAllNotebooks} />}
           {this.state.showAllDisplay && <ShowDispaly isShowing={this.state.showAllDisplay} />}
           {this.state.showAllFurniture && <ShowFurniture isShowing={this.state.showAllFurniture} />}
           {this.state.showAllBooks && <ShowBook isShowing={this.state.showAllBooks} />}
           {this.state.showEquipment && <ShowEquipment isShowing={this.state.showEquipment} />}
+          {this.state.showSearch && <ShowSearch isShowing={this.state.showSearch} />}
         </div>
 
       </div>
