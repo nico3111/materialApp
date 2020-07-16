@@ -78,7 +78,7 @@ export default class ShowFurniture extends React.Component {
                                 <div className="head-text">Mobiliar</div>
                                 <div>Art: {allFurniture.type}</div><br></br>
                                 <div>Anzahl: {allFurniture.quantity}</div><br></br>
-                                <div>Standort: {allFurniture.classroom && allFurniture.classroom.addressloc != null && allFurniture.classroom.addressloc.address != null ? allFurniture.classroom.addressloc.address.place : ""}</div><br></br>
+                                <div>Standort: {allFurniture.classroom != null && allFurniture.classroom.addressloc != null && allFurniture.classroom.addressloc.address != null && allFurniture.classroom.addressloc.address != null ? allFurniture.classroom.addressloc.address.place : ""}</div><br></br>
                                 {console.log(allFurniture)}
 
                                 <div>Räumlichkeit: {allFurniture.classroom != null ? allFurniture.classroom.room : ""}</div><br></br>

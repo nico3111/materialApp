@@ -40,7 +40,7 @@ function fetchFurniture() {
 function fetchEquipment() {
     return fetch("http://192.168.0.94:8015/material/equipment")
     .then(response => response.json())
-}
+} 
 
 
 

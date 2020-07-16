@@ -163,11 +163,11 @@ export default class BookModal extends React.Component {
                         <div className="head-wrapper-modal">
                             <div className="modal-main-text">Buch Update</div>
                         </div>
-                        <div className="text-above-modal">Titel:</div>
+                        <div className="text-above-modal">Titel: *</div>
                         <input className="input-modal" value={this.state.toUpdate.title} name="title" onChange={(event) => this.updateWithEvent(event)}></input>
-                        <div className="text-above-modal">ISBN:</div>
+                        <div className="text-above-modal">ISBN: *</div>
                         <input className="input-modal" value={this.state.toUpdate.isbn} name="isbn" onChange={(event) => this.updateWithEvent(event)}></input>
-                        <div className="text-above-modal">Anzahl:</div>
+                        <div className="text-above-modal">Anzahl: *</div>
                         <input className="input-modal" type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Person:</div>
                         <select className="input-field-dropdown-modal" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>

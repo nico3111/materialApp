@@ -147,7 +147,7 @@ export default class AddNotebook extends React.Component {
                         <option value="" defaultValue >Raum auswählen</option>
                         {this.state.rooms.map((rooms, key) => {
                             var x = rooms.adresslocations[0] != undefined ? " / " + rooms.adresslocations[0].address.place : ""
-                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + " / " + x}</option>
+                            return <option key={key} value={JSON.stringify(rooms)}>{rooms.room + x}</option>
                         })}
                     </select>
                 </div>

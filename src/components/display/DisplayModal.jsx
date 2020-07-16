@@ -100,14 +100,14 @@ export default class DisplayModal extends React.Component {
                         <div className="head-wrapper-modal">
                             <div className="modal-main-text">Display Update</div>
                         </div>
-                        <div className="text-above-modal">Marke:</div>
+                        <div className="text-above-modal">Marke: *</div>
                         <input className="input-modal" value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                        <div className="text-above-modal">Modell:</div>
+                        <div className="text-above-modal">Modell: *</div>
                         <input className="input-modal" value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                        <div className="text-above-modal">Anzahl:</div>
-                        <input className="input-modal" type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Seriennummer:</div>
                         <input className="input-modal" value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
+                        <div className="text-above-modal">Anzahl:</div>
+                        <input className="input-modal" type="number" min="1" max={Number.MAX_SAFE_INTEGER} value={this.state.toUpdate.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Standort:</div>
                         <select className="input-field-dropdown-modal" value={this.state.selectedRoom} onChange={this.handleRoomChange}>
                             <option value="" defaultValue >Raum auswählen</option>

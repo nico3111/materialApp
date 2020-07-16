@@ -160,13 +160,13 @@ export default class EquipmentModal extends React.Component {
                     <div className="head-wrapper-modal">
                         <div className="modal-main-text">Buch Update</div>
                     </div>
-                    <div className="text-above-modal">Art:</div>
+                    <div className="text-above-modal">Art: *</div>
                     <input className="input-modal" value={this.state.toUpdate.type} name="type" placeholder="Art" onChange={(event) => this.updateWithEvent(event)}></input>
-                    <div className="text-above-modal">Modell:</div>
-                    <input className="input-modal" value={this.state.toUpdate.model} name="model" placeholder="Modell" onChange={(event) => this.updateWithEvent(event)}></input>
                     <div className="text-above-modal">Marke:</div>
                     <input className="input-modal" value={this.state.toUpdate.make} name="make" placeholder="Marke" onChange={(event) => this.updateWithEvent(event)}></input>
-                    <div className="text-above-modal">Anzahl:</div>
+                    <div className="text-above-modal">Modell:</div>
+                    <input className="input-modal" value={this.state.toUpdate.model} name="model" placeholder="Modell" onChange={(event) => this.updateWithEvent(event)}></input>
+                    <div className="text-above-modal">Anzahl: *</div>
                     <input className="input-modal" min="1" type="number" value={this.state.quantity} name="quantity" placeholder="Menge" onChange={(event) => this.updateWithEvent(event)}></input>
                     <div className="text-above-modal">Person:</div>
                     <select className="input-field-dropdown-modal" value={this.state.selectedPerson} onChange={this.handlePersonChange}>

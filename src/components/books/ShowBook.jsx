@@ -82,7 +82,7 @@ export default class ShowBook extends React.Component {
                                     <div>ISBN: {allBooks.isbn}</div><br></br>
                                     <div>Anzahl: {allBooks.quantity}</div><br></br>
                                     <div>Person: {allBooks.person != null ? allBooks.person.name1 + " " + allBooks.person.name2 : ""}</div><br></br>
-                                    <div>Standort: {allBooks.classroom && allBooks.classroom.addressloc != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
+                                    <div>Standort: {allBooks.classroom != null && allBooks.classroom.addressloc != null && allBooks.classroom.addressloc.address != null && allBooks.classroom.addressloc.address != null ? allBooks.classroom.addressloc.address.place : ""}</div><br></br>
                                     <div>Räumlichkeit: {allBooks.classroom != null ? allBooks.classroom.room : ""}</div><br></br>
                                 </div>
                                 <div className="button-wrapper">

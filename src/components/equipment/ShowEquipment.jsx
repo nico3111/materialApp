@@ -79,9 +79,9 @@ export default class ShowEquipment extends React.Component {
                                 <div>Art: {allEquipment.type}</div><br></br>
                                 <div>Marke: {allEquipment.make}</div><br></br>
                                 <div>Modell: {allEquipment.model}</div><br></br>
-                                <div>Menge: {allEquipment.quantity}</div><br></br>
+                                <div>Anzahl: {allEquipment.quantity}</div><br></br>
                                 <div>Person: {allEquipment.person != null ? allEquipment.person.name1 + " " + allEquipment.person.name2 : ""}</div><br></br>
-                                <div>Standort: {allEquipment.classroom && allEquipment.classroom.addressloc != null ? allEquipment.classroom.addressloc.address.place : ""}</div><br></br>
+                                <div>Standort: {allEquipment.classroom && allEquipment.classroom.addressloc != null && allEquipment.classroom.addressloc.address != null ? allEquipment.classroom.addressloc.address.place : ""}</div><br></br>
                                 <div>Räumlichkeit: {allEquipment.classroom != null ? allEquipment.classroom.room : ""}</div><br></br>
                             </div>
                             <div className="button-wrapper">

@@ -140,7 +140,7 @@ export default class AddDisplay extends React.Component {
                         <input className="input-field" value={this.state.type} name="type" onChange={(event) => this.updateWithEvent(event)} placeholder="Art *"></input>
                         <input className="input-field" value={this.state.make} name="make" onChange={(event) => this.updateWithEvent(event)} placeholder="Marke"></input>
                         <input className="input-field" value={this.state.model} name="model" onChange={(event) => this.updateWithEvent(event)} placeholder="Modell"></input>
-                        <input className="input-field" min="1" type="number" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Menge *"></input>
+                        <input className="input-field" min="1" type="number" value={this.state.quantity} name="quantity" onChange={(event) => this.updateWithEvent(event)} placeholder="Anzahl *"></input>
 
                         <select className="input-field-dropdown" value={this.state.selectedPerson} onChange={this.handlePersonChange}>
                             <option value="" disabled defaultValue hidden>Person auswählen</option>

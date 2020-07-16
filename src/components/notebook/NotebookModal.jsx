@@ -165,11 +165,11 @@ export default class NotebookModal extends React.Component {
                         <div className="head-wrapper-modal">
                             <div className="modal-main-text">Update Notebook</div>
                         </div>
-                        <div className="text-above-modal">Marke:</div>
+                        <div className="text-above-modal">Marke: *</div>
                         <input className="input-modal" value={this.state.toUpdate.make} name="make" onChange={(event) => this.updateWithEvent(event)}></input>
-                        <div className="text-above-modal">Modell:</div>
+                        <div className="text-above-modal">Modell: *</div>
                         <input className="input-modal" value={this.state.toUpdate.model} name="model" onChange={(event) => this.updateWithEvent(event)}></input>
-                        <div className="text-above-modal">Seriennummer:</div>
+                        <div className="text-above-modal">Seriennummer: *</div>
                         <input className="input-modal" value={this.state.toUpdate.serial_number} name="serial_number" onChange={(event) => this.updateWithEvent(event)}></input>
                         <div className="text-above-modal">Person:</div>
                         <select className="input-field-dropdown-modal" value={this.state.personToUpdate} onChange={this.handlePersonToUpdateChange}>
