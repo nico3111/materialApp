@@ -28,7 +28,8 @@ function fetchDisplays() {
 }
 
 function fetchBooks() {
-    return fetch("https://localhost:44358/material/book/")
+    return fetch("http://192.168.0.94:8015/material/book")
+    //return fetch("https://localhost:44358/material/book/")
     .then(response => response.json())
 }
 

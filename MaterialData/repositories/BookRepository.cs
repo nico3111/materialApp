@@ -167,7 +167,8 @@ namespace MaterialData.repository
         {
             if (item.id == 0)
                 return false;
-
+            if (item.person_id != null)
+                return false;
             var existingBook = Entities.Set<book>().FirstOrDefault(x => x.id == item.id);
             var otherBook = Entities.Set<book>().FirstOrDefault(x => x.isbn == item.isbn && x.location_id == item.location_id);
             if (otherBook == null)
