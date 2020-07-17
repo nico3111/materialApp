@@ -36,7 +36,7 @@ namespace MaterialData.repository
 
             var existingIsbn = Entities.Set<book>().FirstOrDefault(x => x.title != item.title && x.isbn == item.isbn);
             if (existingIsbn != null && existingIsbn.id != item.id)
-                throw new DuplicateEntryException($"Buch mit der selben ISBN \"{item.isbn}\" unter dem Titel \"{existingIsbn.title}\" bereits vorhanden!");
+                throw new DuplcateEntryException($"Buch mit der selben ISBN \"{item.isbn}\" unter dem Titel \"{existingIsbn.title}\" bereits vorhanden!");
 
             if (errList.Count > 0)
             {
@@ -46,15 +46,18 @@ namespace MaterialData.repository
 
             if (item.quantity < 1)
                 throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
-        }        
+        }
 
         public override book SetLocation(book item)
         {
-            /*if (item.location_id == null && item.person_id == null)
-                item.classroom = defaultLocation;*/
+            if (item.location_id == null && item.person_id == null)
+                item.location_id = defaultLocation;
 
             if (item.location_id != null && item.person_id != null)
-                throw new DuplicateEntryException("Bitte Buch einer Person ODER einem Standort zuweisen!");
+                throw new DuplcateEntryException("Bitte Buch einer Person ODER einem Standort zuweisen!");
+
+            /*if (item.person_id == null)
+                item = RebookItem(item);*/
 
             if (item.location_id != null && item.id > 0)
                 return ReturnBook(item);
@@ -62,18 +65,23 @@ namespace MaterialData.repository
             if (item.person_id != null)
             {
                 item = RentBook(item);
-                return item;
+                //return item;
             }
 
-            if (item.id == 0)
+            //RebookItem(item);
+
+            if (item != null)
             {
-                var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
-                if (existingBook != null && existingBook.id != item.id && existingBook.location_id == item.location_id)
+                if (item.id == 0)
                 {
-                    existingBook.quantity += item.quantity;
-                    Entities.book.Update(existingBook);
-                    Entities.SaveChanges();
-                    return null;
+                    var existingBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
+                    if (existingBook != null && existingBook.id != item.id && existingBook.location_id == item.location_id)
+                    {
+                        existingBook.quantity += item.quantity;
+                        Entities.book.Update(existingBook);
+                        Entities.SaveChanges();
+                        return null;
+                    }
                 }
             }
 
@@ -126,7 +134,7 @@ namespace MaterialData.repository
                     throw new InvalidInputException($"Die Anzahl ausgeliehender Bücher darf nicht den Lagerbestand überschreiten!");
                 else
                 {
-                    //book.quantity = 1;
+                    book.quantity = 1;
                     book.id = 0;
                     book.location_id = null;
 
@@ -147,6 +155,37 @@ namespace MaterialData.repository
             }
             else
                 return book;
+        }
+
+        private book RebookItem(book item)
+        {
+            var existingBook = Entities.Set<book>().FirstOrDefault(x => x.id == item.id);
+            var newBook = Entities.Set<book>().FirstOrDefault(x => x.title == item.title && x.isbn == item.isbn);
+            if (existingBook != null)
+            {
+                existingBook.quantity -= item.quantity;
+
+                if (existingBook.quantity <= 0)
+                    Entities.book.Remove(existingBook);
+                else
+                    Entities.book.Update(existingBook);
+
+                if (newBook == null)
+                {
+                    item.id = 0;
+                    Entities.book.Add(item);
+                    Entities.SaveChanges();
+                    return null;
+                }
+                else
+                {
+                    newBook.quantity += item.quantity;
+                    Entities.book.Update(newBook);
+                    Entities.SaveChanges();
+                    return null;
+                }
+            }
+            return item;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace MaterialData.repository
 
             var existingItem = Entities.Set<display>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null && item.id != existingItem.id)
-                throw new DuplicateEntryException($"Seriennummer \"{item.serial_number}\" in Datenbank bereits vorhanden! \n({existingItem.make} {existingItem.model})");
+                throw new DuplcateEntryException($"Seriennummer \"{item.serial_number}\" in Datenbank bereits vorhanden! \n({existingItem.make} {existingItem.model})");
 
             if (errList.Count > 0)
             {
@@ -49,8 +49,8 @@ namespace MaterialData.repository
 
         public override display SetLocation(display item)
         {
-            /*if (item.location_id == null)
-                item.classroom = defaultLocation;*/
+            if (item.location_id == null)
+                item.location_id = defaultLocation;
             return item;
         }
     }

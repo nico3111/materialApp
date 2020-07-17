@@ -37,7 +37,7 @@ namespace MaterialData
 
             var existingItem = Entities.Set<notebook>().FirstOrDefault(x => x.serial_number == item.serial_number);
             if (existingItem != null && item.id != existingItem.id)
-                throw new DuplicateEntryException($"Seriennummer \"{item.serial_number}\" in Datenbank bereits vorhanden! \n({existingItem.make} {existingItem.model})");
+                throw new DuplcateEntryException($"Seriennummer \"{item.serial_number}\" in Datenbank bereits vorhanden! \n({existingItem.make} {existingItem.model})");
 
             if (errList.Count > 0)
             {
@@ -48,11 +48,11 @@ namespace MaterialData
 
         public override notebook SetLocation(notebook item)
         {
-            /*if (item.location_id == null && item.person_id == null)
-                item.classroom = defaultLocation;*/
+            if (item.location_id == null && item.person_id == null)
+                item.location_id = defaultLocation;
 
             if (item.location_id != null && item.person_id != null)
-                throw new DuplicateEntryException("Bitte Notebook einer Person ODER einem Standort zuweisen!");
+                throw new DuplcateEntryException("Bitte Notebook einer Person ODER einem Standort zuweisen!");
 
             return item;
         }

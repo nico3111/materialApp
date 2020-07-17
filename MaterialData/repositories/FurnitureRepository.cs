@@ -42,15 +42,15 @@ namespace MaterialData.repository
 
         public override furniture SetLocation(furniture item)
         {
-            /*if (item.location_id == null)
-                item.classroom = defaultLocation;*/
+            if (item.location_id == null)
+                item.location_id = defaultLocation;
 
             /*item = RebookItem(item);
             if (item != null)*/
             bool isAdded = AddIfExisting(item);
             if (!isAdded)
                 RebookItem(item);
-            
+
             return item;
         }
 
@@ -63,7 +63,7 @@ namespace MaterialData.repository
                 GetRelation();
                 existingFurniture.quantity += item.quantity;
 
-                if(sameFurnitureInDb != null)
+                if (sameFurnitureInDb != null)
                 {
                     sameFurnitureInDb.quantity -= item.quantity;
                     if (sameFurnitureInDb.quantity <= 0)
@@ -71,7 +71,7 @@ namespace MaterialData.repository
                     else
                         Entities.furniture.Update(sameFurnitureInDb);
                 }
-                
+
                 Entities.furniture.Update(existingFurniture);
                 //furniture sameFurnitureInDb = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
 
@@ -80,25 +80,22 @@ namespace MaterialData.repository
                 Entities.SaveChanges();
                 throw new NotAddedButUpdatedException($"{item.type} wurde bestehendem Bestand in \n\"{existingFurniture.classroom.addressloc.classroom.room}, " +
                                                       $"{existingFurniture.classroom.addressloc.address.street}, {existingFurniture.classroom.addressloc.address.place}\"\n hinzugefügt!");
-
-    
             }
             return false;
-           /* else
-            {
-                furniture sameFurnitureInDb = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
-                sameFurnitureInDb.quantity -= item.quantity;
-                if (sameFurnitureInDb.quantity <= 0)
-                    Entities.furniture.Remove(sameFurnitureInDb);
-                else
-                    Entities.furniture.Update(sameFurnitureInDb);
+            /* else
+             {
+                 furniture sameFurnitureInDb = Entities.Set<furniture>().FirstOrDefault(x => x.id == item.id);
+                 sameFurnitureInDb.quantity -= item.quantity;
+                 if (sameFurnitureInDb.quantity <= 0)
+                     Entities.furniture.Remove(sameFurnitureInDb);
+                 else
+                     Entities.furniture.Update(sameFurnitureInDb);
 
-                item.id = 0;
-                Entities.furniture.Add(item);
-                Entities.SaveChanges();
-                return null;
-
-            }*/
+                 item.id = 0;
+                 Entities.furniture.Add(item);
+                 Entities.SaveChanges();
+                 return null;
+             }*/
             //return item;
         }
 

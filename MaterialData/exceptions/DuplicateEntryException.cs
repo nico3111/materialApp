@@ -2,17 +2,17 @@
 
 namespace MaterialData.exceptions
 {
-    public class DuplicateEntryException : Exception
+    public class DuplcateEntryException : Exception
     {
-        public DuplicateEntryException()
+        public DuplcateEntryException()
         {
         }
 
-        public DuplicateEntryException(string message) : base(message)
+        public DuplcateEntryException(string message) : base(message)
         {
         }
 
-        public DuplicateEntryException(string message, Exception inner) : base(message, inner)
+        public DuplcateEntryException(string message, Exception inner) : base(message, inner)
         {
         }
     }

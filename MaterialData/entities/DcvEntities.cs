@@ -9,7 +9,10 @@ namespace MaterialData.models
         }
 
         public DbSet<notebook> notebook { get; set; }
+
+        //public DbSet<Material> materials { get; set; }
         public DbSet<person> person { get; set; }
+
         public DbSet<classroom> classroom { get; set; }
         public DbSet<addressLocation> addressLocation { get; set; }
         public DbSet<display> display { get; set; }
@@ -26,6 +29,8 @@ namespace MaterialData.models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<Material>().HasKey(x => x.id);
 
             modelBuilder.Entity<notebook>().HasKey(x => x.id);
 

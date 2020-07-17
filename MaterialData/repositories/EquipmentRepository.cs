@@ -39,12 +39,12 @@ namespace MaterialData.repository
 
             if (item.quantity < 1)
                 throw new InvalidInputException("Anzahl darf nicht kleiner als 1 sein!");
-        }        
+        }
 
         public override equipment SetLocation(equipment item)
         {
-            /*if (item.location_id == null && item.person_id == null)
-                item.classroom = defaultLocation;*/
+            if (item.location_id == null && item.person_id == null)
+                item.location_id = defaultLocation;
 
             AddIfExisting(item);
 

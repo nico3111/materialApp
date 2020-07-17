@@ -8,7 +8,7 @@ namespace MaterialData.repository
     public abstract class BaseRepository<T> where T : Material
     {
         public DcvEntities Entities;
-        //public classroom defaultLocation = new classroom { room = "Lager" };
+        public int defaultLocation = 6; // id in DB
 
         public BaseRepository(DcvEntities entities)
         {

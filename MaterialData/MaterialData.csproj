@@ -176,6 +176,7 @@
     <Compile Include="exceptions\DuplicateEntryException.cs" />
     <Compile Include="exceptions\InvalidInputException.cs" />
     <Compile Include="exceptions\NotAddedButUpdatedException.cs" />
+    <Compile Include="exceptions\NotFoundException.cs" />
     <Compile Include="models\location\addressLocation.cs" />
     <Compile Include="models\location\address.cs" />
     <Compile Include="models\material\book.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="models\location\classroom.cs" />
     <Compile Include="models\material\Material.cs" />
     <Compile Include="models\material\equipment.cs" />
+    <Compile Include="models\material\search.cs" />
     <Compile Include="models\person\person.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -200,6 +202,7 @@
     <Compile Include="models\material\notebook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="interfaces\IMaterialRepository.cs" />
+    <Compile Include="repositories\SearchRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
