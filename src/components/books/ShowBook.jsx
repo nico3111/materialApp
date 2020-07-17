@@ -44,8 +44,7 @@ export default class ShowBook extends React.Component {
         if (window.confirm("Möchten Sie wirklich löschen")) {
 
             try {
-                fetch("http://192.168.0.94:8015/material/book" + id, {
-
+                fetch("http://192.168.0.94:8015/material/book/" + id, {
                 //fetch("https://localhost:44358/material/book/" + id, {
                     method: 'delete',
                     mode: 'cors'
