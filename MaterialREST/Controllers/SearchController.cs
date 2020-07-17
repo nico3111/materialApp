@@ -20,7 +20,7 @@ namespace MaterialREST.Controllers
         {
             searchRepo = new SearchRepository(new DcvEntities(Properties.Resources.ResourceManager.GetString("ProductionConnection")));
         }
-        
+
         [HttpPost]
         public List<Material> Post([FromBody] search search)
         {
@@ -29,11 +29,11 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 200;
                 return searchRepo.GetResult(search);
             }
-            catch(NotFoundException e)
+            catch (NotFoundException e)
             {
                 Response.WriteAsync(e.Message);
                 return null;
             }
-        }        
+        }
     }
 }

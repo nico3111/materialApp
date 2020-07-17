@@ -50,25 +50,31 @@ namespace MaterialData.repository
 
         public override book SetLocation(book item)
         {
+            bool done = false;
             if (item.location_id == null && item.person_id == null)
                 item.location_id = defaultLocation;
 
             if (item.location_id != null && item.person_id != null)
                 throw new DuplicateEntryException("Bitte Buch einer Person ODER einem Standort zuweisen!");
 
-            /*if (item.person_id == null)
-                item = RebookItem(item);*/
+            done = RebookItem(item);
+            if (done)
+                item = null;
 
-            if (item.location_id != null && item.id > 0)
-                item = ReturnBook(item);
-
-            if (item.person_id != null)
+            if (!done)
             {
-                item = RentBook(item);
-                //return item;
-            }
+                if (item.location_id != null && item.id > 0)
+                {
+                    item = ReturnBook(item);
+                    done = true;
+                }
 
-            RebookItem(item);
+                if (item.person_id != null)
+                {
+                    item = RentBook(item);
+                    done = true;
+                }
+            }
 
             if (item != null)
             {
@@ -157,8 +163,11 @@ namespace MaterialData.repository
                 return book;
         }
 
-        private book RebookItem(book item)
+        private bool RebookItem(book item)
         {
+            if (item.id == 0)
+                return false;
+
             var existingBook = Entities.Set<book>().FirstOrDefault(x => x.id == item.id);
             var otherBook = Entities.Set<book>().FirstOrDefault(x => x.isbn == item.isbn && x.location_id == item.location_id);
             if (otherBook == null)
@@ -173,12 +182,12 @@ namespace MaterialData.repository
                 item.id = 0;
                 Entities.book.Add(item);
                 Entities.SaveChanges();
-                return null;
+                return true;
             }
 
             if (otherBook != null)
             {
-                /*otherBook.quantity += item.quantity;
+                otherBook.quantity += item.quantity;
                 existingBook.quantity -= item.quantity;
 
                 if (existingBook.quantity <= 0)
@@ -187,13 +196,10 @@ namespace MaterialData.repository
                     Entities.book.Update(existingBook);
 
                 Entities.book.Update(otherBook);
-                Entities.SaveChanges();*/
-                return null;
+                Entities.SaveChanges();
+                return true;
             }
-
-
-
-            return item;
+            return false;
         }
     }
 }

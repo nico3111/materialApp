@@ -2,10 +2,8 @@
 using MaterialData.models;
 using MaterialData.models.material;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Encodings.Web;
 
 namespace MaterialData.repositories
 {
@@ -22,20 +20,21 @@ namespace MaterialData.repositories
         {
             string searchString = search.searchKeyWord;
 
-            string[] test = {""};
+            string[] test = { "" };
             if (searchString.Contains(" "))
             {
                 test = searchString.Split(' ');
-            }else
+            }
+            else
             {
                 test[0] = searchString;
             }
             List<Material> searchList = new List<Material>();
 
-            searchList.AddRange(Entities.notebook.Where(x => x.make == searchString || x.model == searchString || x.serial_number == searchString || x.person.name1 == searchString  || x.person.name2 == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());            
+            searchList.AddRange(Entities.notebook.Where(x => x.make == searchString || x.model == searchString || x.serial_number == searchString || x.person.name1 == searchString || x.person.name2 == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());
             searchList.AddRange(Entities.display.Where(x => x.make == searchString || x.model == searchString || x.serial_number == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());
             searchList.AddRange(Entities.furniture.Where(x => x.type == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());
-            searchList.AddRange(Entities.book.Where(x => x.title == searchString || x.isbn == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());                            
+            searchList.AddRange(Entities.book.Where(x => x.title == searchString || x.isbn == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());
             searchList.AddRange(Entities.equipment.Where(x => x.type == searchString || x.make == searchString || x.model == searchString || x.classroom.room == searchString || x.classroom.addressloc.address.place == searchString || x.classroom.addressloc.address.street == searchString || x.classroom.addressloc.address.zip.ToString() == searchString || x.classroom.addressloc.address.country == searchString).AsNoTracking().ToList());
             if (test != null)
             {
@@ -66,6 +65,6 @@ namespace MaterialData.repositories
                 return searchList;
             else
                 throw new NotFoundException($"Keine Einträge unter \"{searchString}\" gefunden!");
-         }
+        }
     }
 }
