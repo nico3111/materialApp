@@ -99,7 +99,7 @@ namespace MaterialREST.Controllers
                 Response.StatusCode = 403;
                 await Response.WriteAsync(e.Message);
             }
-            catch (DuplcateEntryException e)
+            catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
                 await Response.WriteAsync(e.Message);
@@ -132,7 +132,7 @@ namespace MaterialREST.Controllers
                     }
                 }
             }
-            catch (DuplcateEntryException e)
+            catch (DuplicateEntryException e)
             {
                 Response.StatusCode = 409;
                 await Response.WriteAsync(e.Message);
