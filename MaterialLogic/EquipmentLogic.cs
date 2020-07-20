@@ -2,17 +2,13 @@
 using MaterialData.interfaces;
 using MaterialData.models;
 using MaterialData.repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaterialLogic
 {
     public class EquipmentLogic : BaseLogic<equipment>, IMaterialLogic
     {
-
         public EquipmentLogic(BaseRepository<equipment> Repo) : base(Repo)
         {
         }

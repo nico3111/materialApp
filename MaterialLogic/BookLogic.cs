@@ -9,11 +9,9 @@ namespace MaterialLogic
 {
     public class BookLogic : BaseLogic<book>, IMaterialLogic
     {
-
         public BookLogic(BaseRepository<book> Repo) : base(Repo)
-        {                
+        {
         }
-
 
         public override void IsValid(book item)
         {

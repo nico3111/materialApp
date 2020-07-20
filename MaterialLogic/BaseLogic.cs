@@ -6,8 +6,8 @@ namespace MaterialLogic
 {
     public abstract class BaseLogic<T> where T : Material
     {
-
         public BaseRepository<T> Repo;
+
         public BaseLogic(BaseRepository<T> baseRepository)
         {
             Repo = baseRepository;
@@ -32,6 +32,5 @@ namespace MaterialLogic
             err += " angeben!";
             return err;
         }
-
     }
 }

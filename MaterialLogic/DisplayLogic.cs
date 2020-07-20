@@ -2,7 +2,6 @@
 using MaterialData.interfaces;
 using MaterialData.models;
 using MaterialData.repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +11,7 @@ namespace MaterialLogic
     {
         public DisplayLogic(BaseRepository<display> Repo) : base(Repo)
         {
-        }       
+        }
 
         public override void IsValid(display item)
         {
@@ -48,8 +47,3 @@ namespace MaterialLogic
         }
     }
 }
-
-    
-
-
-   

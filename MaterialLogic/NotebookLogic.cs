@@ -2,7 +2,6 @@
 using MaterialData.interfaces;
 using MaterialData.models;
 using MaterialData.repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +9,6 @@ namespace MaterialLogic
 {
     public class NotebookLogic : BaseLogic<notebook>, IMaterialLogic
     {
-
         public NotebookLogic(BaseRepository<notebook> Repo) : base(Repo)
         {
         }

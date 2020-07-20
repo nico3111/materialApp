@@ -1,8 +1,6 @@
-﻿using MaterialData.exceptions;
-using MaterialData.models;
+﻿using MaterialData.models;
 using MaterialData.repository;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MaterialData
@@ -22,7 +20,5 @@ namespace MaterialData
                  .ThenInclude(x => x.address)
                  .ToList();
         }
-
-        
     }
 }

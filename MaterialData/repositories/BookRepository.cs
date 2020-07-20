@@ -1,15 +1,11 @@
-﻿using MaterialData.exceptions;
-using MaterialData.models;
+﻿using MaterialData.models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MaterialData.repository
 {
     public class BookRepository : BaseRepository<book>, IMaterialRepository
     {
-        
-
         public BookRepository(DcvEntities entities) : base(entities)
         {
         }
@@ -22,6 +18,6 @@ namespace MaterialData.repository
                 .ThenInclude(x => x.addressloc)
                 .ThenInclude(x => x.address)
                 .ToList();
-        }        
+        }
     }
 }
