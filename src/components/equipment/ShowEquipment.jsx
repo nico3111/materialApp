@@ -44,7 +44,8 @@ export default class ShowEquipment extends React.Component {
         if (window.confirm("Möchten Sie wirklich löschen")) {
 
             try {
-                fetch("http://192.168.0.94:8015/material/equipment/" + id, {
+                //fetch("http://192.168.0.94:8015/material/equipment/" + id, {
+                fetch("https://localhost:44358/material/equipment/" + id, {                    
                     method: 'delete',
                     mode: 'cors'
                 }).then(this.fetchEquipment)

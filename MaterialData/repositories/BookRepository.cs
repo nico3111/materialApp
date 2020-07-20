@@ -64,16 +64,10 @@ namespace MaterialData.repository
             if (!done)
             {
                 if (item.location_id != null && item.id > 0)
-                {
-                    item = ReturnBook(item);
-                    done = true;
-                }
+                    item = ReturnItem(item);
 
                 if (item.person_id != null)
-                {
-                    item = RentBook(item);
-                    done = true;
-                }
+                    item = RentItem(item);
             }
 
             if (item != null)
@@ -94,7 +88,7 @@ namespace MaterialData.repository
             return item;
         }
 
-        private book ReturnBook(book book)
+        private book ReturnItem(book book)
         {
             book existingBook = Entities.book.FirstOrDefault(x => x.isbn == book.isbn && x.title == book.title);
             book sameBookInDb = Entities.book.FirstOrDefault(x => x.id == book.id);
@@ -123,7 +117,7 @@ namespace MaterialData.repository
             return existingBook;
         }
 
-        private book RentBook(book book)
+        private book RentItem(book book)
         {
             book existingBook = Entities.book.FirstOrDefault(x => x.id == book.id);
             book alreadyBorrowedBook = Entities.book.FirstOrDefault(x => x.person_id == book.person_id);
@@ -171,11 +165,12 @@ namespace MaterialData.repository
                 return false;
             var existingBook = Entities.Set<book>().FirstOrDefault(x => x.id == item.id);
             var otherBook = Entities.Set<book>().FirstOrDefault(x => x.isbn == item.isbn && x.location_id == item.location_id);
-            if (otherBook == null)
-            {
-                if (existingBook.id == item.id)
-                    return false;
 
+            if (existingBook.quantity < item.quantity)
+                throw new InvalidInputException($"Es können nicht {item.quantity} Bücher umgebucht werden, da nur {existingBook.quantity} lagernd sind!");
+
+            if (otherBook == null)
+            {                
                 existingBook.quantity -= item.quantity;
 
                 if (existingBook.quantity <= 0)
@@ -189,7 +184,7 @@ namespace MaterialData.repository
                 return true;
             }
 
-            if (otherBook != null)
+            if (otherBook != null && otherBook.id != item.id)
             {
                 otherBook.quantity += item.quantity;
                 existingBook.quantity -= item.quantity;

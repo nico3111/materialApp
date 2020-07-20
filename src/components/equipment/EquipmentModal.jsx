@@ -129,7 +129,9 @@ export default class EquipmentModal extends React.Component {
                 body: JSON.stringify(body)
             }
 
-            let result = await fetch('http://192.168.0.94:8015/material/equipment/', req)
+            //let result = await fetch('http://192.168.0.94:8015/material/equipment/', req)
+            let result = await fetch('https://localhost:44358/material/equipment/', req)
+            
             const r = await result.text()
             if (r !== "")
                 alert(r)
