@@ -22,21 +22,21 @@ namespace MaterialData.repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public abstract T SetLocation(T item);
+        //public abstract T SetLocation(T item);
 
         /// <summary>
         /// Throws Exception if Entry is Invalid
         /// </summary>
         /// <param name="item"></param>
         ///
-        public abstract void IsValid(T item);
+        //public abstract void IsValid(T item);
 
         /// <summary>
         /// Builds a errormessage thats returned to frontend
         /// </summary>
         /// <param name="errList"></param>
         /// <returns></returns>
-        public string BuildErrorMessage(List<string> errList)
+        /*public string BuildErrorMessage(List<string> errList)
         {
             string err = "Bitte mindestens ";
             for (int i = 0; i < errList.Count; i++)
@@ -50,7 +50,7 @@ namespace MaterialData.repository
 
             err += " angeben!";
             return err;
-        }
+        }*/
 
         public async Task Delete(int id)
         {

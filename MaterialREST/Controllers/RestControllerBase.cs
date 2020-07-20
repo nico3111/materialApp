@@ -1,7 +1,9 @@
 ﻿using MaterialData;
 using MaterialData.exceptions;
+using MaterialData.interfaces;
 using MaterialData.models;
 using MaterialData.repository;
+using MaterialLogic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,10 +17,33 @@ namespace MaterialREST.Controllers
 
         public BaseRepository<T> Repo { get; set; }
 
+        public BaseLogic<T> Logic { get; set; }
+
         public RestControllerBase()
         {
             Entities = new DcvEntities(Properties.Resources.ResourceManager.GetString("ProductionConnection"));
             Repo = GetRepository<T>() as BaseRepository<T>;
+            Logic = GetLogic<T>() as BaseLogic<T>;
+        }
+
+        private IMaterialLogic GetLogic<U>()
+        {
+            if (typeof(U) == typeof(book))
+                return new BookLogic(new BookRepository(Entities));
+
+            if (typeof(U) == typeof(notebook))
+                return new NotebookLogic(new NotebookRepository(Entities));
+
+            if (typeof(U) == typeof(display))
+                return new DisplayLogic(new DisplayRepository(Entities));
+
+            if (typeof(U) == typeof(equipment))
+                return new EquipmentLogic(new EquipmentRepository(Entities));
+
+            if (typeof(U) == typeof(furniture))
+                return new FurnitureLogic(new FurnitureRepository(Entities));
+
+            return null;
         }
 
         private IMaterialRepository GetRepository<U>()
@@ -83,10 +108,10 @@ namespace MaterialREST.Controllers
         {
             try
             {
-                Repo.IsValid(item);
+                Logic.IsValid(item);
                 if (item != null)
                 {
-                    var item1 = Repo.SetLocation(item);
+                    var item1 = Logic.SetLocation(item);
                     if (item1 != null)
                     {
                         await Repo.Save(item1);
@@ -121,10 +146,10 @@ namespace MaterialREST.Controllers
         {
             try
             {
-                Repo.IsValid(item);
+                Logic.IsValid(item);
                 if (item != null)
                 {
-                    item = Repo.SetLocation(item);
+                    item = Logic.SetLocation(item);
                     if (item != null)
                     {
                         await Repo.UpdateAsync(item);
