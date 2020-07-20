@@ -104,8 +104,8 @@ export default class AddDisplay extends React.Component {
                 },
                 body: JSON.stringify(body)
             }
-            let result = await fetch('http://192.168.0.94:8015/material/book', req)
-            //let result = await fetch('https://localhost:44358/material/book', req)
+            //let result = await fetch('http://192.168.0.94:8015/material/book', req)
+            let result = await fetch('https://localhost:44358/material/book', req)
             const r = await result.text()
             if (r !== "")
                 alert(r)

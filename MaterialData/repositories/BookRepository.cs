@@ -173,6 +173,9 @@ namespace MaterialData.repository
             var otherBook = Entities.Set<book>().FirstOrDefault(x => x.isbn == item.isbn && x.location_id == item.location_id);
             if (otherBook == null)
             {
+                if (existingBook.id == item.id)
+                    return false;
+
                 existingBook.quantity -= item.quantity;
 
                 if (existingBook.quantity <= 0)
