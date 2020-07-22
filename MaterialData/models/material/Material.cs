@@ -1,6 +1,6 @@
 ﻿namespace MaterialData.models
 {
-    public abstract class Material
+    public class Material
     {
         public int id { get; set; }
     }

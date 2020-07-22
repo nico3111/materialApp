@@ -14,6 +14,6 @@ namespace MaterialData.exceptions
 
         public DuplicateEntryException(string message, Exception inner) : base(message, inner)
         {
-        }
+        }        
     }
 }

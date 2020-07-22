@@ -1,9 +1,14 @@
-﻿using MaterialData.models;
+﻿using ClosedXML.Excel;
+using ClosedXML.Extensions;
+using MaterialData.models;
+using MaterialData.models.material;
 using MaterialData.repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.IO;
+using System.Net.Http;
 
 namespace MaterialREST.Controllers
 {
@@ -13,15 +18,36 @@ namespace MaterialREST.Controllers
     {
         private ExportRepository export;
 
-        public ExportController(ExportRepository export)
+        public ExportController()
         {
-            this.export = export;
+            export = new ExportRepository(new DcvEntities(Properties.Resources.ResourceManager.GetString("ProductionConnection")));
         }
 
         [HttpPost]
-        public void Post([FromBody] Dictionary<string, List<Material>> materials)
+        public ActionResult Post([FromBody] search materials)
         {
-            export.Export(materials);
+            try
+            {
+                var file = export.Export(materials);
+                MemoryStream stream = GetStream(file);
+                return File(stream,
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            "Material.xlsx");                
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+
+        public MemoryStream GetStream(XLWorkbook file)
+        {
+            MemoryStream stream = new MemoryStream();
+            file.SaveAs(stream);
+            stream.Position = 0;
+            return stream;
         }
     }
 }
